@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 09:49:34
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 15:05:06
+ * @LastEditTime: 2020-03-27 16:52:09
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -28,7 +28,7 @@ module.exports = merge(webpackConfig, {
         LView: isDev ? resolve('./src/index.js') : resolve('./packages/index.js')
     },
     output: {
-        path: resolve('./dist'),
+        path: resolve('./lib'),
         publicPath: '/dist/',
         filename: 'index.js',
         chunkFilename: '[id].js',

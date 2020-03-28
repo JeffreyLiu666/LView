@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-10 21:05:26
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 10:23:59
+ * @LastEditTime: 2020-03-27 16:49:03
  * @LastEditors: junfeng.liu
  * @Description: 数值范围
 
@@ -10,8 +10,10 @@
         check:          是否验证大小关系，该功能有问题，慎用
         disabled:       是否禁用，两个都为禁用
         readonly:       是否只读
-        prefix:         同iview的prefix
-        suffix:         同iview的suffix
+        prefix:         输入框头部图标
+        suffix:         输入框尾部图标
+        max:            最大值
+        min:            最小值
  -->
 
 <template>
@@ -71,6 +73,12 @@ export default {
         suffix: {
             type: String
         },
+        max: {
+            type: Number
+        },
+        min: {
+            type: Number
+        }
     },
     data () {
         return {

@@ -1,0 +1,12 @@
+node_modules
+/dist
+/build
+/packages
+/src
+
+components.js
+babel.config.js
+
+.browserslistrc
+.vscode
+.git

@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 22:34:55
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 09:46:38
+ * @LastEditTime: 2020-03-27 15:24:12
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -19,8 +19,8 @@ function resolve (dir) {
 module.exports = merge(webpackConfig, {
     entry: components,
     output: {
-        path: resolve('./dist'),
-        publicPath: '/dist/',
+        path: resolve('./lib'),
+        publicPath: '/lib/',
         filename: '[name].js',
         chunkFilename: '[id].js',
         libraryTarget: 'umd'

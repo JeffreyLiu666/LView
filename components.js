@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 22:46:28
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-26 23:23:41
+ * @LastEditTime: 2020-03-27 16:54:23
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -13,6 +13,7 @@ module.exports = {
     LFormGroup: './packages/LFormGroup/index.js',
     LFormEnca: './packages/LFormEnca/index.js',
     LFold: './packages/LFold/index.js',
+    LNumberInput: './packages/LNumberInput/index.js',
     LNumberRange: './packages/LNumberRange/index.js',
     LRender: './packages/LRender/index.js',
     LShowImg: './packages/LShowImg/index.js',

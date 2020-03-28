@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 11:01:33
+ * @LastEditTime: 2020-03-28 21:32:53
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -35,6 +35,7 @@
             :show-header="showHeader"
             :show-summary="showSummary"
             :summary-method="summaryMethod"
+            :span-method="spanMethod"
             :loading="loading">
         </Table>
         <Page
@@ -117,6 +118,9 @@ export default {
         summaryMethod: {
             type: Function
         },
+        spanMethod: {
+            type: Function
+        },
         width: {
             type: [Number, String]
         },
@@ -146,6 +150,7 @@ export default {
             if (item.ellipsis) return this.getEllipsis(item)
             // 留下custom用于需要自定义时用
             if (item.type === 'index' && !item.custom) return this.getIndexCol(item)
+            if (item.type === 'inputNumber' && !item.custom) return this.getInputNumber(item)
             if (!Array.isArray(item.children)) return item
             let list = []
             item.children.forEach((it) => {
@@ -216,6 +221,27 @@ export default {
                 )
             }
             return item
+        },
+        getInputNumber (item) {
+            item.render = (h, { row, column, index }) => {
+                const { size = 'small', onChange, min, max, step, precision, disabled } = column
+                let val = row[column.key]
+                return (
+                    <LNumberInput
+                        style={ `width: 100%;` }
+                        value={ val }
+                        size={ size }
+                        min={ min }
+                        max={ max }
+                        step={ step }
+                        // precision={ precision }
+                        disabled={ disabled }
+                        onChange={ cVal => { isFunction(onChange) ? onChange(cVal, index, column, row) : '' } }></LNumberInput>
+                )
+            }
+            delete item.type
+            item.className += ' inputNumberTd'
+            return item
         }
     }
 }
@@ -226,6 +252,12 @@ export default {
     background: white;
     box-shadow: 0px 0px 10px -1px fade(black, 10%);
     border-radius: 3px;
+    .inputNumberTd{
+        .ivu-table-cell{
+            padding: 0 6px;
+            overflow: visible;
+        }
+    }
 }
 .l-table-page{
     padding: 20px;

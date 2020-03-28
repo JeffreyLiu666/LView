@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 11:25:51
+ * @LastEditTime: 2020-03-28 15:57:22
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -129,6 +129,21 @@
                 <LRender :render="config.appendRender" v-if="config.appendRender"></LRender>
             </span>
         </i-input>
+        <!--数字输入框-->
+        <LNumberInput
+            :value="val"
+            :placeholder="placeholder"
+            :disabled="disabled"
+            :readonly="editable"
+            :prefix="config.prefix"
+            :suffix="config.suffix"
+            :min="config.min"
+            :max="config.max"
+            :step="config.step"
+            :textAlign="config.textAlign"
+            :controlsPosition="config.controlsPosition"
+            @input="change"
+            v-if="type === 'numberInput'"></LNumberInput>
         <!--数字范围-->
         <LNumberRange
             v-model="val"

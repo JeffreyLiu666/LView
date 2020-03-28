@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-26 15:39:54
+ * @LastEditTime: 2020-03-27 16:53:21
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -13,6 +13,7 @@ import LFormItem from 'packages/LFormItem'
 import LFormGroup from 'packages/LFormGroup'
 import LFormEnca from 'packages/LFormEnca'
 import LFold from 'packages/LFold'
+import LNumberInput from 'packages/LNumberInput'
 import LNumberRange from 'packages/LNumberRange'
 import LRender from 'packages/LRender'
 import LShowImg from 'packages/LShowImg'
@@ -27,6 +28,7 @@ const components = [
     LFormGroup,
     LFormEnca,
     LFold,
+    LNumberInput,
     LNumberRange,
     LRender,
     LShowImg,
@@ -54,6 +56,7 @@ export default {
     LFormGroup,
     LFormEnca,
     LFold,
+    LNumberInput,
     LNumberRange,
     LRender,
     LShowImg,
