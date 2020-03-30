@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-28 13:20:28
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 10:37:47
+ * @LastEditTime: 2020-03-30 14:08:31
  * @LastEditors: junfeng.liu
  * @Description: 全浏览器展示图片
 
@@ -62,27 +62,4 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.l-show-img{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9990;
-    text-align: center;
-    background: fade(black, 50%);
-    .base-line{
-        height: 100%;
-        vertical-align: middle;
-        display: inline-block;
-    }
-    img{
-        max-width: 100%;
-        max-height: 100%;
-        vertical-align: middle;
-    }
-}
-</style>
 

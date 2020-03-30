@@ -195,19 +195,3 @@
         }
     }
 </script>
-
-<style lang="less" scoped>
-    .filter-input {
-        display: inline-block;
-        width: 200px;
-    }
-    .my-require{
-        color: #f78e90;
-        display: inline-block;
-        font-size: 15px;
-        padding-left: 3px;
-        &::after {
-            content: '*'
-        }
-    }
-</style>

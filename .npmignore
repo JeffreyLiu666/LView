@@ -10,3 +10,5 @@ babel.config.js
 .browserslistrc
 .vscode
 .git
+
+!/packages/style

@@ -1,0 +1,99 @@
+
+@import './common/var.less';
+@import './common/common.less';
+
+@height: 30px;
+@width: 32px;
+@smallHeight: 22px;
+@smallWidth: 24px;
+@smallFontSize: 12px;
+@smallWidth_wrap: 130px;
+@largeHeight: 38px;
+@largeWidth: 40px;
+@largeFontSize: @font-size-large;
+@largeWidth_wrap: 180px;
+@aligns: left, right, center;
+@size: small, large;
+
+// 循环生成input各对齐方式样式
+.align-loop(@n) when (@n > 0) {
+    @align: extract(@aligns, @n);
+    .l-number-input_input-text-@{align}{
+        input{
+            text-align: extract(@aligns, @n);
+        }
+    }
+    .align-loop(@n - 1);
+}
+.align-loop(length(@aligns));
+
+// 循环生成各size的样式
+.size-loop(@n) when (@n > 0) {
+    @s: extract(@size, @n);
+    @w: '@{s}Width';
+    @h: '@{s}Height';
+    @f: '@{s}FontSize';
+    @w_w: '@{s}Width_wrap';
+    .l-number-input_@{s}{
+        &.l-number-input{
+            width: @@w_w;
+        }
+        .l-number-input_add,
+        .l-number-input_subtract{
+            width: @@w;
+            height: @@h;
+            line-height: @@h;
+            font-size: @@f;
+        }
+        &.l-number-input_right{
+            .l-number-input_add,
+            .l-number-input_subtract{
+                display: block;
+                width: @@w;
+                height: @@h / 2;
+                line-height: @@h / 2;
+            }
+        }
+    }
+    .size-loop(@n - 1);
+}
+.size-loop(length(@size));
+
+.l-number-input{
+    width: 160px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+.l-number-input_add,
+.l-number-input_subtract{
+    display: inline-block;
+    width: @width;
+    height: @height;
+    line-height: @height;
+    font-size: @font-size-base;
+    text-align: center;
+    cursor: pointer;
+    &[disabled]{
+        background: @gray-lighter;
+        cursor: not-allowed;
+        color: @disabled-color;
+    }
+}
+.l-number-input_right{
+    .l-number-input_add,
+    .l-number-input_subtract{
+        display: block;
+        height: @height / 2;
+        line-height: @height / 2;
+    }
+    .l-number-input_add{
+        border-bottom: @border-base;
+    }
+}
+.l-number-input_input{
+    .ivu-input-group-prepend,
+    .ivu-input-group-append{
+        padding: 0 !important;
+    }
+}

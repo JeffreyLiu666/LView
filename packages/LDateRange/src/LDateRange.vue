@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 09:51:29
+ * @LastEditTime: 2020-03-30 14:04:35
  * @LastEditors: junfeng.liu
  * @Description: 时间范围选择器
 
@@ -132,15 +132,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.l-date-rage{
-    width: 220px;
-}
-.l-date-range-picker{
-    width: 100%;
-    .ivu-picker-panel-sidebar{
-        width: 100px;
-    }
-}
-</style>

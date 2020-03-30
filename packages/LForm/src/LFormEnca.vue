@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-28 15:57:22
+ * @LastEditTime: 2020-03-30 14:05:43
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -588,19 +588,3 @@
         }
     }
 </script>
-
-<style lang="less">
-    .l-form-encapsulation{
-        .l-form-text-content{
-            line-height: 32px;
-            font-size: 13px;
-            padding: 0 7px;
-        }
-        .ivu-date-picker{
-            display: block !important;
-        }
-    }
-    .l-form-enca-btns+.l-form-enca-btns{
-        margin-left: 16px;
-    }
-</style>

@@ -1,13 +1,15 @@
 {
   "name": "l-view-vue",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "l-view",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
     "dev": "cross-env NODE_ENV=development  webpack-dev-server --config build/webpack.config.js",
-    "build": "npm run clean && cross-env NODE_ENV=production webpack --config build/webpack.config.js && npm run component",
-    "component": "cross-env NODE_ENV=production webpack --config build/webpack.component.js"
+    "build:index": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
+    "build": "npm run clean && npm run build:index && npm run component && npm run style",
+    "component": "cross-env NODE_ENV=production webpack --config build/webpack.component.js",
+    "style": "gulp --gulpfile build/build-style.js"
   },
   "keywords": [
     "l-view",
@@ -31,6 +33,11 @@
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
     "file-loader": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-less": "^4.0.1",
+    "gulp-rename": "^2.0.0",
     "html-webpack-plugin": "^4.0.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",

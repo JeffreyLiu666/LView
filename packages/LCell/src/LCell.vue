@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 09:46:22
+ * @LastEditTime: 2020-03-30 14:04:13
  * @LastEditors: junfeng.liu
  * @Description: 列表项组件
 
@@ -53,26 +53,3 @@ export default {
     methods: {}
 }
 </script>
-
-<style lang="less">
-@import '~@/style/theme.less';
-
-.l-cell{
-    width: 100%;
-    display: flex;
-    margin: 12px 0;
-    font-size: @font-size-large;
-}
-.l-cell-title-bold{
-    font-weight: 600;
-}
-.l-cell-title{
-    flex: 1;
-    padding-right: 6px;
-}
-.l-cell-content{
-    flex: 4;
-    padding: 0 6px;
-}
-
-</style>

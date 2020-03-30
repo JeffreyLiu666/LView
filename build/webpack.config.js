@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 09:49:34
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 16:52:09
+ * @LastEditTime: 2020-03-30 17:44:57
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -85,7 +85,7 @@ module.exports = merge(webpackConfig, {
     },
     plugins: isPro ? [
         new MiniCssExtractPlugin({
-            filename: 'css/index.css',
+            filename: 'css/lView.css',
             chunkFilename: 'css/[name].css'
         }),
         new OptimizeCssnanoPlugin({

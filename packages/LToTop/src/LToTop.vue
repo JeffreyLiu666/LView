@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 10:46:31
+ * @LastEditTime: 2020-03-30 14:09:10
  * @LastEditors: junfeng.liu
  * @Description: 回到顶部
 
@@ -107,20 +107,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.l-to-top{
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 50%;
-    background: fade(black, 60%);
-    text-align: center;
-    font-size: 28px;
-    font-weight: 700;
-    color: white;
-}
-</style>

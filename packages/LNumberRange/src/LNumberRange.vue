@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-10 21:05:26
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 16:49:03
+ * @LastEditTime: 2020-03-30 14:08:11
  * @LastEditors: junfeng.liu
  * @Description: 数值范围
 
@@ -101,19 +101,4 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.l-number-range{
-    display: flex;
-    align-items: center;
-}
-.l-number-range-input{
-    flex: 1;
-}
-.l-number-range-line{
-    width: 20px;
-    flex: none;
-    text-align: center;
-}
-</style>
 

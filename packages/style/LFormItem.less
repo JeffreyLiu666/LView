@@ -1,0 +1,99 @@
+
+@import './common/var.less';
+@import './common/common.less';
+
+.l-form-item{
+    position: relative;
+    font-size: 13px;
+    margin-bottom: 12px;
+    vertical-align: top;
+    .l-form-item-label{
+        display: block;
+        font-size: 13px;
+        height: 32px;
+        padding: 7px 0;
+    }
+    .l-form-item-label-left{
+        display: block;
+        float: left;
+        padding: 7px 12px;
+        padding-left: 0;
+    }
+    .l-form-item-label-right{
+        display: block;
+        float: right;
+        padding: 7px 12px;
+        padding-right: 0;
+    }
+    .l-form-item-content{
+        line-height: 32px;
+        vertical-align: middle;
+        position: relative;
+    }
+    .l-form-item-error-tip{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        line-height: 1;
+        padding-top: 6px;
+        font-size: 12px;
+        color: @error-color;
+    }
+}
+.l-form-item-info-margin{
+    margin-bottom: 24px;
+}
+.l-form-item-label-top{
+    // line-height: 32px;
+}
+.l-form-label-top{
+    .l-form-item{
+        .l-form-item-label{
+            .l-form-item-label-top;
+        }
+    }
+}
+.l-form-label-left{
+    .l-form-item{
+        .l-form-item-info-margin;
+        .l-form-item-label{
+            .l-form-item.l-form-item-label-left;
+        }
+    }
+}
+.l-form-label-right{
+    .l-form-item{
+        .l-form-item-info-margin;
+        .l-form-item-label{
+            .l-form-item.l-form-item-label-right;
+        }
+    }
+}
+.l-form-inline{
+    .l-form-item{
+        display: inline-block;
+        .l-form-item-label{
+            display: block;
+            padding: 7px 12px;
+            float: left;
+        }
+        .l-form-item-content{
+            width: 180px;
+            display: block;
+            float: left;
+        }
+    }
+}
+.l-form-flex{
+    .l-form-item{
+        display: flex;
+        flex-wrap: nowrap;
+        .l-form-item-label{
+            padding: 7px 12px;
+            flex: 1;
+        }
+        .l-form-item-content{
+            width: 100%;
+        }
+    }
+}

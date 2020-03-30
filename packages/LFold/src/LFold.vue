@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 10:17:59
+ * @LastEditTime: 2020-03-30 14:04:56
  * @LastEditors: junfeng.liu
  * @Description: 折叠隐藏组件，用于内容过多时将内容先隐藏，用户通过按钮点击展开
 
@@ -17,15 +17,15 @@
 
  -->
 <template>
-    <div class="l-hidden">
-        <div class="l-hidden-wrapper" :style="{ height: heightComp }">
+    <div class="l-fold">
+        <div class="l-fold-wrapper" :style="{ height: heightComp }">
             <div ref="wrapper">
                 <slot></slot>
             </div>
         </div>
-        <div class="l-hidden-packup" v-show="needOperate">
-            <div class="l-hidden-gradient" v-show="!show"></div>
-            <div class="l-hidden-btn" @click="toggleShow" v-show="showBtn">{{ btnText }}</div>
+        <div class="l-fold-packup" v-show="needOperate">
+            <div class="l-fold-gradient" v-show="!show"></div>
+            <div class="l-fold-btn" @click="toggleShow" v-show="showBtn">{{ btnText }}</div>
         </div>
     </div>
 </template>
@@ -59,12 +59,13 @@ export default {
         return {
             show: false,
             // 是否需要该功能
-            needOperate: true
+            needOperate: true,
+            wrapperHeight: 0
         }
     },
     computed: {
         heightComp () {
-            if (this.show || !this.needOperate) return this.animation ? this.$refs.wrapper.offsetHeight + 'px' : 'auto'
+            if (this.show || !this.needOperate) return this.animation ? this.wrapperHeight + 'px' : 'auto'
             return this.height  + 'px'
         },
         showBtn () {
@@ -82,8 +83,9 @@ export default {
     },
     methods: {
         comp () {
-            let slot = this.$slots.default[0]
-            if (slot.elm.offsetHeight < this.height) return this.needOperate = false
+            this.wrapperHeight = this.$refs.wrapper.offsetHeight
+            // const slot = this.$slots.default[0]
+            if (this.wrapperHeight < this.height) return this.needOperate = false
             this.needOperate = true
         },
         toggleShow () {
@@ -95,34 +97,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-@import '~@/style/theme.less';
-
-.l-hidden{
-    position: relative;
-}
-.l-hidden-wrapper{
-    overflow: hidden;
-    transition: height .6s;
-}
-.l-hidden-packup{
-    position: relative;
-}
-.l-hidden-gradient{
-    position: absolute;
-    top: -79px;
-    width: 100%;
-    height: 80px;
-    background-image: linear-gradient(-180deg,rgba(255,255,255,.2),#fff);
-}
-.l-hidden-btn{
-    width: 100%;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    color: @blue;
-    background: white;
-    cursor: pointer;
-}
-</style>

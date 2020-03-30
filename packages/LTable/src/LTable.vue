@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-28 21:32:53
+ * @LastEditTime: 2020-03-30 14:08:51
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -246,34 +246,3 @@ export default {
     }
 }
 </script>
-
-<style lang="less">
-.l-table{
-    background: white;
-    box-shadow: 0px 0px 10px -1px fade(black, 10%);
-    border-radius: 3px;
-    .inputNumberTd{
-        .ivu-table-cell{
-            padding: 0 6px;
-            overflow: visible;
-        }
-    }
-}
-.l-table-page{
-    padding: 20px;
-    padding-bottom: 30px;
-}
-.l-table-td-btns{
-    button+button{
-        margin-left: 6px;
-    }
-}
-.l-table-td-links{
-    a{
-        text-decoration: underline;
-    }
-    a+a{
-        margin-left: 12px;
-    }
-}
-</style>
