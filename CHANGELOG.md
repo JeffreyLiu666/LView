@@ -1,6 +1,6 @@
 # 更新日志
 
-### 1.0.1
+## 1.0.1
 
 *2020-03-27*
 
@@ -36,7 +36,8 @@
 - LTable
     - 表格组件
 
-### 1.1.0
+***
+## 1.1.0
 
 *2020-03-28*
 
@@ -45,7 +46,8 @@
 - LNumberInput
     - 数字输入框
 
-### 1.2.1
+***
+## 1.2.1
 
 *2020-03-30*
 
@@ -59,3 +61,27 @@
 
 - LFold
     - 解决有时候高度显示不正确
+
+***
+## 1.2.2
+
+*2020-03-31*
+
+#### 新特性
+
+- 按需引入
+    - 支持通过[babel-plugin-component](https://github.com/ElementUI/babel-plugin-component)插件实现按需引入  
+    ```
+    修改babel.config.js
+
+    plugins: [
+        [
+            'component',
+            {
+                libraryName: 'l-view-vue',
+                styleLibraryName: 'style',
+                camel2Dash: false
+            }  
+        ]
+    ]
+    ```

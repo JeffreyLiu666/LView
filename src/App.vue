@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 17:52:43
+ * @LastEditTime: 2020-03-31 15:45:20
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -12,10 +12,14 @@
                 <div style="height: 900px;" v-if="show">asdfas</div>
             </div>
         </LFold>
-        <!-- <LShowImg imgStyle="minWidth: 100%;" :value="true" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg" transfer></LShowImg> -->
+        <!-- <LShowImg imgStyle="minWidth: 100%;" :value="true" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="right"></LNumberInput>
         <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
         <Button @click="handleClick">add</Button>
+        <div style="width: 100px; height: 100px;">
+            <div>asdfas</div>
+            <!-- <div>fdff</div> -->
+        </div>
     </div>
 </template>
 
@@ -52,6 +56,7 @@ export default {
 @import '~packages/style/index.less';
 
 @primary-color: black;
+@red: white;
 
 </style>
 

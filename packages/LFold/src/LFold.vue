@@ -23,7 +23,7 @@
                 <slot></slot>
             </div>
         </div>
-        <div class="l-fold-packup" v-show="needOperate">
+        <div class="l-fold-operate" v-show="needOperate">
             <div class="l-fold-gradient" v-show="!show"></div>
             <div class="l-fold-btn" @click="toggleShow" v-show="showBtn">{{ btnText }}</div>
         </div>
