@@ -1,7 +1,8 @@
 node_modules
 /dist
 /build
-/packages
+/packages/*
+!/packages/style
 /src
 
 components.js
@@ -10,5 +11,3 @@ babel.config.js
 .browserslistrc
 .vscode
 .git
-
-!/packages/style
