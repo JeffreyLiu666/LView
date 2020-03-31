@@ -19,3 +19,20 @@ import 'LView/css/index.css'
 Vue.use(iView)
 Vue.use(lView)
 ```
+
+## 按需引入
+通过[babel-plugin-component](https://github.com/ElementUI/babel-plugin-component)插件实现按需引入  
+```
+修改babel.config.js
+
+plugins: [
+    [
+        'component',
+        {
+            libraryName: 'l-view-vue',
+            styleLibraryName: 'style',
+            camel2Dash: false
+        }  
+    ]
+]
+```
