@@ -1,12 +1,12 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-26 10:35:02
+ * @LastEditTime: 2020-04-03 12:39:01
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 import Vue from 'vue'
-import { isNull, isObject, isArray } from './check'
+import { isNull, isObject, isArray, isFunction } from './check'
 
 /**
  * @description: 将横线和下划线转为驼峰
@@ -91,4 +91,21 @@ function doDeepCopy (data, cacheList) {
         }
     }
     return o
+}
+
+/**
+ * @description: 节流函数
+ * @param {function} func 需要节流的函数 
+ * @return: {function} 返回有节流功能的函数
+ */
+export function throttle (func, cd) {
+    let timeId
+    if (!isFunction(func)) return false
+    return function () {
+        if (timeId) return
+        timeId = setTimeout(function () {
+            func()
+            timeId = null
+        }, cd)
+    }
 }

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-31 15:45:20
+ * @LastEditTime: 2020-04-03 12:41:16
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -12,14 +12,16 @@
                 <div style="height: 900px;" v-if="show">asdfas</div>
             </div>
         </LFold>
-        <!-- <LShowImg imgStyle="minWidth: 100%;" :value="true" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg> -->
-        <!-- <LNumberInput v-model="num" controlsPosition="right"></LNumberInput>
-        <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
+        <LShowImg imgStyle="minWidth: 100%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg>
+        <!-- <LNumberInput v-model="num" controlsPosition="right" :max="10"></LNumberInput> -->
+        <!-- <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
+        <!-- <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
         <Button @click="handleClick">add</Button>
-        <div style="width: 100px; height: 100px;">
-            <div>asdfas</div>
+        <div id="testDom" style="width: 100px; height: 1000px; overflow: auto;">
+            <div style="height: 2000px;">asdfas</div>
             <!-- <div>fdff</div> -->
         </div>
+        <LToTop wrapper="#testDom" />
     </div>
 </template>
 
@@ -37,7 +39,8 @@ export default {
                     this.$set(this.data[index], col.key, val)
                 } }
             ],
-            num: 0,
+            num: 10,
+            range: ['aa', 22],
             show: false
         }
     },
@@ -46,6 +49,7 @@ export default {
         handleClick () {
             // this.num = 'asdf'
             this.show = true
+            // this.range = ['asdf', 122]
         }
     }
 }
@@ -57,6 +61,12 @@ export default {
 
 @primary-color: black;
 @red: white;
+
+// html, body{
+//     width: 100%;
+//     height: 100%;
+//     overflow: auto;
+// }
 
 </style>
 

@@ -4,6 +4,7 @@ node_modules
 /packages/*
 !/packages/style
 /src
+/tests
 
 components.js
 babel.config.js

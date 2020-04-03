@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 10:20:48
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-26 10:20:49
+ * @LastEditTime: 2020-04-02 15:43:10
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -134,4 +134,41 @@ export function isCNCode (code, sex = null) {
 
 export function isIDCard (val, sex) {
     return isCNCode(val, sex).pass
+}
+
+/**
+ * @description: 深层比较是否相等
+ * @param {any} val1 需要比较的值
+ * @param {any} val2 需要比较的值
+ * @return: {boolean} 是否相等
+ */
+export function isDeepEqual (val1, val2) {
+    const type1 = Object.prototype.toString.call(val1)
+    const type2 = Object.prototype.toString.call(val2)
+
+    if (
+        !val1 ||
+        !val2 ||
+        type1 !== type2 ||
+        typeof val1 !== 'object'
+    ) {
+        return val1 === val2
+    }
+
+    // 处理数组
+    if (isArray(val1)) {
+        if (val1.length !== val2.length) return false
+        for (let i = 0; i < val1.length; i++) {
+            if (!isDeepEqual(val1[i], val2[i])) return false
+        }
+    }
+
+    // 处理Object
+    const keys1 = Object.keys(val1)
+    const keys2 = Object.keys(val2)
+    if (keys1.length !== keys2.length) return false
+    for (let k in val1) {
+        if (!isDeepEqual(val1[k], val2[k])) return false
+    }
+    return true
 }

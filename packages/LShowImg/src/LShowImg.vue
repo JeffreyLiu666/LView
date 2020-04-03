@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-28 13:20:28
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:08:31
+ * @LastEditTime: 2020-04-03 10:29:19
  * @LastEditors: junfeng.liu
  * @Description: 全浏览器展示图片
 
@@ -15,9 +15,10 @@
  -->
 
 <template>
-    <div class="l-show-img" v-show="value" @click="close" v-transfer-dom :data-transfer="transfer">
-        <span class="base-line"></span>
+    <div class="l-show-img" v-show="visible" @click="handleMaskClick" v-transfer-dom :data-transfer="transfer">
+        <span class="l-view-base-line-middle"></span>
         <img :style="imgStyle" :src="src" :alt="alt" />
+        <Icon class="l-show-img-close" type="md-close-circle" @click="close" />
     </div>
 </template>
 
@@ -41,23 +42,37 @@ export default {
             default: '图片'
         },
         imgStyle: {
-            type: String
+            type: [String, Array, Object]
         },
         transfer: {
             type: Boolean,
             default: false
+        },
+        maskClose: {
+            type: Boolean,
+            default: true
         }
     },
     data () {
         return {
-
+            visible: this.value
         }
     },
     mounted () {},
     methods: {
         close () {
+            this.visible = false
             this.$emit('input', false)
             this.$emit('close')
+        },
+        handleMaskClick () {
+            if (!this.maskClose) return
+            this.close()
+        }
+    },
+    watch: {
+        value (val) {
+            this.visible = val
         }
     }
 }

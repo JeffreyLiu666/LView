@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-27 16:33:07
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:07:41
+ * @LastEditTime: 2020-04-02 21:50:18
  * @LastEditors: junfeng.liu
  * @Description: 数字输入框
 
@@ -49,7 +49,6 @@
             @on-focus="handleFocus"
             @on-blur="handleBlur"
         >
-            <!-- <LRender :render="renderControls"></LRender> -->
             <span
                 slot="append"
                 class="l-number-input_add"
@@ -64,15 +63,12 @@
                 @click="handleClick('subtract')">
                 <Icon :type="controlsRight ? 'ios-arrow-down' : 'md-remove'" />
             </span>
-            <!-- <div slot="append" v-if="controlsRight">
-                asdf
-            </div> -->
         </i-input>
     </div>
 </template>
 
 <script>
-import { isEmpty } from '@/lib/check.js'
+import { isEmpty, isNull } from '@/lib/check.js'
 
 export default {
     name: 'l-number-input',
@@ -118,7 +114,7 @@ export default {
     },
     data () {
         return {
-            curValue: this.value
+            curValue: ''
         }
     },
     computed: {
@@ -126,7 +122,9 @@ export default {
             return this.controlsPosition === 'right'
         }
     },
-    mounted () {},
+    mounted () {
+        this.setCurrentValue(this.value)
+    },
     methods: {
         handleClick (action) {
             if (this.disabled || this.readonly) return
@@ -143,20 +141,19 @@ export default {
         },
         handleChange (e) {
             if (!(e?.target?.value)) return
+            const inputVal = Number(e.data)
+            // 为了优化体验，这里先判断输入的值是否为NaN，如果是，则手动删除，right同理
+            // 由于在测试中没有e.data，所以e.data做个判空
+            if (!isNull(e.data) && isNaN(inputVal)) return this.$refs.input.setCurrentValue(this.curValue)
             let value = Number(e.target.value)
-            if (isNaN(value)) {
-                return this.setCurrentValue()
-            }
             this.setCurrentValue(value)
         },
         setCurrentValue (val) {
             const oldVal = this.curValue
             let newVal = Number(val)
             if (isNaN(newVal)) newVal = ''
-            if (newVal !== '' && newVal <= this.min) newVal = this.min
-            if (newVal !== '' && newVal >= this.max) newVal = this.max
             // 由于当多次输入都为NaN时，传入的value都是空字符串，导致不能触发watch函数，所以需要手动清空
-            if (newVal === '') this.$refs.input.currentValue = ''
+            if (newVal === '') this.$refs.input.setCurrentValue('')
             if (newVal === oldVal) return
             this.$emit('input', newVal)
             this.$emit('change', newVal, oldVal)
@@ -169,6 +166,10 @@ export default {
             this.$emit('on-focus', event)
         },
         handleBlur (event) {
+            let val = this.curValue
+            if (val !== '' && val <= this.min) val = this.min
+            if (val !== '' && val >= this.max) val = this.max
+            this.setCurrentValue(val)
             this.$emit('on-blur', event)
         }
     },

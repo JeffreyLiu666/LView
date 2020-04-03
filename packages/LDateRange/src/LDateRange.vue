@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:04:35
+ * @LastEditTime: 2020-04-01 16:43:19
  * @LastEditors: junfeng.liu
  * @Description: 时间范围选择器
 
@@ -12,7 +12,7 @@
  -->
 <template>
     <div class="l-date-range">
-        <DatePicker v-model="range" class="l-date-range-picker" :options="options" type="daterange" :editable="false" split-panels placeholder="选择查询日期区间" @on-change="pickerChange"></DatePicker>
+        <DatePicker v-model="range" class="l-date-range-picker" :options="options" type="daterange" :editable="false" split-panels :placeholder="placeholder" @on-change="pickerChange"></DatePicker>
     </div>
 </template>
 
@@ -32,6 +32,10 @@ export default {
         default: {
             type: String,
             default: 'week'
+        },
+        placeholder: {
+            type: String,
+            default: '选择查询日期区间'
         }
     },
     data () {
@@ -121,12 +125,14 @@ export default {
             return [start, end]
         },
         pickerChange (val) {
+            if (val && val[0] === this.value[0] && val[1] === this.value[1]) return
             this.$emit('input', val)
             this.$emit('on-change', val)
         }
     },
     watch: {
         value (val) {
+            if (val && val[0] === this.range[0] && val[1] === this.range[1]) return
             this.range = val
         }
     }
