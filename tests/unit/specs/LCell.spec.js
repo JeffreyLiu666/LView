@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-01 14:42:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-01 14:58:19
+ * @LastEditTime: 2020-04-07 10:04:46
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -37,6 +37,7 @@ describe('LCell', () => {
             }
         })
         expect(wrapper.find('.l-cell-content').text()).equal('<div></div>')
+
     })
     
     it('titleBold', () => {
@@ -52,6 +53,9 @@ describe('LCell', () => {
         wrapper = createTest(LCell, {
             slots: {
                 title: '<p></p>'
+            },
+            propsData: {
+                title: '<div></div>'
             }
         })
         expect(wrapper.find('.l-cell-title').contains('p')).to.true
@@ -61,6 +65,9 @@ describe('LCell', () => {
         wrapper = createTest(LCell, {
             slots: {
                 default: '<p></p>'
+            },
+            propsData: {
+                content: '<div></div>'
             }
         })
         expect(wrapper.find('.l-cell-content').contains('p')).to.true

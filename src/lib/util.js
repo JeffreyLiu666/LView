@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-03 12:39:01
+ * @LastEditTime: 2020-04-09 15:58:28
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -94,7 +94,7 @@ function doDeepCopy (data, cacheList) {
 }
 
 /**
- * @description: 节流函数
+ * @description: 包装成节流函数
  * @param {function} func 需要节流的函数 
  * @return: {function} 返回有节流功能的函数
  */
@@ -103,6 +103,25 @@ export function throttle (func, cd) {
     if (!isFunction(func)) return false
     return function () {
         if (timeId) return
+        timeId = setTimeout(function () {
+            func()
+            timeId = null
+        }, cd)
+    }
+}
+
+/**
+ * @description: 包装成防抖函数
+ * @param {function} func 需要防抖的函数 
+ * @return: {function} 返回有防抖功能的函数
+ */
+export function debounce (func, cd) {
+    let timeId
+    if (!isFunction(func)) return false
+    return function () {
+        if (!isNull(timeId)) {
+            clearTimeout(timeId)
+        }
         timeId = setTimeout(function () {
             func()
             timeId = null

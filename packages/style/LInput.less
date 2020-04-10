@@ -1,0 +1,238 @@
+
+@import './common/var.less';
+
+@size: small, large;
+
+// 循环生成各size的样式
+.size-loop(@n) when (@n > 0) {
+    @s: extract(@size, @n);
+    @w_n: 'input-height-@{s}';
+    @h_n: 'input-height-@{s}';
+    @f_n: 'font-size-@{s}';
+    @p_n: 'input-padding-vertical-@{s}';
+    @w_w_n: '@{s}Width_wrap';
+    @w: @@w_n;
+    @h: @@h_n;
+    @f: @@f_n;
+    @p: @@p_n;
+    .l-input-@{s}{
+        &.l-input-wrapper{
+            &.l-input-group{
+                font-size: @f;
+                .l-input-prepend, .l-input-append{
+                    padding: @p @input-padding-horizontal;
+                    .ivu-select{
+                        margin: (-@p - 1) -@input-padding-horizontal;
+                    }
+                }
+            }
+        }
+        .l-input-block{
+            height: @h;
+        }
+        .l-input{
+            padding: @p @input-padding-horizontal;
+            font-size: @f;
+        }
+        .l-input-with-prefix{
+            padding-left: @w;
+        }
+        .l-input-with-suffix{
+            padding-right: @w;
+        }
+        .l-input-prefix, .l-input-suffix{
+            width: @w;
+            i{
+                line-height: @h;
+                font-size: @f;
+            }
+        }
+        .l-input-clearable-two{
+            right: @w;
+        }
+    }
+    .size-loop(@n - 1);
+}
+.size-loop(length(@size));
+
+.ivu-form-item-error{
+    .l-input{
+        .l-input.l-input-error;
+    }
+}
+.l-input-wrapper{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    vertical-align: middle;
+    line-height: normal;
+    // 去掉数字输入框的按钮
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"]{
+        -moz-appearance: textfield;
+    }
+    &.l-input-group{
+        display: table;
+        border-collapse: separate;
+        font-size: @font-size-base;
+        position: relative;
+        .l-input-prepend, .l-input-append, .l-input-block{
+            display: table-cell;
+        }
+        .l-input-prepend, .l-input-append{
+            width: 1px;
+            border-radius: @border-radius-small;
+            border: @border-base;
+            text-align: center;
+            background: @input-group-bg;
+            vertical-align: middle;
+            padding: @input-padding-vertical-base @input-padding-horizontal;
+            white-space: nowrap;
+            color: @input-color;
+            .ivu-select{
+                min-width: 80px;
+                margin: (-@input-padding-vertical-base - 1) -@input-padding-horizontal;
+            }
+            .ivu-select-selection{
+                background: transparent;
+                border: none;
+            }
+            .ivu-select-visible .ivu-select-selection{
+                box-shadow: none;
+            }
+        }
+        .l-input-prepend{
+            border-right: 0;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+        .l-input-append{
+            border-left: 0;
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+    }
+}
+.l-input-group-with-prepend{
+    .l-input-block>.l-input{
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+}
+.l-input-group-with-append{
+    .l-input-block>.l-input{
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+}
+.l-input-block{
+    display: inline-block;
+    width: 100%;
+    height: @input-height-base;
+    position: relative;
+    &:hover{
+        .l-input-clearable{
+            display: inline-block;
+            .l-input[disabled]+&{
+                display: none;
+            }
+        }
+    }
+}
+.l-input{
+    width: 100%;
+    height: 100%;
+    line-height: @line-height-base;
+    border-radius: @border-radius-small;
+    border: @border-base;
+    padding: @input-padding-vertical-base @input-padding-horizontal;
+    font-size: @font-size-base;
+    color: @input-color;
+    background: white;
+    &::-webkit-input-placeholder {
+        color: @input-placeholder-color;
+    }
+    &:focus{
+        outline: none;
+        border-color: @primary-color;
+        box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+    }
+    &:hover{
+        border-color: @primary-color;
+    }
+    &[disabled]{
+        cursor: not-allowed;
+        background-color: @input-disabled-bg;
+        color: @disabled-color;
+        &:hover{
+            border-color: @border-color-base;
+        }
+    }
+    textarea&{
+        resize: none;
+    }
+    &.l-input-error{
+        outline: none;
+        border-color: @error-color;
+        &:focus{
+            border-color: inherit;
+            box-shadow: 0 0 0 2px fade(@error-color, 20%);
+        }
+    }
+}
+.l-input-with-prefix{
+    padding-left: @input-height-base;
+}
+.l-input-with-suffix{
+    padding-right: @input-height-base;
+}
+.l-input-prefix, .l-input-suffix{
+    width: @input-height-base;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    // .l-input[disabled]+&{
+    //     i{
+    //         color: @disabled-color;
+    //     }
+    // }
+    i{
+        color: @input-icon-color;
+        line-height: @input-height-base;
+        font-size: @font-size-large
+    }
+}
+.l-input-prefix{
+    left: 0;
+}
+.l-input-suffix{
+    right: 0;
+}
+.l-input-password{
+    cursor: pointer;
+    .can-see{
+        color: @primary-color;
+    }
+}
+.l-input-clearable{
+    cursor: pointer;
+    display: none;
+}
+.l-input-clearable-two{
+    right: @input-height-base;
+}
+.l-input-icon-disabled{
+    cursor: not-allowed;
+}
+.l-input-count{
+    position: absolute;
+    bottom: 10px;
+    right: 6px;
+    color: @input-color;
+    font-size: @font-size-small;
+    background-color: white;
+}

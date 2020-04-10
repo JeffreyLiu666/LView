@@ -1,26 +1,27 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:08:51
+ * @LastEditTime: 2020-04-09 11:21:59
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
     props
-        data:               数据
-        columns:            列配置
-        stripe:             是否显示间隔斑马纹
-        border:             是否显示纵向边框
-        show-header:        是否显示表头
-        show-summary:       是否在表尾显示合计行
-        summary-method:     自定义的合计计算方法
-        loading:            表格是否加载中
+        data:                   数据
+        columns:                列配置
+        stripe:                 是否显示间隔斑马纹
+        border:                 是否显示纵向边框
+        show-header:            是否显示表头
+        show-summary:           是否在表尾显示合计行
+        summary-method:         自定义的合计计算方法
+        loading:                表格是否加载中
 
-    columns                 除了iview中的配置，还有自定义的配置
-        dataFunc:           显示该函数处理后返回的值
-        buttons：           按钮数组
-        links:              link数组
-        ellipsis:           文本将不换行，超出部分显示为省略号(原来为：overflowHide)
-        custom:             默认type === index将会根据分页递增，如果custom设为true将会使用iview的默认方式
+    columns                     除了iview中的配置，还有自定义的配置
+        dataFunc:               显示该函数处理后返回的值
+        buttons：               按钮数组
+        links:                  link数组
+        ellipsis:               文本将不换行，超出部分显示为省略号(原来为：overflowHide)
+        custom:                 默认type === index将会根据分页递增，如果custom设为true将会使用iview的默认方式
+        type===inputNumber:     使用LInputNumber。注意：需要配置onChange手动更新data
 
  -->
 <template>
@@ -59,15 +60,10 @@ import { deepCopy } from '@/lib/util'
 export default {
     name: 'l-table',
     props: {
-        data: {
-            type: Array,
-            default: () => {
-                return []
-            }
-        },
+        data: Array,
         columns: {
             type: Array,
-            default: () => {
+            default () {
                 return []
             }
         },
@@ -193,7 +189,7 @@ export default {
                     )
                 })
                 return (
-                    <div class="l-view-text-center l-table-td-btns">{ ...btns }</div>
+                    <div class="l-table-td-btns">{ ...btns }</div>
                 )
             }
             return item
@@ -207,7 +203,7 @@ export default {
                     )
                 })
                 return (
-                    <div class="l-view-text-center l-table-td-links">{ ...links }</div>
+                    <div class="l-table-td-links">{ ...links }</div>
                 )
             }
             return item
@@ -224,7 +220,8 @@ export default {
         },
         getInputNumber (item) {
             item.render = (h, { row, column, index }) => {
-                const { size = 'small', onChange, min, max, step, precision, disabled } = column
+                const { onChange, config = {} } = column
+                const { size = 'small', min, max, step, precision, disabled } = config
                 let val = row[column.key]
                 return (
                     <LNumberInput
@@ -236,7 +233,7 @@ export default {
                         step={ step }
                         // precision={ precision }
                         disabled={ disabled }
-                        onChange={ cVal => { isFunction(onChange) ? onChange(cVal, index, column, row) : '' } }></LNumberInput>
+                        onOn-change={  isFunction(onChange) ? cVal => { onChange(cVal, row, column, index) } : undefined }></LNumberInput>
                 )
             }
             delete item.type

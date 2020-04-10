@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:05:43
+ * @LastEditTime: 2020-04-09 17:45:37
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -97,7 +97,7 @@
             v-if="type === 'dateRangePicker'">
         </LDateRange>
         <!--输入框-->
-        <i-input
+        <LInput
             :value="val"
             :clearable="clearable"
             :placeholder="placeholder"
@@ -111,9 +111,13 @@
             :suffix="config.suffix"
             :rows="config.rows"
             :autosize="config.autosize"
-            :filterable="config.filterable"
-            :multiple="config.multiple"
-            :password="config.password"
+            :checkChinese="config.checkChinese"
+            :max="config.max"
+            :min="config.min"
+            :step="config.step"
+            :number="config.number"
+            :floatLength="config.floatLength"
+            :isError="config.isError"
             @input="change"
             @on-enter="handleEnter"
             @on-focus="handleFocus"
@@ -128,7 +132,7 @@
                 {{ config.append }}
                 <LRender :render="config.appendRender" v-if="config.appendRender"></LRender>
             </span>
-        </i-input>
+        </LInput>
         <!--数字输入框-->
         <LNumberInput
             :value="val"

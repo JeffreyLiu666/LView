@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-01 09:53:10
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-03 09:11:04
+ * @LastEditTime: 2020-04-10 14:47:38
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -9,22 +9,22 @@ const webpackConf = require('../../build/webpack.config.js')
 
 module.exports = function (config) {
     config.set({
-        singleRun: false,
+        singleRun: true,
         browsers: ['Chrome'],
         frameworks: ['mocha'],
         reporters: ['spec', 'coverage'],
         files: ['./index.js'],
         preprocessors: {
-          './index.js': ['webpack', 'sourcemap']
+            './index.js': ['webpack', 'sourcemap']
         },
         webpack: webpackConf,
         webpackMiddleware: {
-          noInfo: true
+            noInfo: true
         },
         client: {
             mocha: {
                 timeout: 4000,
-                grep: 'LShowImg'
+                // grep: 'LInput'
             }
         },
         coverageReporter: {

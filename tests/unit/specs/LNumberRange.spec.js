@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-02 14:43:10
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-03 09:53:37
+ * @LastEditTime: 2020-04-10 11:06:34
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -27,7 +27,7 @@ describe('LNumberRange', () => {
                 disabled: true
             }
         }, true)
-        const inputs = wrapper.findAll('.ivu-input')
+        const inputs = wrapper.findAll('.l-input')
         expect(inputs).lengthOf(2)
         expect(inputs.at(0).attributes('disabled')).to.exist
         expect(inputs.at(1).attributes('disabled')).to.exist
@@ -39,7 +39,7 @@ describe('LNumberRange', () => {
                 readonly: true
             }
         }, true)
-        const inputs = wrapper.findAll('.ivu-input')
+        const inputs = wrapper.findAll('.l-input')
         expect(inputs).lengthOf(2)
         expect(inputs.at(0).attributes('readonly')).to.exist
         expect(inputs.at(1).attributes('readonly')).to.exist
@@ -52,7 +52,7 @@ describe('LNumberRange', () => {
                 placeholderRight: 'bbbbb'
             }
         }, true)
-        const inputs = wrapper.findAll('.ivu-input')
+        const inputs = wrapper.findAll('.l-input')
         expect(inputs.at(0).attributes('placeholder')).equal('aaaaa')
         expect(inputs.at(1).attributes('placeholder')).equal('bbbbb')
     })
@@ -66,7 +66,7 @@ describe('LNumberRange', () => {
             }
         }, true)
         const vm = wrapper.vm
-        const inputs = wrapper.findAll('.ivu-input')
+        const inputs = wrapper.findAll('.l-input')
         await vm.$nextTick()
         expect(inputs.at(0).element.value == 10).to.true
         expect(inputs.at(1).element.value == 20).to.true
@@ -79,6 +79,20 @@ describe('LNumberRange', () => {
         expect(inputs.at(1).element.value == 10).to.true
     })
 
+    it('floatLength', async () => {
+        wrapper = createTest(LNumberRange, {
+            propsData: {
+                value: [10, 20],
+                floatLength: 2
+            }
+        }, true)
+        const vm = wrapper.vm
+        const inputs = wrapper.findAll('.l-input')
+        await vm.$nextTick()
+        expect(inputs.at(0).element.value === '10.00').to.true
+        expect(inputs.at(1).element.value === '20.00').to.true
+    })
+
     it('NaN', async () => {
         wrapper = createTest(LNumberRange, {
             propsData: {
@@ -86,7 +100,7 @@ describe('LNumberRange', () => {
             }
         }, true)
         const vm = wrapper.vm
-        const inputs = wrapper.findAll('.ivu-input')
+        const inputs = wrapper.findAll('.l-input')
         await vm.$nextTick()
         expect(inputs.at(0).element.value == '').to.true
         expect(inputs.at(1).element.value == '').to.true

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-03 12:43:10
+ * @LastEditTime: 2020-04-07 09:42:54
  * @LastEditors: junfeng.liu
  * @Description: 回到顶部
 
@@ -14,7 +14,9 @@
 <template>
     <transition name="fade">
         <div class="l-to-top" v-show="show" @click="backToTop">
-            <Icon type="ios-arrow-up" />
+            <slot>
+                <Icon type="ios-arrow-up" />
+            </slot>
         </div>
     </transition>
 </template>
@@ -28,8 +30,7 @@ export default {
     props: {
         // 滚动的容器，默认body
         wrapper: {
-            type: [Document, String],
-            default: '.content-wrapper.ivu-layout-content'
+            type: [Document, String]
         },
         // 滚动多少后显示
         offset: {

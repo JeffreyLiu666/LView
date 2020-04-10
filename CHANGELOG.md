@@ -85,3 +85,52 @@
         ]
     ]
     ```
+
+***
+## 1.3.0
+
+*2020-04-10*
+
+#### 新特性
+
+- LInput
+    - 新增输入框组件，支持多种功能
+
+- LNumberInput
+    - input换成LInput
+    - 在blur事件中做max和min判断
+    - 在超过max或min时会禁用相关按钮
+    - 新增floatLength属性
+    - 调整内部逻辑
+
+- LNumberRange
+    - input换成LInput
+    - 新增placeholderLeft和placeholderRight
+    - min和max的判断在blur中实现
+    - 新增floatLength属性
+    - 调整内部逻辑
+
+- LDateRange
+    - 新增placeholder
+
+- LShowImg
+    - 新增maskClose
+    - 新增关闭图标
+
+- LToTop
+    - 支持通过slot自定义图标
+    - 调整内部逻辑
+
+- LFormEnca
+    - 去掉iView的Input，换成LInput
+
+- LTable
+    - 支持LNumberInput
+
+#### 非兼容性更新
+
+- LNumberInput
+    - change事件改为on-change
+
+- LFormEnca
+    - 由于input更换，部分props不同

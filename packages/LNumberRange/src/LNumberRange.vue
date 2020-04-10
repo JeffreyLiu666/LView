@@ -1,14 +1,14 @@
 <!--
  * @Date: 2020-03-10 21:05:26
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-02 21:39:09
+ * @LastEditTime: 2020-04-10 11:07:18
  * @LastEditors: junfeng.liu
  * @Description: 数值范围
 
     props
         value:              值
         check:              是否验证大小关系，该功能具体实现未定
-        disabled:           是否禁用，两个都为禁用
+        disabled:           是否禁用，两个都会禁用
         readonly:           是否只读
         placeholderLeft:    左侧input的placeholder
         placeholderRight:   右侧侧input的placeholder
@@ -16,31 +16,41 @@
         suffix:             输入框尾部图标
         max:                最大值
         min:                最小值
+        floatLength:        LInput的属性，用于控制保留位数
+
+    event
+        on-change:          值改变事件，返回当前的值
  -->
 
 <template>
     <div class="l-number-range">
-        <Input
+        <LInput
             ref="left"
             class="l-number-range-input"
-            :value="curValue[0]"
+            type="number"
+            number
+            :value="currentValue[0]"
             :placeholder="placeholderLeft"
             :disabled="disabled"
             :readonly="readonly"
             :prefix="prefix"
             :suffix="suffix"
+            :floatLength="floatLength"
             @on-change="handleLeftChange"
             @on-blur="handleLeftBlur" />
         <div class="l-number-range-line">~</div>
-        <Input
+        <LInput
             ref="right"
             class="l-number-range-input"
-            :value="curValue[1]"
+            type="number"
+            number
+            :value="currentValue[1]"
             :placeholder="placeholderRight"
             :disabled="disabled"
             :readonly="readonly"
             :prefix="prefix"
             :suffix="suffix"
+            :floatLength="floatLength"
             @on-change="handleRightChange"
             @on-blur="handleRightBlur" />
     </div>
@@ -48,6 +58,7 @@
 
 <script>
 import { isEmpty, isNull, isDeepEqual } from '@/lib/check'
+import { deepCopy } from '@/lib/util'
 
 export default {
     name: 'l-number-range',
@@ -93,10 +104,11 @@ export default {
             type: Number,
             default: -Infinity
         },
+        floatLength: Number
     },
     data () {
         return {
-            curValue: []
+            currentValue: []
         }
     },
     mounted () {
@@ -104,62 +116,52 @@ export default {
     },
     methods: {
         handleLeftBlur () {
-            const left = this.curValue[0]
-            const right = this.curValue[1]
+            const left = this.currentValue[0]
+            const right = this.currentValue[1]
             if (isEmpty(left)) return
             if (left < this.min) {
                 this.setCurrentValue([this.min, right])
             }
-            if (left > this.max) {
+            else if (left > this.max) {
                 this.setCurrentValue([this.max, right])
             }
         },
         handleRightBlur () {
-            const left = this.curValue[0]
-            const right = this.curValue[1]
+            const left = this.currentValue[0]
+            const right = this.currentValue[1]
             if (isEmpty(right)) return
             if (right < this.min) {
                 this.setCurrentValue([left, this.min])
             }
-            if (right > this.max) {
+            else if (right > this.max) {
                 this.setCurrentValue([left, this.max])
             }
         },
-        handleLeftChange (e) {
-            if (!(e?.target?.value)) return
-            const inputVal = Number(e.data)
-            // 为了优化体验，这里先判断输入的值是否为NaN，如果是，则手动删除，right同理
-            if (!isNull(e.data) && isNaN(inputVal)) return this.$refs.left.setCurrentValue(this.curValue[0])
-            this.setCurrentValue([e.target.value, this.curValue[1]])
+        handleLeftChange (val) {
+            this.setCurrentValue([val, this.currentValue[1]])
         },
-        handleRightChange (e) {
-            if (!(e?.target?.value)) return
-            const inputVal = Number(e.data)
-            if (!isNull(e.data) && isNaN(inputVal)) return this.$refs.right.setCurrentValue(this.curValue[1])
-            this.setCurrentValue([this.curValue[0], e.target.value])
+        handleRightChange (val) {
+            this.setCurrentValue([this.currentValue[0], val])
+        },
+        checkSize (val) {
+            const left = Number(val[0] === '' ? undefined : val[0])
+            const right = Number(val[1] === '' ? undefined : val[1])
+            return [
+                 left < this.min ? this.min : (left > this.max ? this.max : left),
+                 right < this.min ? this.min : (right > this.max ? this.max : right)
+            ]
+        },
+        checkNaN (val) {
+            return [
+                isNaN(val[0]) ? '' : val[0],
+                isNaN(val[1]) ? '' : val[1]
+            ]
         },
         setCurrentValue (val) {
             const inputVal = val
-            // 空字符串特殊处理
-            const left = Number(val[0] === '' ? undefined : val[0])
-            const right = Number(val[1] === '' ? undefined : val[1])
-            if (
-                isNaN(left)
-                // (!isEmpty(left) && (left < this.min || left > this.max))
-            ) {
-                // const v = isNaN(left) ? '' : (left < this.min ? this.min : this.max)
-                const v = ''
-                val = [v, val[1]]
-            }
-            if (
-                isNaN(right)
-                // (!isEmpty(right) && (right < this.min || right > this.max))
-            ) {
-                // const v = isNaN(right) ? '' : (right < this.min ? this.min : this.max)
-                const v = ''
-                val = [val[0], v]
-            }
-            if (isDeepEqual(val, this.curValue)) {
+            val = this.checkNaN(val)
+
+            if (isDeepEqual(val, this.currentValue)) {
                 if (!isDeepEqual(val, inputVal)) {
                     // 由于如果相等就return可能会导致input组件的值
                     // 和curValue对不上，所以这里手动修改
@@ -169,27 +171,31 @@ export default {
                 return
             }
             this.$emit('input', val)
-            this.$emit('change', val)
-            this.curValue = val
+            this.$emit('on-change', val)
+            this.currentValue = val
         },
         // value改变是时候调用这个方法
         setValue (val) {
-            if (isDeepEqual(val, this.curValue)) return
-            const left = Number(val[0] === '' ? undefined : val[0])
-            const right = Number(val[1] === '' ? undefined : val[1])
-            val = [
-                 left < this.min ? this.min : (left > this.max ? this.max : left),
-                 right < this.min ? this.min : (right > this.max ? this.max : right)
-            ]
-            this.setCurrentValue(val)
+            if (isDeepEqual(val, this.currentValue)) return
+
+            let localVal = deepCopy(val)
+            localVal = this.checkSize(localVal)
+            localVal = this.checkNaN(localVal)
+            
+            // 如果和value相等则直接赋值，这样可以避免在change事件中修改value时造成死循环
+            if (isDeepEqual(localVal, val)) return this.currentValue = localVal
+            // 如果数据处理后和curValue相等，则setCurrentValue会直接return，导致和父组件数据对不上
+            if (isDeepEqual(localVal, this.currentValue))  {
+                this.$emit('input', localVal)
+                this.$emit('on-change', localVal)
+                return
+            }
+            this.setCurrentValue(localVal)
         }
     },
     watch: {
-        value: {
-            handler: function (val) {
-                this.setValue(val)
-            },
-            deep: true
+        value (val) {
+            this.setValue(val)
         }
     }
 }

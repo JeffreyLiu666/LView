@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:04:13
+ * @LastEditTime: 2020-04-07 10:01:48
  * @LastEditors: junfeng.liu
  * @Description: 列表项组件
 
@@ -17,12 +17,10 @@
 <template>
     <div class="l-cell">
         <div class="l-cell-title" :class="{ 'l-cell-title-bold': titleBold }">
-            <slot name="title"></slot>
-            <template v-if="!$slots.title">{{ title }}</template>
+            <slot name="title">{{ title }}</slot>
         </div>
         <div class="l-cell-content">
-            <slot></slot>
-            <template v-if="!$slots.defalut">{{ content }}</template>
+            <slot>{{ content }}</slot>
         </div>
     </div>
 </template>

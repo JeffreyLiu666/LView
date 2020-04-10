@@ -1,15 +1,10 @@
 
 @import './common/var.less';
 
-@height: 30px;
-@width: 32px;
-@smallHeight: 22px;
-@smallWidth: 24px;
-@smallFontSize: 12px; // 按现有尺寸写死，大了会错位
+@borderW: @border-width-base * 2;
+@height: @input-height-base - @borderW;
+@width: @input-height-base;
 @smallWidth_wrap: 130px;
-@largeHeight: 38px;
-@largeWidth: 40px;
-@largeFontSize: @font-size-large;
 @largeWidth_wrap: 180px;
 @aligns: left, right, center;
 @size: small, large;
@@ -29,28 +24,31 @@
 // 循环生成各size的样式
 .size-loop(@n) when (@n > 0) {
     @s: extract(@size, @n);
-    @w: '@{s}Width';
-    @h: '@{s}Height';
-    @f: '@{s}FontSize';
-    @w_w: '@{s}Width_wrap';
+    @w_n: 'input-height-@{s}';
+    @h_n: 'input-height-@{s}';
+    @f_n: 'font-size-@{s}';
+    @w_w_n: '@{s}Width_wrap';
+    @w: @@w_n;
+    @h: @@h_n - @borderW;
+    @f: @@f_n;
     .l-number-input_@{s}{
         &.l-number-input{
-            width: @@w_w;
+            width: @@w_w_n;
         }
         .l-number-input_add,
         .l-number-input_subtract{
-            width: @@w;
-            height: @@h;
-            line-height: @@h;
-            font-size: @@f;
+            width: @w;
+            height: @h;
+            line-height: @h;
+            font-size: @f;
         }
         &.l-number-input_right{
             .l-number-input_add,
             .l-number-input_subtract{
                 display: block;
-                width: @@w;
-                height: @@h / 2;
-                line-height: @@h / 2;
+                width: @w;
+                height: @h / 2;
+                line-height: @h / 2;
             }
         }
     }
@@ -63,36 +61,40 @@
     display: inline-block;
     position: relative;
     vertical-align: middle;
-}
-.l-number-input_add,
-.l-number-input_subtract{
-    display: inline-block;
-    width: @width;
-    height: @height;
-    line-height: @height;
-    font-size: @font-size-base;
-    text-align: center;
-    cursor: pointer;
-    &[disabled]{
-        background: @gray-lighter;
-        cursor: not-allowed;
-        color: @disabled-color;
+    &_add,
+    &_subtract{
+        display: inline-block;
+        width: @width;
+        height: @height;
+        line-height: @height;
+        font-size: @font-size-base;
+        text-align: center;
+        cursor: pointer;
+        &[disabled]{
+            background: @gray-lighter;
+            cursor: not-allowed;
+            color: @disabled-color;
+        }
     }
-}
-.l-number-input_right{
-    .l-number-input_add,
-    .l-number-input_subtract{
-        display: block;
-        height: @height / 2;
-        line-height: @height / 2;
+    &_right{
+        .l-number-input_add,
+        .l-number-input_subtract{
+            display: block;
+            height: @height / 2;
+            line-height: @height / 2;
+        }
+        .l-number-input_add{
+            border-bottom: @border-base;
+        }
     }
-    .l-number-input_add{
-        border-bottom: @border-base;
+    &_input{
+        .l-input-prepend,
+        .l-input-append{
+            padding: 0 !important;
+        }
     }
-}
-.l-number-input_input{
-    .ivu-input-group-prepend,
-    .ivu-input-group-append{
-        padding: 0 !important;
+    .l-input-wrapper.l-input-group .l-input-prepend,
+    .l-input-wrapper.l-input-group .l-input-append{
+        padding: 0;
     }
 }

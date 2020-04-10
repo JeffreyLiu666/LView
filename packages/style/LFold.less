@@ -3,27 +3,27 @@
 
 .l-fold{
     position: relative;
-}
-.l-fold-wrapper{
-    overflow: hidden;
-    transition: height @animation-duration-base;
-}
-.l-fold-operate{
-    position: relative;
-}
-.l-fold-gradient{
-    position: absolute;
-    top: -79px;
-    width: 100%;
-    height: 80px;
-    background-image: linear-gradient(-180deg,rgba(255,255,255,.2),#fff);
-}
-.l-fold-btn{
-    width: 100%;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    color: @blue;
-    background: white;
-    cursor: pointer;
+    &-wrapper{
+        overflow: hidden;
+        transition: height @animation-duration-base;
+    }
+    &-operate{
+        position: relative;
+    }
+    &-gradient{
+        position: absolute;
+        top: -79px;
+        width: 100%;
+        height: 80px;
+        background-image: linear-gradient(-180deg,rgba(255,255,255,.2),#fff);
+    }
+    &-btn{
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        color: @blue;
+        background: white;
+        cursor: pointer;
+    }
 }
