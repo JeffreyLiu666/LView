@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-10 14:26:11
+ * @LastEditTime: 2020-04-13 14:16:54
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -287,8 +287,7 @@
             }
         },
         mounted () {
-            this.setValue(this.value, true)
-            this.$nextTick(this.resizeTextarea)
+            this.resizeTextarea()
         },
         methods: {
             handlePrefixClick (event) { // 头部图标点击事件
@@ -319,7 +318,8 @@
             handleBlur (e) {
                 this.isFocus = false
                 let val = e.target.value
-                if (this.number) val = Number(val)
+                // 不处理空值
+                if (this.number && !isEmpty(val)) val = Number(val)
                 this.setCurrentValue(val, true)
                 this.$emit('on-blur', e)
             },
@@ -454,6 +454,9 @@
             },
             setValue (val) {
                 if (val === this.currentValue) return
+                // 不处理空值
+                if (isEmpty(val)) return this.currentValue = val
+                
                 this.setCurrentValue(val, true)
             }
             // value改变时通过该函数设置currentValue
@@ -484,8 +487,9 @@
             calcHeight.destroy()
         },
         watch: {
-            value (val) {
-                this.setValue(val)
+            value: {
+                handler: 'setValue',
+                immediate: true
             }
         }
     }

@@ -134,7 +134,6 @@ export default {
         }
     },
     mounted () {
-        this.setValue(this.value)
     },
     methods: {
         handleClick (action) {
@@ -203,8 +202,9 @@ export default {
         }
     },
     watch: {
-        value (val) {
-            this.setValue(val)
+        value: {
+            handler: 'setValue',
+            immediate: true
         }
     }
 }

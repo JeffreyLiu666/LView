@@ -178,8 +178,11 @@
         outline: none;
         border-color: @error-color;
         &:focus{
-            border-color: inherit;
+            border-color: @error-color;
             box-shadow: 0 0 0 2px fade(@error-color, 20%);
+        }
+        &:hover{
+            border-color: @error-color;
         }
     }
 }

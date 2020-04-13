@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-01 16:43:19
+ * @LastEditTime: 2020-04-13 12:30:32
  * @LastEditors: junfeng.liu
  * @Description: 时间范围选择器
 
@@ -18,7 +18,7 @@
 
 <script>
 import { formatDate, moveDate } from '@/lib/date'
-import { isEmpty } from '@/lib/check'
+import { isEmpty, isDeepEqual } from '@/lib/check'
 
 export default {
     name: 'l-date-range',
@@ -78,12 +78,11 @@ export default {
         }
     },
     mounted () {
-        if (isEmpty(this.value) && this.default !== 'empty') {
-            this.range = this.getRangeByType(this.default)
-            let range = [formatDate(this.range[0]), formatDate(this.range[1])]
-            this.$emit('input', range)
-            this.$emit('on-change', range)
-        }
+        if (!isEmpty(this.value) || this.default === 'empty') return
+
+        this.range = this.getRangeByType(this.default)
+        let range = [formatDate(this.range[0]), formatDate(this.range[1])]
+        this.pickerChange(range)
     },
     methods: {
         getRangeByType (type) {
@@ -125,16 +124,19 @@ export default {
             return [start, end]
         },
         pickerChange (val) {
-            if (val && val[0] === this.value[0] && val[1] === this.value[1]) return
+            if (isDeepEqual(val, this.value)) return
             this.$emit('input', val)
             this.$emit('on-change', val)
         }
     },
     watch: {
-        value (val) {
-            if (val && val[0] === this.range[0] && val[1] === this.range[1]) return
-            this.range = val
-        }
+        value: {
+            handler: function (val) {
+                if (isDeepEqual(val, this.range)) return
+                this.range = val
+            },
+            immediate: true
+        } 
     }
 }
 </script>

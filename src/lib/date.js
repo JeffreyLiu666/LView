@@ -35,8 +35,13 @@ export function formatDate (date, format = 'yyyy-MM-dd') {
  * @return: 时间对象
  */
 export function moveDate (date, rules = {}) {
-    if (!isObject(rules)) return ''
+
+    if (!isObject(rules)) return date
+
     let d = date ? iosAdapter(date) : new Date()
+    if (d instanceof Date && isNaN(d.getSeconds())) {
+        return ''
+    }
     Object.keys(rules).forEach(k => {
         let num = Number(rules[k])
         if (isNaN(num)) return

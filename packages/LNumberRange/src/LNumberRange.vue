@@ -194,8 +194,9 @@ export default {
         }
     },
     watch: {
-        value (val) {
-            this.setValue(val)
+        value: {
+            handler: 'setValue',
+            immediate: true
         }
     }
 }

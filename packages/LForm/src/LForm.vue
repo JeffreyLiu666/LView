@@ -142,7 +142,8 @@
                         localStorage.setItem(this.cacheKey, dataStr)
                     }
                 },
-                deep: true
+                deep: true,
+                immediate: true
             }
         },
         mounted () {

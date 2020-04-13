@@ -134,3 +134,18 @@
 
 - LFormEnca
     - 由于input更换，部分props不同
+
+***
+## 1.3.2
+
+*2020-04-13*
+
+#### 新特性
+
+- LInput
+    - 不处理空值，包括空字符串，null，undefined
+
+#### BUG FIX
+
+- LInput
+    - 解决在error的时候边框颜色不正确
