@@ -1,58 +1,35 @@
 /*
  * @Date: 2020-03-26 10:20:48
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-02 15:43:10
+ * @LastEditTime: 2020-04-14 17:50:10
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 
 import { regExp, IDPROVINCECODE } from '@/constant'
 
-export function isEmpty (val) {
-    if (val === null ||
-        val === undefined ||
-        val.toString() === '') {
-        return true
-    }
-    return false
-}
+export const isEmpty = val => isNull(val) || val.toString() === ''
 
-export function isNull (val) {
-    if (val === null || val === undefined) { return true }
-    return false
-}
+export const isNull = val => val === null || val === undefined
 
-export function isEmptyObject (val) {
-    if (!isObject(val)) return false
-    return !Object.keys(val).length
-}
+export const isEmptyObject = val => isObject(val) && !Object.keys(val).length
 
-export function isString (val) {
-    return Object.prototype.toString.call(val) === '[object String]'
-}
+export const isArray = Array.isArray
 
-export function isObject (val) {
-    return Object.prototype.toString.call(val) === '[object Object]'
-}
+export const isString = val => typeof val === 'string'
 
-export function isArray (val) {
-    return Object.prototype.toString.call(val) === '[object Array]'
-}
+export const isNumber = val => typeof val === 'number'
 
-export function isNumber (val) {
-    return Object.prototype.toString.call(val) === '[object Number]'
-}
+export const isFunction = val => typeof val === 'function'
 
-export function isFunction (val) {
-    return Object.prototype.toString.call(val) === '[object Function]'
-}
+// export const isObject = val => typeof val === 'object' && val !== null
+export const isObject = val => Object.prototype.toString.call(val) === '[object Object]'
 
 // 是否为数值字符串
-export function isNumberString (str) {
-    if (isEmpty(str)) {
-        return false
-    }
-    return !Number.isNaN(Number(str))
+export function isNumberString (val, strict = false) {
+    if (strict && !isString(val)) return false
+    // if (isEmpty(val)) return false
+    return !Number.isNaN(Number(val))
 }
 
 export function isMobile (val) {
