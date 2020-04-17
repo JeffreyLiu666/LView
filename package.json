@@ -36,6 +36,7 @@
     "babel-regenerator-runtime": "^6.5.0",
     "cache-loader": "^4.1.0",
     "chai": "^4.2.0",
+    "chalk": "^4.0.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
     "file-loader": "^6.0.0",
