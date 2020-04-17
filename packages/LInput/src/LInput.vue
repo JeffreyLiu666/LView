@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-13 14:16:54
+ * @LastEditTime: 2020-04-17 14:01:54
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -27,6 +27,8 @@
        floatLength:         浮点数小数点后长度，0为整形，负数为不检测，正数为保留小数点后几位(仅当type==='number')(仅当失焦或传入value时处理，实时会影响输入体验)
        size:                组件大小;有：large,small,default(所有错误的值都是default)
        isError:             是否为错误状态
+       search:              是否开启搜索框
+       searchButton:        是否使用搜索按钮，需配合search使用，如果为字符串则直接将文本做按钮，否则是搜索图标
 
     event:
         on-input            输入框输入时触发，返回value,返回的数据未处理
@@ -39,6 +41,8 @@
         on-keypress         原生的 keypress 事件,返回event
         on-click-prefix     点击输入框头部图标时触发
         on-click-suffix     点击输入框尾部图标时触发
+        on-clear            点击清除按钮时触发
+        on-search           在搜索框中，点击搜索图标、点击搜索按钮或回车时触发
 
 	注意：clearable支持同时与password或suffix之一同时存在
 	      checkChinese和floatLength不要同时使用
@@ -46,6 +50,7 @@
 
 <template>
     <div class="l-input-wrapper" :class="wrapperClass">
+        <!-- 字数统计 -->
         <span class="l-input-count" v-if="showWordLimit">{{ textLength }} / {{ maxlength }}</span>
         <textarea
             ref="textarea"
@@ -73,6 +78,7 @@
             :rows="rows">
         </textarea>
         <template v-else>
+            <!-- 自定义前置内容 -->
             <div class="l-input-prepend" v-if="hasPrepend">
                 <slot name="prepend"></slot>
             </div>
@@ -103,32 +109,55 @@
                     :step="step"
                     :class="inputClass"
                     :autocomplete="autocomplete" />
+                <!-- 自定义前置图标 -->
                 <span class="l-input-prefix" v-if="showPrefix" @click="handlePrefixClick">
                     <slot name="prefix"><Icon :type="prefix" /></slot>
                 </span>
+                <!-- 清除图标，只有该按钮可与其他suffix共存 -->
                 <span
-                    class="l-input-suffix l-input-clearable"
+                    class="l-input-suffix l-input-suffix-clearable"
                     :class="{
-                        'l-input-clearable-two': showSuffix || canShowEye,
+                        'l-input-suffix-clearable-two': isTwoSuffix,
                         'l-input-icon-disabled': disabled
                     }"
-                    v-if="canShowClear"
+                    v-if="showClear"
                     @click="handleClear">
                     <Icon type="ios-close-circle" />
                 </span>
+                <!-- 眼睛图标 -->
                 <span
-                    class="l-input-suffix l-input-password"
+                    class="l-input-suffix l-input-suffix-password"
                     :class="{'l-input-icon-disabled': disabled}"
-                    v-if="canShowEye"
+                    v-if="showEyeSuffix"
                     @click="handleEyeClick">
                     <Icon type="md-eye" :class="{'can-see': input_type === 'text'}" />
                 </span>
+                <!-- 搜索图标 -->
+                <span
+                    class="l-input-suffix l-input-suffix-search"
+                    :class="{'l-input-icon-disabled': disabled}"
+                    v-if="showSearch"
+                    @click="handleSearch">
+                    <Icon type="ios-search" />
+                </span>
+                <!-- 自定义后置图标 -->
                 <span class="l-input-suffix" v-if="showSuffix" @click="handleSuffixClick">
                     <slot name="suffix"><Icon :type="suffix" /></slot>
                 </span>
             </div>
-            <div class="l-input-append" v-if="hasAppend">
-                <slot name="append"></slot>
+            <!-- 自定义后置内容 -->
+            <div
+                class="l-input-append"
+                :class="{
+                    'l-input-search-button': showSearchButton,
+                    'l-input-append-disabled': disabled
+                }"
+                v-if="hasAppend"
+                @click="handleSearch">
+                <slot name="append">
+                    <Icon type="ios-search" v-if="typeof searchButton === 'boolean'" />
+                    <template v-else>{{ searchButton }}</template>
+                </slot>
             </div>
         </template>
     </div>
@@ -217,6 +246,14 @@
                 type: Boolean,
                 default: false
             },
+            search: {
+                type: Boolean,
+                default: false
+            },
+            searchButton: {
+                type: [Boolean, String],
+                default: false
+            },
             autocomplete: String // new-password可以禁止密码框自动填入，其它类型可用off
         },
         computed: {
@@ -238,14 +275,24 @@
                 return !!this.$slots.prepend
             },
             hasAppend () {
-                return !!this.$slots.append
+                return !!this.$slots.append || this.showSearchButton
             },
-            canShowEye () {
+            showSearchButton () {
+                return this.search && this.searchButton
+            },
+            showEyeSuffix () {
                 // suffix和eye只能同时存在一个，suffix优先级高
                 return !this.showSuffix && this.showEye && this.type === 'password'
             },
-            canShowClear () {
+            showSearch () {
+                // suffix和search只能同时存在一个，suffix优先级高
+                return !this.showSuffix && !this.showSearchButton && this.search && this.type === 'text'
+            },
+            showClear () {
                 return this.clearable && !this.disabled && !isEmpty(this.currentValue)
+            },
+            isTwoSuffix () {
+                return this.showClear && (this.showEyeSuffix || this.showSearch)
             },
             inputClass () {
                 let arr = []
@@ -256,7 +303,7 @@
                 if (this.prefix) {
                     arr.push('l-input-with-prefix')
                 }
-                if (this.suffix || this.canShowEye) {
+                if (this.suffix || this.showEyeSuffix) {
                     arr.push('l-input-with-suffix')
                 }
                 return arr
@@ -297,6 +344,7 @@
                 this.$emit('on-click-suffix', event)
             },
             handleEnter (event) {
+                if (this.search) this.handleSearch()
                 this.$emit('on-enter', event)
             },
             handleKeydown (event) {
@@ -360,6 +408,11 @@
                 this.currentValue = ''
                 this.$emit('input', '')
                 this.$emit('on-change', '')
+                this.$emit('on-clear')
+            },
+            handleSearch () {
+                if (this.disabled) return
+                this.$emit('on-search', this.currentValue)
             },
             focus () {
                 if (this.type === 'textarea') {

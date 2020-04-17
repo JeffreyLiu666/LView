@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-09 15:58:28
+ * @LastEditTime: 2020-04-17 10:31:16
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -95,16 +95,20 @@ function doDeepCopy (data, cacheList) {
 
 /**
  * @description: 包装成节流函数
- * @param {function} func 需要节流的函数 
- * @return: {function} 返回有节流功能的函数
+ * @param {Function}    func        需要节流的函数 
+ * @param {Number}      cd          cd时间
+ * @param {Boolean}     reverse     是否变成先触发，后在一段时间内不能触发
+ * @return: {Function} 返回有节流功能的函数
  */
-export function throttle (func, cd) {
+export function throttle (func, cd = 300, reverse = false) {
     let timeId
     if (!isFunction(func)) return false
     return function () {
-        if (timeId) return
+        if (!isNull(timeId)) return
+        // 如果开启reverse，则会直接调用，而在一段时间内进入CD
+        if (reverse) func() 
         timeId = setTimeout(function () {
-            func()
+            if (!reverse) func()
             timeId = null
         }, cd)
     }
@@ -112,18 +116,23 @@ export function throttle (func, cd) {
 
 /**
  * @description: 包装成防抖函数
- * @param {function} func 需要防抖的函数 
+ * @param {Function}    func        需要防抖的函数 
+ * @param {Number}      cd          cd时间
+ * @param {Boolean}     reverse     是否变成先触发，后在一段时间内不能触发
  * @return: {function} 返回有防抖功能的函数
  */
-export function debounce (func, cd) {
+export function debounce (func, cd = 300, reverse = false) {
     let timeId
     if (!isFunction(func)) return false
     return function () {
         if (!isNull(timeId)) {
             clearTimeout(timeId)
         }
-        timeId = setTimeout(function () {
+        else if (reverse) {
             func()
+        }
+        timeId = setTimeout(function () {
+            if (!reverse) func()
             timeId = null
         }, cd)
     }

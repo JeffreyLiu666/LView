@@ -21,6 +21,9 @@
                 font-size: @f;
                 .l-input-prepend, .l-input-append{
                     padding: @p @input-padding-horizontal;
+                    &.l-input-search-button{
+                        padding: 0 @input-padding-horizontal-search;
+                    }
                     .ivu-select{
                         margin: (-@p - 1) -@input-padding-horizontal;
                     }
@@ -42,12 +45,10 @@
         }
         .l-input-prefix, .l-input-suffix{
             width: @w;
-            i{
-                line-height: @h;
-                font-size: @f;
-            }
+            line-height: @h;
+            font-size: @f;
         }
-        .l-input-clearable-two{
+        .l-input-suffix-clearable-two{
             right: @w;
         }
     }
@@ -82,39 +83,55 @@
         .l-input-prepend, .l-input-append, .l-input-block{
             display: table-cell;
         }
-        .l-input-prepend, .l-input-append{
-            width: 1px;
-            border-radius: @border-radius-small;
-            border: @border-base;
-            text-align: center;
-            background: @input-group-bg;
-            vertical-align: middle;
-            padding: @input-padding-vertical-base @input-padding-horizontal;
-            white-space: nowrap;
-            color: @input-color;
-            .ivu-select{
-                min-width: 80px;
-                margin: (-@input-padding-vertical-base - 1) -@input-padding-horizontal;
-            }
-            .ivu-select-selection{
-                background: transparent;
-                border: none;
-            }
-            .ivu-select-visible .ivu-select-selection{
-                box-shadow: none;
-            }
+    }
+}
+.l-input-prepend, .l-input-append{
+    width: 1px;
+    border-radius: @border-radius-small;
+    border: @border-base;
+    text-align: center;
+    background: @input-group-bg;
+    vertical-align: middle;
+    padding: @input-padding-vertical-base @input-padding-horizontal;
+    white-space: nowrap;
+    color: @input-color;
+    &.l-input-search-button{
+        cursor: pointer;
+        background: @primary-color;
+        border-color: @primary-color;
+        color: white;
+        padding: 0 @input-padding-horizontal-search;
+        position: relative;
+        &:hover{
+            background-color: @link-hover-color;
+            border-color: @link-hover-color;
         }
-        .l-input-prepend{
-            border-right: 0;
-            border-bottom-right-radius: 0;
-            border-top-right-radius: 0;
-        }
-        .l-input-append{
-            border-left: 0;
-            border-bottom-left-radius: 0;
-            border-top-left-radius: 0;
+        i{
+            font-size: @font-size-large;
         }
     }
+    .ivu-select{
+        min-width: 80px;
+        margin: (-@input-padding-vertical-base - 1) -@input-padding-horizontal;
+    }
+    .ivu-select-selection{
+        background: transparent;
+        border: none;
+        margin: -1px;
+    }
+    .ivu-select-visible .ivu-select-selection{
+        box-shadow: none;
+    }
+}
+.l-input-prepend{
+    border-right: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+.l-input-append{
+    border-left: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
 .l-input-group-with-prepend{
     .l-input-block>.l-input{
@@ -134,7 +151,7 @@
     height: @input-height-base;
     position: relative;
     &:hover{
-        .l-input-clearable{
+        .l-input-suffix-clearable{
             display: inline-block;
             .l-input[disabled]+&{
                 display: none;
@@ -198,16 +215,14 @@
     position: absolute;
     top: 0;
     text-align: center;
+    color: @input-icon-color;
+    line-height: @input-height-base;
+    font-size: @font-size-large;
     // .l-input[disabled]+&{
     //     i{
     //         color: @disabled-color;
     //     }
     // }
-    i{
-        color: @input-icon-color;
-        line-height: @input-height-base;
-        font-size: @font-size-large
-    }
 }
 .l-input-prefix{
     left: 0;
@@ -215,17 +230,26 @@
 .l-input-suffix{
     right: 0;
 }
-.l-input-password{
+.l-input-suffix-password{
     cursor: pointer;
     .can-see{
         color: @primary-color;
     }
 }
-.l-input-clearable{
+.l-input-suffix-search{
+    cursor: pointer;
+    &:hover{
+        color: inherit;
+    }
+}
+.l-input-suffix-clearable{
     cursor: pointer;
     display: none;
+    &:hover{
+        color: inherit;
+    }
 }
-.l-input-clearable-two{
+.l-input-suffix-clearable-two{
     right: @input-height-base;
 }
 .l-input-icon-disabled{

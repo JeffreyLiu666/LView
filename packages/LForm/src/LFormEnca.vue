@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-14 15:38:19
+ * @LastEditTime: 2020-04-17 14:14:50
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -118,6 +118,8 @@
             :number="config.number"
             :floatLength="config.floatLength"
             :isError="config.isError"
+            :search="config.search"
+            :searchButton="config.searchButton"
             @input="change"
             @on-enter="handleEnter"
             @on-focus="handleFocus"
@@ -177,26 +179,40 @@
             <span slot="close" v-if="config.closeLabel">{{config.closeLabel}}</span>
         </i-switch>
         <!--按钮-->
-        <Button
+        <LButton
             :style="{ width: config.width }"
             :long="config.long"
             :disabled="disabled"
+            :loading="config.loading"
             :icon="config.icon"
             :type="config.type"
+            :throttle="config.throttle"
+            :debounce="config.debounce"
+            :delay="config.delay"
+            :earlyTrigger="config.earlyTrigger"
             @click="handleClick"
-            v-if="type === 'button'">{{ config.text }}</Button>
+            v-if="type === 'button'">
+            {{ config.text }}
+        </LButton>
         <!--多个按钮-->
         <template v-if="type === 'buttons'">
-            <Button
+            <LButton
                 v-for="(item, index) in config.buttons"
                 :key="'l-form-enca-btn-' + index"
                 class="l-form-enca-btns"
                 :style="{ width: item.width }"
-                :long="item.long"
                 :disabled="disabled || item.disabled"
+                :long="item.long"
+                :loading="item.loading"
                 :icon="item.icon"
                 :type="item.type"
-                @click="handleClick($event, item)">{{ item.text }}</Button>
+                :throttle="item.throttle"
+                :debounce="item.debounce"
+                :delay="item.delay"
+                :earlyTrigger="item.earlyTrigger"
+                @click="handleClick($event, item)">
+                {{ item.text }}
+            </LButton>
         </template>
     </div>
 </template>

@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 22:46:28
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-07 17:52:26
+ * @LastEditTime: 2020-04-17 09:06:43
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -19,5 +19,6 @@ module.exports = {
     LShowImg: './packages/LShowImg/index.js',
     LToTop: './packages/LToTop/index.js',
     LTable: './packages/LTable/index.js',
-    LInput: './packages/LInput/index.js'
+    LInput: './packages/LInput/index.js',
+    LButton: './packages/LButton/index.js'
 }

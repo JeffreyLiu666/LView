@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-10 15:34:29
+ * @LastEditTime: 2020-04-17 16:02:22
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -20,6 +20,7 @@ import LShowImg from 'packages/LShowImg'
 import LToTop from 'packages/LToTop'
 import LTable from 'packages/LTable'
 import LInput from 'packages/LInput'
+import LButton from 'packages/LButton'
 
 const components = [
     LCell,
@@ -35,7 +36,8 @@ const components = [
     LShowImg,
     LToTop,
     LTable,
-    LInput
+    LInput,
+    LButton
 ]
 
 function install (Vue, opts = {}) {
@@ -49,7 +51,7 @@ function install (Vue, opts = {}) {
 }
 
 export default {
-    version: '1.3.2',
+    version: '1.4.0',
     install,
     LCell,
     LDateRange,
@@ -64,5 +66,6 @@ export default {
     LShowImg,
     LToTop,
     LTable,
-    LInput
+    LInput,
+    LButton
 }

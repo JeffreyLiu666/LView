@@ -1,10 +1,10 @@
 {
   "name": "l-view-vue",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "l-view",
   "main": "lib/index.js",
   "scripts": {
-    "push": "npm run test && npm run build && npm publish",
+    "push": "node build/push.js",
     "clean": "rimraf lib",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.js",
     "build:index": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",

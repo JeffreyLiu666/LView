@@ -149,3 +149,22 @@
 
 - LInput
     - 解决在error的时候边框颜色不正确
+
+***
+## 1.4.0
+
+*2020-04-13*
+
+#### 新特性
+
+- LButton
+    - 新增LButton组件，在iview的button基础上加了防抖和节流功能
+
+- LInput
+    - 新增搜索框功能，包括search、searchButton两个props和on-search事件
+    - 新增on-clear事件，点击清除按钮时触发
+
+- LFormEnca
+    - 将Button换为LButton
+    - 支持LInput的搜索框功能
+

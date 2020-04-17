@@ -1,17 +1,18 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-13 12:31:30
+ * @LastEditTime: 2020-04-17 14:13:54
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
+        <LButton type="primary" long debounce earlyTrigger @click="handleClick">asdf</LButton>
         <div style="padding: 20px;width: 500px;">
-            <LInput v-model="num" type="textarea" showWordLimit :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" size="x" checkChinese clearable :maxlength="500" placeholder="hhh">
-                <Icon type="md-call" slot="suffix" />
+            <LInput v-model="num" type="text" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
+                <!-- <Icon type="md-call" slot="suffix" /> -->
                 <span slot="prepend">password</span>
-                <Select slot="append" size="small"></Select>
+                <!-- <Select slot="append" size="default"></Select> -->
             </LInput>
         </div>
         
@@ -65,7 +66,8 @@ export default {
         handleClick () {
             // this.num = 'asdf'
             // this.show = true
-            this.range = ['asdf', 20]
+            // this.range = ['asdf', 20]
+            console.log('aaa')
         }
     }
 }

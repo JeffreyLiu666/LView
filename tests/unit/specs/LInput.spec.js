@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-10 11:07:47
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-10 14:45:05
+ * @LastEditTime: 2020-04-17 14:25:04
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -69,7 +69,7 @@ describe('LInput', () => {
             }
         }, true)
         await wrapper.vm.$nextTick()
-        expect(wrapper.find('.l-input-suffix').classes()).include('l-input-clearable')
+        expect(wrapper.find('.l-input-suffix').classes()).include('l-input-suffix-clearable')
     })
 
     it('showEye', async () => {
@@ -80,7 +80,7 @@ describe('LInput', () => {
             }
         }, true)
         await wrapper.vm.$nextTick()
-        expect(wrapper.find('.l-input-suffix').classes()).include('l-input-password')
+        expect(wrapper.find('.l-input-suffix').classes()).include('l-input-suffix-password')
     })
 
     it('disabled', async () => {
@@ -236,5 +236,27 @@ describe('LInput', () => {
         }, true)
         await wrapper.vm.$nextTick()
         expect(wrapper.find('.l-input').attributes('autocomplete')).equal('on')
+    })
+
+    it('search', async () => {
+        wrapper = createTest(LInput, {
+            propsData: {
+                search: true
+            }
+        }, true)
+        await wrapper.vm.$nextTick()
+        expect(wrapper.find('.l-input-suffix-search').exists()).to.true
+    })
+
+    it('searchButton', async () => {
+        wrapper = createTest(LInput, {
+            propsData: {
+                search: true,
+                searchButton: 'Search'
+            }
+        }, true)
+        await wrapper.vm.$nextTick()
+        expect(wrapper.find('.l-input-suffix-search').exists()).to.false
+        expect(wrapper.find('.l-input-search-button').text()).equal('Search')
     })
 })
