@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-17 14:57:08
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 18:54:11
+ * @LastEditTime: 2020-04-21 11:27:14
  * @LastEditors: junfeng.liu
  * @Description: npm run test && npm run build && npm publish
  */
@@ -39,7 +39,7 @@ function checkVersion () {
                 console.log(
                     error(`执行的错误: ${err}`)
                 )
-                return
+                return exit()
             }
             try {
                 let result = false
@@ -47,7 +47,7 @@ function checkVersion () {
                 for (let item of lists) {
                     if (item.name !== 'l-view-vue') continue
                     let lineVersion = versionToInt(item.version)
-                    if (lineVersion <= localVersion) result = true
+                    if (lineVersion < localVersion) result = true
                     break
                 }
                 resolve(result)
@@ -113,42 +113,49 @@ function push () {
             console.log(
                 error(`执行的错误: ${err}`)
             )
-            return
+            return exit()
         }
-        if (stderr) {
-            console.log(
-                error(`结果的错误: ${stderr}`)
-            )
-            return
-        }
-        console.log(stdout)
+        // push成功会从这里出来，奇怪
+        // if (stderr) {
+        //     console.log(
+        //         error(`结果的错误: ${stderr}`)
+        //     )
+        //     return
+        // }
+        console.log('stdout', stdout)
+        console.log('stderr', stderr)
         console.log(
             success('上传成功！')
         )
     })
 }
 
+function exit () {
+    process.exit()
+}
+
+function fail (msg) {
+    console.log(
+        warning(msg)
+    )
+    exit()
+}
+
 async function start () {
     const checkLocalVersionPass = await checkLocalVersion()
-    if (!checkLocalVersionPass) return console.log(
-        warning('入口文件的版本和package.json上的版本不对应')
-    )
+    if (!checkLocalVersionPass) return fail('入口文件的版本和package.json上的版本不对应')
     console.log(
         success('本地版本校验通过')
     )
 
     const checkVersionPass = await checkVersion()
-    if (!checkVersionPass) return console.log(
-        warning('本地版本比线上版本落后')
-    )
+    if (!checkVersionPass) return fail('本地版本没有线上版本高')
     console.log(
         success('线上版本校验通过')
     )
 
     const checkComponentsSizePass = await checkComponentsSize()
-    if (!checkComponentsSizePass) return console.log(
-        warning('注册在components.js中组件数和在packages中的组件数对不上')
-    )
+    if (!checkComponentsSizePass) return fail('注册在components.js中组件数和在packages中的组件数对不上')
     console.log(
         success('组件数目校验通过')
     )

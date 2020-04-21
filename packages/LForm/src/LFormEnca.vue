@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 14:14:50
+ * @LastEditTime: 2020-04-20 22:55:32
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -19,6 +19,9 @@
         maxlength:          最大长度（部分组件支持）
         loading:            是否加载中（部分组件支持）
         config:             其他的一些配置信息（如果有组件需要一些其他信息，可用该参数）
+        require:            是否必填
+        noCheck:            是否检查
+        rules:              校验规则配置
 
     methods:
 
@@ -158,6 +161,11 @@
             :prefix="config.prefix"
             :suffix="config.suffix"
             :check="config.check"
+            :max="config.max"
+            :min="config.min"
+            :floatLength="config.floatLength"
+            :placeholderLeft="config.placeholderLeft || placeholder"
+            :placeholderRight="config.placeholderRight || placeholder"
             @input="change"
             v-if="type === 'numberRange'"></LNumberRange>
         <!--级联选择器-->
@@ -239,12 +247,6 @@
             radioType: {
                 type: String,
             },
-            minPlaceholder: {
-                type: String
-            },
-            maxPlaceholder: {
-                type: String
-            },
             editable: {
                 type: Boolean,
                 default: false
@@ -267,10 +269,6 @@
                 type: Boolean,
                 default: false
             },
-            multiple: {
-                type: Boolean,
-                default: false
-            },
             config: {
                 type: [Object, Array],
                 default: () => {
@@ -286,6 +284,10 @@
                 default: () => {
                     return []
                 }
+            },
+            noCheck: {
+                type: Boolean,
+                default: false
             }
         },
         data () {
@@ -295,7 +297,7 @@
                 rList: [], // 请求返回处理后的list
                 baseList: [],// 请求返回的list
                 val: undefined, // 为了兼容各个组件，这里设为undefined
-                checkTriggers: {change: [], blur: []},
+                checkTriggers: { change: [], blur: [] },
                 timeoutId: '',
                 isLoading: false
             }
@@ -339,28 +341,33 @@
                     // }
                 }
             }
-            if (this.require) { // 如果是required则自动添加一条规则
-                if (this.type === 'input') {
-                    this.checkTriggers['blur'].push({type: 'require'})
-                } else {
-                    this.checkTriggers['change'].push({type: 'require'})
-                }
-            }
-            for (let item of this.rules) { // 添加需要的事件类型
-                if (!check.isObject(item)) continue
-                if (check.isEmpty(item.trigger)) {
-                    this.checkTriggers.change.push(Object.assign({}, item)) // 默认放到change事件中
-                    continue
-                }
-                if (check.isEmpty(this.checkTriggers[item.trigger])) {
-                    this.checkTriggers[item.trigger] = []
-                }
-                this.checkTriggers[item.trigger].push(Object.assign({}, item)) // 放入相应事件中
-            }
+            this.initCheck()
         },
         methods: {
+            initCheck () {
+                this.checkTriggers = { change: [], blur: [] }
+                if (this.require) { // 如果是required则自动添加一条规则
+                    if (this.type === 'input') {
+                        this.checkTriggers['blur'].push({type: 'require'})
+                    } else {
+                        this.checkTriggers['change'].push({type: 'require'})
+                    }
+                }
+                for (let item of this.rules) { // 添加需要的事件类型
+                    if (!check.isObject(item)) continue
+                    if (check.isEmpty(item.trigger)) {
+                        this.checkTriggers.change.push(Object.assign({}, item)) // 默认放到change事件中
+                        continue
+                    }
+                    if (check.isEmpty(this.checkTriggers[item.trigger])) {
+                        this.checkTriggers[item.trigger] = []
+                    }
+                    this.checkTriggers[item.trigger].push(Object.assign({}, item)) // 放入相应事件中
+                }
+            },
             checkRules () { // 将会检测所有rules，返回promise.all对象
-                if (check.isEmpty(this.rules) && !this.require) return Promise.resolve('empty') //如果没有规则就返回‘empty’
+                // 如果没有规则就返回‘empty’
+                if ((check.isEmpty(this.rules) && !this.require) || this.noCheck) return Promise.resolve('empty')
                 let promiseList = []
                 if (this.require) { // 将required检测放在首位
                     promiseList.push(this.check('require', this.val, '该项为必填项'))
@@ -383,7 +390,7 @@
                 })
             },
             checkHandle (list, val) { // 有相关事件触发的走这里
-                if (check.isEmpty(list)) return
+                if (check.isEmpty(list) || this.noCheck) return
                 let promiseList = list.map((item) => {
                     return this.check(item.validator || item.type, val, item.message)
                 })

@@ -9,6 +9,8 @@
         labelWidth:         所有label的宽度
         labelPosition:      所有label所在的位置（支持left，right，top）
         labelTextAlign:     所有label的textalign
+        itemWidth:          所有单项的宽度
+        contentWidth:       所有项的内容块的宽度
         inline:             是否为行内元素
         cacheKey:           要存储的缓存的键值（注意：不同账号之间需要区分可以通过不同key来实现，其他情况同理）
         
@@ -27,9 +29,9 @@
         itemWidth:          单项的宽度
         labelWidth:         该项的label宽度
         contentWidth:       该项的内容块的宽度
-        require:           是否必填，会显示星号
+        require:            是否必填，会显示星号
         render:             可自定义bp-form-item-content中的内容
-        also:其他参考bp-form-enca
+        also:               其他参考bp-form-enca
 -->
 
 <template>
@@ -68,6 +70,7 @@
                     :loading="item.loading"
                     :require="item.require"
                     :rules="item.rules"
+                    :noCheck="item.noCheck"
                     :DatePickerType="item.DatePickerType">
                 </LFormEnca>
                 <LRender v-if="item.render" :render="item.render" :params="item"></LRender>

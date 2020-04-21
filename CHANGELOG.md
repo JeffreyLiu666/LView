@@ -168,3 +168,14 @@
     - 将Button换为LButton
     - 支持LInput的搜索框功能
 
+***
+## 1.4.1
+
+*2020-04-21*
+
+#### 新特性
+
+- LFormEnca
+    - 新增noCheck参数，用于控制是否校验
+    - 完善LNumberRange的props
+

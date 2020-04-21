@@ -1,0 +1,4 @@
+build/*.js
+tests/*
+node_modules
+public
