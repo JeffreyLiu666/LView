@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 14:13:54
+ * @LastEditTime: 2020-04-22 14:39:47
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -15,6 +15,8 @@
                 <!-- <Select slot="append" size="default"></Select> -->
             </LInput>
         </div>
+        <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
+        <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput>
         
         <!-- <LCell title="dddd" content="ccc">ddd</LCell>
         <LFold>

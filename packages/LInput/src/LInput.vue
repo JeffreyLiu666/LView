@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 14:01:54
+ * @LastEditTime: 2020-04-22 15:15:51
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -16,7 +16,7 @@
        disabled:            设置输入框为禁用状态
        maxlength:           最大输入长度，除了checkChinese为true时，其它时候都为原生属性，只支持type=text和type=password
        readonly:            设置输入框为只读
-       autosize:            textarea自适应高度
+       autosize:            textarea自适应高度；如果碰到了高度不正确，可能是由于Vue的缓存造成的，可以尝试给组件加个key试试
        rows:                textarea的行数
        max:                 原生属性，type==='number'时最大的数
        min:                 原生属性，type==='number'时最小的数

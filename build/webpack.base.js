@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 09:49:34
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 14:42:47
+ * @LastEditTime: 2020-04-21 15:29:40
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -10,6 +10,7 @@ const path = require('path')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const HappyPackPlugin = require('happypack')
 const NODE_ENV = process.env.NODE_ENV
 const isDev = NODE_ENV === 'development'
 const isPro = NODE_ENV === 'production'
@@ -63,7 +64,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: 'babel-loader'
+                        loader: isPro ? 'happypack/loader' : 'babel-loader?cacheDirectory=true'
                     }
                 ]
             },
@@ -178,5 +179,9 @@ module.exports = {
         //         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
         //     }
         // })
-    ]
+    ].concat(isPro ? [
+        new HappyPackPlugin({
+            loaders: ['babel-loader?cacheDirectory=true']
+        })
+    ] : [])
 }

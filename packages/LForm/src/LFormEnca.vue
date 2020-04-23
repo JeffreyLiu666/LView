@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-20 22:55:32
+ * @LastEditTime: 2020-04-23 09:13:20
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -226,7 +226,9 @@
 </template>
  
 <script>
-    import { util, check } from '@/lib'
+    import { check } from '@/lib'
+    import { deepCopy } from '@/lib/util.js'
+    import { formatList } from '@/lib/array.js'
 
     export default{
         name: 'l-form-enca',
@@ -484,12 +486,6 @@
                     return Promise.reject({ isOk: result, msg: msg }) // 直接抛出错误，结束promise.all
                 }
             },
-            formatList (list, key1, key2) { //处理list，将请求返回的list处理成所需格式
-                if (!Array.isArray(list)) return
-                return list.map((item) => {
-                    return { value: item[key1], label: item[key2] }
-                })
-            },
             getList (inputValue) { // 内部实现远程请求(目前只用于select)
                 if (!this.canSearch) return
                 if (check.isEmptyObject(this.requestParam)) { // 处理requestParam
@@ -547,7 +543,7 @@
                     else if (data && Array.isArray(data.list)) list = data.list
                     else return
                     this.baseList = util.deepCopy(list)
-                    this.rList = this.formatList(list, this.requestParam.valueKey, this.requestParam.labelKey)
+                    this.rList = formatList(list, this.requestParam.labelKey, this.requestParam.valueKey)
                 }).finally(() => {
                     this.isLoading = false
                 })

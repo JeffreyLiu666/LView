@@ -3,7 +3,10 @@ module.exports = {
   env: {
     browser: true
   },
-  extends: ['plugin:vue/essential', 'eslint:recommended'],
+  globals: {
+    process: true
+  },
+  extends: ['plugin:vue/essential', 'eslint:recommended', 'elemefe'],
   parserOptions: {
     parser: 'babel-eslint'
   },
@@ -18,12 +21,14 @@ module.exports = {
     'no-trailing-spaces': 2,                                                  // 禁止行尾空格
     'object-curly-spacing': [2, 'always', { 'objectsInObjects': true}],       // 在object的花括号间要有空格
     'space-before-blocks': 2,                                                 // 在块之前要有空格
-    'space-before-function-paren': 2,                                         // 在函数左括号前要有空格
+    'space-before-function-paren': [2, 'always'],                             // 在函数左括号前要有空格
     'space-infix-ops': 2,                                                     // 操作符周围要有空格
     'space-unary-ops': 2,                                                     // 在一元操作符后面要有空格
     'spaced-comment': [2, 'always'],                                          // 注释后面要有空格
     'switch-colon-spacing': 2,                                                // switch的冒号后面要有空格
     'arrow-spacing': 2,                                                       // 箭头函数的箭头前后要有空格
+    'semi': [2, 'never'],                                                     // 句末不要分号
+    // 'max-len': [2, { code: 120 }]                                             // 一行最大长度
   },
   overrides: [
     {
