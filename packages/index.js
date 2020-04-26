@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-21 11:12:25
+ * @LastEditTime: 2020-04-24 09:55:42
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -21,6 +21,7 @@ import LToTop from 'packages/LToTop'
 import LTable from 'packages/LTable'
 import LInput from 'packages/LInput'
 import LButton from 'packages/LButton'
+import LButtonGroup from 'packages/LButtonGroup'
 
 const components = [
     LCell,
@@ -37,7 +38,8 @@ const components = [
     LToTop,
     LTable,
     LInput,
-    LButton
+    LButton,
+    LButtonGroup
 ]
 
 function install (Vue, opts = {}) {
@@ -67,5 +69,6 @@ export default {
     LToTop,
     LTable,
     LInput,
-    LButton
+    LButton,
+    LButtonGroup
 }

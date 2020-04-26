@@ -1,12 +1,13 @@
 /*
  * @Date: 2019-10-08 11:26:44
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 14:08:00
+ * @LastEditTime: 2020-04-26 10:14:58
  * @LastEditors: junfeng.liu
  * @Description: 主题配置文件，既less变量配置
  */
 // @import '~view-design/src/styles/index.less';
 // @import '~view-design/dist/styles/iview.css';
+@css-prefix             : l-;
 
 @primary-color          : #2d8cf0;
 @info-color             : #2db7f5;
@@ -36,26 +37,29 @@
 @disabled-color         : #ccc;
 @text-color             : #515a6e;
 
-@font-size-base         : 14px;
-@font-size-small           : 12px;
-@font-size-large        : 16px;
 
-@border-radius-base     : 6px;
-@border-radius-small    : 4px;
+@font-size-base                 : 14px;
+@font-size-small                : 12px;
+@font-size-large                : 16px;
 
-@line-height-base       : 1.5;
+@border-radius-base             : 6px;
+@border-radius-small            : 4px;
+
+@height-base                    : 32px;
+@line-height-base               : 1.5;
 
 // Border color
-@border-color-base      : #dcdee2;  // outside
-@border-color-split     : #e8eaec;  // inside
-@border-width-base      : 1px;            // width of the border for a component
-@border-style-base      : solid;          // style of a components border
-@border-base            : @border-width-base @border-style-base @border-color-base;
+@border-color-base              : #dcdee2;  // outside
+@border-color-split             : #e8eaec;  // inside
+@border-width-base              : 1px;            // width of the border for a component
+@border-style-base              : solid;          // style of a components border
+@border-base                    : @border-width-base @border-style-base @border-color-base;
+@border-transparent             : @border-width-base @border-style-base transparent;
 
-@animation-duration-base: .3s;
-@animation-duration-fast: .15s;
+@animation-duration-base        : .3s;
+@animation-duration-fast        : .15s;
 
-@box-shadow-base        : 0 -1px 8px 1px fade(black, 10%);
+@box-shadow-base                : 0 -1px 8px 1px fade(black, 10%);
 
 // input
 @input-color                    : @text-color;
@@ -73,3 +77,26 @@
 @input-padding-vertical-base    : 4px;
 @input-padding-vertical-small   : 1px;
 @input-padding-vertical-large   : 6px;
+
+// button
+@btn-disabled-color             : @disabled-color;
+@btn-disabled-bg                : @gray-lighter;
+@btn-disabled-border            : @border-color-base;
+
+@btn-padding-horizontal         : 15px;
+@btn-padding-vertical           : 0;
+@btn-padding-base               : @btn-padding-vertical @btn-padding-horizontal;
+@btn-padding-large              : @btn-padding-base;
+@btn-padding-small              : 0 8px;
+
+@btn-height-base                : @height-base;
+@btn-height-large               : 40px;
+@btn-height-small               : 24px;
+
+@btn-font-size-base             : @font-size-base;
+@btn-font-size-large            : @font-size-large;
+@btn-font-size-small            : @btn-font-size-base;
+
+@btn-border-radius-base         : @border-radius-base;
+@btn-border-radius-large        : @border-radius-base;
+@btn-border-radius-small        : @border-radius-small;

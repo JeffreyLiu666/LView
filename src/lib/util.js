@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 10:31:16
+ * @LastEditTime: 2020-04-26 10:59:44
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -10,11 +10,11 @@ import { isNull, isObject, isArray, isFunction } from './check'
 
 /**
  * @description: 将横线和下划线转为驼峰
- * @param {String}  str 
- * @return: 
+ * @param {String}  str
+ * @return:
  */
-export function toHump(str = '', first2Up = false) {
-    let result = str.replace(/(\_|\-)(\w)/g, function (all, s1, s2 = '') {
+export function toHump (str = '', first2Up = false) {
+    let result = str.replace(/(_|-)(\w)/g, function (all, s1, s2 = '') {
         return s2.toUpperCase()
     })
     if (!first2Up) return result
@@ -24,7 +24,7 @@ export function toHump(str = '', first2Up = false) {
 /**
  * @description: 自定义JSON.stringify()，可解决对象中循环引用造成的问题
  * @param {Object}  obj 需要stringify的对象
- * @return: 
+ * @return:
  */
 export function jsonToString (obj) {
     let copyObj = deepCopy(obj)
@@ -95,7 +95,7 @@ function doDeepCopy (data, cacheList) {
 
 /**
  * @description: 包装成节流函数
- * @param {Function}    func        需要节流的函数 
+ * @param {Function}    func        需要节流的函数
  * @param {Number}      cd          cd时间
  * @param {Boolean}     reverse     是否变成先触发，后在一段时间内不能触发
  * @return: {Function} 返回有节流功能的函数
@@ -106,7 +106,7 @@ export function throttle (func, cd = 300, reverse = false) {
     return function () {
         if (!isNull(timeId)) return
         // 如果开启reverse，则会直接调用，而在一段时间内进入CD
-        if (reverse) func() 
+        if (reverse) func()
         timeId = setTimeout(function () {
             if (!reverse) func()
             timeId = null
@@ -116,7 +116,7 @@ export function throttle (func, cd = 300, reverse = false) {
 
 /**
  * @description: 包装成防抖函数
- * @param {Function}    func        需要防抖的函数 
+ * @param {Function}    func        需要防抖的函数
  * @param {Number}      cd          cd时间
  * @param {Boolean}     reverse     是否变成先触发，后在一段时间内不能触发
  * @return: {function} 返回有防抖功能的函数
@@ -127,8 +127,7 @@ export function debounce (func, cd = 300, reverse = false) {
     return function () {
         if (!isNull(timeId)) {
             clearTimeout(timeId)
-        }
-        else if (reverse) {
+        } else if (reverse) {
             func()
         }
         timeId = setTimeout(function () {

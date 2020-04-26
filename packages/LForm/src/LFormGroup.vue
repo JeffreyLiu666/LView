@@ -20,43 +20,43 @@
 </template>
 
 <script>
-    export default {
-        name: 'l-form-group',
-        props: {
-            labelWidth: {
-                type: [Number, String]
-            },
-            labelPosition: {
-                type: String,
-                default: 'top'
-            },
-            labelTextAlign: {
-                type: String,
-                default: 'left'
-            },
-            contentWidth: {
-                type: [Number, String]
-            },
-            inline: {
-                type: Boolean,
-                default: false
-            },
-            itemWidth: {
-                type: [Number, String]
-            },
+export default {
+    name: 'l-form-group',
+    props: {
+        labelWidth: {
+            type: [Number, String]
         },
-        computed: {
-            formClass () {
-                if (this.inline) return ['l-form-inline']
-                return [`l-form-label-${this.labelPosition}`]
-            }
+        labelPosition: {
+            type: String,
+            default: 'top'
         },
-        data () {
-            return {
-            }
+        labelTextAlign: {
+            type: String,
+            default: 'left'
         },
-        provide () { //向子孙组件传递数据
-            return { form: this }
+        contentWidth: {
+            type: [Number, String]
+        },
+        inline: {
+            type: Boolean,
+            default: false
+        },
+        itemWidth: {
+            type: [Number, String]
         }
+    },
+    computed: {
+        formClass () {
+            if (this.inline) return ['l-form-inline']
+            return [`l-form-label-${this.labelPosition}`]
+        }
+    },
+    data () {
+        return {
+        }
+    },
+    provide () { // 向子孙组件传递数据
+        return { form: this }
     }
+}
 </script>

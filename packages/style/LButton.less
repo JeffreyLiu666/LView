@@ -1,1 +1,293 @@
 @import './common/var.less';
+
+@btn-prefix-cls: ~'@{css-prefix}btn';
+@tintLevel: 10%;
+@shadeLevel: 5%;
+@tintLevelOfGhost: 20%;
+@types: primary, info, success, warning, error; // 这里只循环这5个好遍历的，其它的手写
+@sizes: large small;
+
+.type-loop(@i) when (@i > 0) {
+    @t: extract(@types, @i); // 从@types中根据@i取出对应的值
+    @colorName: '@{t}-color';
+    &&-@{t}{
+        .btn-theme(@@colorName);
+    }
+    &-ghost&-@{t}{
+        .btn-color(@@colorName, transparent, @@colorName);
+        .btn-ghost-active(@@colorName);
+    }
+    &-group:not(&-group-vertical) > &-@{t} + &-@{t}:not(:hover):not([disabled]){
+        border-left-color: shade(@@colorName, @shadeLevel);
+    }
+    &-group-vertical > &-@{t} + &-@{t}:not(:hover):not([disabled]){
+        border-top-color: shade(@@colorName, @shadeLevel);
+    }
+    .type-loop(@i - 1);
+}
+
+.size-loop(@i) when (@i > 0) {
+    @s: extract(@sizes, @i);
+    @h_n: 'btn-height-@{s}';
+    @p_n: 'btn-padding-@{s}';
+    @f_n: 'btn-font-size-@{s}';
+    @r_n: 'btn-border-radius-@{s}';
+    &-@{s},
+    &-group-@{s} > &{
+        .btn-size(@@h_n, @@p_n, @@f_n, @@r_n);
+    }
+    &-group-@{s}:not(&-group-vertical) > &-icon-only,
+    &-@{s}&-icon-only{
+        width: @@h_n;
+        height: @@h_n;
+        padding: 0;
+    }
+    &-group-@{s}&-group-circle > &-icon-only,
+    &-@{s}&-circle&-icon-only{
+        border-radius: 50%;
+    }
+    &-group-@{s}&-group-vertical > &{
+        min-width: @@h_n;
+    }
+    &-group-@{s}&-group-vertical > &-icon-only{
+        height: @@h_n;
+    }
+    .size-loop(@i - 1);
+}
+
+button{
+    appearance: button;
+}
+.@{btn-prefix-cls}{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: @border-base;
+    white-space: nowrap;
+    user-select: none;
+    text-decoration: none;
+    .btn-size(@btn-height-base, @btn-padding-base, @btn-font-size-base, @btn-border-radius-base);
+    .btn-default;
+    &[disabled]{
+        cursor: not-allowed;
+    }
+    &, > i{
+        line-height: @line-height-base;
+    }
+    > i, > span{
+        display: inline-block;
+    }
+    > i + span{
+        margin-left: 6px;
+    }
+    &, &:active, &:focus{
+        outline: none;
+    }
+    .type-loop(length(@types));
+    .size-loop(length(@sizes));
+    &-text{
+        .btn-text;
+    }
+    &-dashed{
+        border-style: dashed;
+    }
+    &-long{
+        width: 100%;
+    }
+    &-ghost,
+    &-ghost&-dashed{
+        .btn-color(@white, transparent, @white);
+        .btn-ghost-active(@primary-color);
+    }
+    &-ghost&-text{
+        .btn-color(@white, transparent, transparent);
+        .btn-ghost-active(@primary-color, transparent);
+    }
+    &-loading{
+        pointer-events: none;
+        &::before{
+            content: '';
+            position: absolute;
+            top: -@border-width-base;
+            bottom: -@border-width-base;
+            left: -@border-width-base;
+            right: -@border-width-base;
+            background-color: white;
+            opacity: .35;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        > .ivu-icon + .ivu-icon{
+            margin-left: 6px;
+        }
+    }
+    &-icon-only{
+        width: @btn-height-base;
+        height: @btn-height-base;
+        padding: 0;
+        font-size: @font-size-large;
+    }
+    &-group-circle > &, &-circle{
+        border-radius: @btn-height-base;
+    }
+    &-group-circle > &-icon-only,
+    &-circle&-icon-only{
+        border-radius: 50%;
+    }
+    &-group{
+        .btn-group();
+    }
+    &-group-vertical{
+        .btn-group-vertical();
+    }
+}
+
+.btn-size(@height; @padding; @font-size; @border-radius) {
+    height: @height;
+    padding: @padding;
+    font-size: @font-size;
+    border-radius: @border-radius;
+}
+
+.btn-default() {
+    .btn-color(@text-color, @white, @border-color-base);
+
+    .btn-focus();
+    
+    .btn-disabled();
+
+    &:hover{
+        .btn-color(tint(@primary-color, @tintLevel); @white; tint(@primary-color, @tintLevel));
+    }
+    &:active{
+        .btn-color(shade(@primary-color, @shadeLevel); @white; shade(@primary-color, @shadeLevel));
+    }
+}
+
+.btn-text() {
+    .btn-color(@text-color, transparent, transparent);
+
+    .btn-focus();
+    
+    .btn-disabled();
+
+    &:hover{
+        .btn-color(tint(@primary-color, @tintLevel); transparent; transparent);
+    }
+    &:active{
+        .btn-color(shade(@primary-color, @shadeLevel); transparent; transparent);
+    }
+}
+
+.btn-ghost-active(@color, @border: @color) {
+    &:hover{
+        // background-color: transparent;
+        .btn-color(tint(@color, @tintLevelOfGhost); transparent; tint(@border, @tintLevelOfGhost));
+    }
+    &:active{
+        // background-color: transparent;
+        .btn-color(shade(@color, @shadeLevel); transparent; shade(@border, @shadeLevel));
+    }
+}
+
+.btn-focus(@color: @primary-color, @fade: 20%) {
+    &:focus{
+        box-shadow: 0 0 0 2px fade(@color, @fade);
+    }
+}
+
+// 设置字体色、背景色和边框色
+.btn-color(@color, @background, @border) {
+    color: @color;
+    background-color: @background;
+    border-color: @border;
+}
+
+// 设置字体色、背景色、边框色、阴影色和活动是的颜色
+.btn-variant(@color, @background, @border) {
+    .btn-color(@color, @background, @border);
+
+    .btn-focus(@border);
+
+    &:hover{
+        .btn-color(tint(@color, @tintLevel), tint(@background, @tintLevel), tint(@border, @tintLevel));
+    }
+
+    &:active{
+        .btn-color(shade(@color, @shadeLevel), shade(@background, @shadeLevel), shade(@background, @shadeLevel));
+    }
+
+    .btn-disabled();
+}
+
+// 对.btn-variant二次封装，简化使用
+.btn-theme(@theme, @color: @white) {
+    .btn-variant(@color, @theme, @theme)
+}
+
+.btn-disabled() {
+    &[disabled]{
+        &,
+        &:hover,
+        &:active,
+        &:focus{
+            .btn-color(@btn-disabled-color, @btn-disabled-bg, @btn-disabled-border);
+        }
+        > *{
+            pointer-events: none;
+        }
+    }
+}
+
+.btn-group(@btnClassName: @btn-prefix-cls) {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+
+    .@{btnClassName} + .@{btnClassName}{
+        margin-left: -1px;
+    }
+    > .@{btnClassName}:hover{
+        z-index: 2;
+    }
+    > .@{btnClassName}:not(:last-child):not(:first-child){
+        border-radius: 0 !important;
+    }
+    &:not(&-vertical) > .@{btnClassName}:first-child:not(:last-child){
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    &:not(&-vertical) > .@{btnClassName}:last-child:not(:first-child){
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+}
+
+.btn-group-vertical(@btnClassName: @btn-prefix-cls) {
+    .@{btnClassName}{
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: @btn-height-base;
+    }
+    > .@{btnClassName}:first-child:not(:last-child){
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    > .@{btnClassName}:last-child:not(:first-child){
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+    .@{btnClassName} + .@{btnClassName}{
+        margin-top: -1px;
+        margin-left: 0;
+    }
+    .@{btnClassName}-icon-only{
+        height: @btn-height-base;
+        padding: 0;
+    }
+}
+

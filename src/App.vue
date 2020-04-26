@@ -1,23 +1,42 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-22 14:39:47
+ * @LastEditTime: 2020-04-26 12:47:16
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
-        <LButton type="primary" long debounce earlyTrigger @click="handleClick">asdf</LButton>
-        <div style="padding: 20px;width: 500px;">
-            <LInput v-model="num" type="text" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
-                <!-- <Icon type="md-call" slot="suffix" /> -->
+        <div style="padding: 20px;width: 500px;background: #f6f6f6;">
+            <LButtonGroup shape="circles" vertical size="small">
+                <!-- <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton>
+                <LButton type="info" shape="circles" icon="ios-crop" debounce earlyTrigger @click="handleClick"></LButton>
+                <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton> -->
+                <LButton type="dashed" icon="logo-facebook" disabled></LButton>
+                <LButton type="primary" icon="ios-sunny-outline" disabled></LButton>
+                <LButton type="primary" icon="ios-crop" disabled></LButton>
+                <LButton type="dashed" icon="ios-color-filter-outline" disabled></LButton>
+            </LButtonGroup>
+            <LButtonGroup shape="circle" size="large">
+                <!-- <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton>
+                <LButton type="info" shape="circles" icon="ios-crop" debounce earlyTrigger @click="handleClick"></LButton>
+                <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton> -->
+                <LButton icon="ios-search" type="primary" loading></LButton>
+                <LButton icon="ios-sunny-outline" type="primary"></LButton>
+                <LButton icon="ios-crop"></LButton>
+                <LButton icon="ios-color-filter-outline"></LButton>
+            </LButtonGroup>
+            <!-- <LInput v-model="num" type="text" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
+                <Icon type="md-call" slot="suffix" />
                 <span slot="prepend">password</span>
-                <!-- <Select slot="append" size="default"></Select> -->
-            </LInput>
+                <Select slot="append" size="default"></Select>
+            </LInput> -->
         </div>
-        <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
-        <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput>
-        
+                <LButton type="info" shape="circles" icon="ios-crop" size="small" loading to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton>
+                <LButton type="info" shape="circle" icon="ios-crop" size="small" loading debounce earlyTrigger @click="handleClick">sadf</LButton>
+        <!-- <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
+        <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
+
         <!-- <LCell title="dddd" content="ccc">ddd</LCell>
         <LFold>
             <div>
@@ -43,12 +62,12 @@ export default {
     name: 'app',
     data () {
         return {
-            data: [{num: 10}],
+            data: [{ num: 10 }],
             cols: [
                 { title: '票名', key: 'name' },
                 { title: '票种', key: 'type', width: 70 },
                 { title: '单价', key: 'price', width: 70 },
-                { title: '数量', key: 'num', width: 110, className: 'aa', type: 'inputNumber', config: { min: 0 },  onChange: (val, row, col, index) => {
+                { title: '数量', key: 'num', width: 110, className: 'aa', type: 'inputNumber', config: { min: 0 }, onChange: (val, row, col, index) => {
                     console.log(val)
                     this.$set(this.data[index], col.key, val)
                 } },

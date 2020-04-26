@@ -25,7 +25,7 @@
     color: @blue
 }
 .l-view-color-white{
-    color: white;
+    color: @white;
 }
 .l-view-text-right{
     text-align: right;
@@ -42,4 +42,11 @@
     height: 100%;
     vertical-align: middle;
     display: inline-block;
+}
+@keyframes ani-load-loop {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.l-view-load-loop{
+    animation: ani-load-loop 1s linear infinite;
 }
