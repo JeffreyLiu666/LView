@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 15:39:55
+ * @LastEditTime: 2020-04-30 16:47:36
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -18,13 +18,13 @@
        readonly:            设置输入框为只读
        autosize:            textarea自适应高度；如果碰到了高度不正确，可能是由于Vue的缓存造成的，可以尝试给组件加个key试试
        rows:                textarea的行数
-       max:                 原生属性，type==='number'时最大的数
-       min:                 原生属性，type==='number'时最小的数
-       step:                原生属性，type==='number'时步长
+       max:                 原生属性，type==='html_number'时最大的数
+       min:                 原生属性，type==='html_number'时最小的数
+       step:                原生属性，type==='html_number'时步长
        showWordLimit:       是否显示输入字数统计
        checkChinese:        是否根据maxlength检测中文长度，一个中文长度占两位
        number:              是否在blur时将值转为number型
-       floatLength:         浮点数小数点后长度，0为整形，负数为不检测，正数为保留小数点后几位(仅当type==='number')(仅当失焦或传入value时处理，实时会影响输入体验)
+       floatLength:         浮点数小数点后长度，0为整形，负数为不检测，正数为保留小数点后几位(仅当type==='html_number')(仅当失焦或传入value时处理，实时会影响输入体验)
        size:                组件大小;有：large,small,default(所有错误的值都是default)
        isError:             是否为错误状态
        search:              是否开启搜索框
@@ -234,7 +234,6 @@ export default {
             type: Number,
             default: -1
         },
-        // FIXME: 无法直接输入负号
         number: {
             type: Boolean,
             default: false
@@ -293,7 +292,7 @@ export default {
             return this.clearable && !this.disabled && !isEmpty(this.currentValue)
         },
         isTwoSuffix () {
-            return this.showClear && (this.showEyeSuffix || this.showSearch)
+            return this.showClear && (this.showEyeSuffix || this.showSearch || this.showSuffix)
         },
         inputClass () {
             let arr = []
@@ -326,7 +325,8 @@ export default {
     },
     data () {
         return {
-            input_type: this.type === 'number' ? 'text' : this.type,
+            // 原生的number类型input用html_number表示
+            input_type: this.type === 'number' ? 'text' : (this.type === 'html_number' ? 'number' : this.type),
             // input_type: this.type,
             currentValue: '',
             isFocus: false,
@@ -365,13 +365,14 @@ export default {
             this.$emit('on-input-change', event)
         },
         handleBlur (e) {
+            this.$emit('on-blur', e)
             this.isFocus = false
             let val = e.target.value
             // 不处理空值
             if (this.number && !isEmpty(val)) val = Number(val)
-            // FIXME: 这里如果e.target.value为空字符串，则currentValue为undefined也会被置为空字符串，后面看看要不要保留这个特性
+            // 为了不修改value的undefined和null，这里符合条件之间返回
+            if (val === '' && isNull(this.currentValue)) return
             this.setCurrentValue(val, true)
-            this.$emit('on-blur', e)
         },
         handleComposition (event) {
             if (event.type === 'compositionstart') {
@@ -389,8 +390,9 @@ export default {
 
             let val = e.target.value
 
-            if (this.type === 'number' && isNaN(val)) {
-                this.$refs.input.value = this.currentValue
+            // 不能拦截负号，如果不和条件在blur时会处理
+            if (this.type === 'number' && (isNaN(val) && (val !== '-'))) {
+                this.$refs.input.value = isNull(this.currentValue) ? '' : this.currentValue
                 return
             }
             this.setCurrentValue(val)

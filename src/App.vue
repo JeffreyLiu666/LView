@@ -1,14 +1,14 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 14:10:03
+ * @LastEditTime: 2020-04-30 16:44:18
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
         <div style="padding: 20px;width: 500px;background: #f6f6f6;position: relative;">
-            <LLoading></LLoading>
+            <!-- <LLoading></LLoading> -->
             <!-- <LButtonGroup shape="circles" vertical size="small">
                 <LButton type="dashed" icon="logo-facebook" disabled></LButton>
                 <LButton type="primary" icon="ios-sunny-outline" disabled></LButton>
@@ -21,11 +21,11 @@
                 <LButton icon="ios-crop"></LButton>
                 <LButton icon="ios-color-filter-outline"></LButton>
             </LButtonGroup> -->
-            <!-- <LInput v-model="num" type="text" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
+            <LInput v-model="num" type="number" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" :floatLength="2" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
                 <Icon type="md-call" slot="suffix" />
                 <span slot="prepend">password</span>
                 <Select slot="append" size="default"></Select>
-            </LInput> -->
+            </LInput>
             <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
             <!-- <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
         </div>
@@ -71,7 +71,7 @@ export default {
                     return row.num + 1
                 } }
             ],
-            num: '123456789',
+            num: undefined,
             range: ['aa', 22],
             show: false,
             disabled: false
