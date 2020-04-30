@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-24 09:55:42
+ * @LastEditTime: 2020-04-30 11:23:32
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -22,6 +22,7 @@ import LTable from 'packages/LTable'
 import LInput from 'packages/LInput'
 import LButton from 'packages/LButton'
 import LButtonGroup from 'packages/LButtonGroup'
+import LLoading from 'packages/LLoading'
 
 const components = [
     LCell,
@@ -39,7 +40,8 @@ const components = [
     LTable,
     LInput,
     LButton,
-    LButtonGroup
+    LButtonGroup,
+    LLoading
 ]
 
 function install (Vue, opts = {}) {
@@ -70,5 +72,6 @@ export default {
     LTable,
     LInput,
     LButton,
-    LButtonGroup
+    LButtonGroup,
+    LLoading
 }

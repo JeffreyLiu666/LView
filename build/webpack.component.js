@@ -1,23 +1,23 @@
 /*
  * @Date: 2020-03-26 22:34:55
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-27 15:24:12
+ * @LastEditTime: 2020-04-30 11:16:29
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 const path = require('path')
 const merge = require('webpack-merge')
 const webpackConfig = require('./webpack.base')
-const components = require('../components')
 const root_path = path.resolve('.')
 const config = require('./config')
+const { componentEntries } = require('./util')
 
 function resolve (dir) {
     return path.resolve(root_path, dir)
 }
 
 module.exports = merge(webpackConfig, {
-    entry: components,
+    entry: componentEntries(),
     output: {
         path: resolve('./lib'),
         publicPath: '/lib/',

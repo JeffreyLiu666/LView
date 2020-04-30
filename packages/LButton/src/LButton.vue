@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-17 09:04:30
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-26 12:55:56
+ * @LastEditTime: 2020-04-27 16:39:24
  * @LastEditors: junfeng.liu
  * @Description: button组件
 
@@ -19,13 +19,17 @@
         replace:        路由跳转时，开启 replace 将不会向 history 添加新记录
         target:         相当于 a 链接的 target 属性
         append:         同 vue-router append
+        throttle:       是否启用节流
+        debounce:       是否启用防抖
+        delay:          节流或防抖的cd
+        earlyTrigger:   如果开启则会先触发再cd
 
     slot
         icon:           图标
         default:        任意
  -->
 <template>
-    <component :is="tagName" :class="classNames" :disabled="disabled" v-bind="tagProps">
+    <component :is="tagName" :class="classNames" :disabled="isDisabled" :style="{ width: width + 'px' }" v-bind="tagProps" @click="handleClick">
         <Icon class="l-view-load-loop" type="ios-loading" v-if="loading" />
         <slot name="icon">
             <Icon :type="icon" />
@@ -36,17 +40,24 @@
 
 <script>
 import { throttle, debounce } from '@/lib/util.js'
+import { isNull } from '@/lib/check.js'
 import mixinsLink from '@/mixins/link.js'
 
 export default {
     name: 'l-button',
     mixins: [mixinsLink],
+    inject: {
+        group: {
+            default: {}
+        }
+    },
     props: {
         type: String,
         ghost: {
             type: Boolean,
             default: false
         },
+        width: Number,
         size: String,
         shape: String,
         long: {
@@ -104,6 +115,12 @@ export default {
         },
         showDefSlot () {
             return !!this.$slots.default
+        },
+        isDisabled () {
+            // 判断LButton组件是否有disabled传入
+            // 由于props会把Boolean型的空值自动转为false，所以从$options里取
+            // 以这里的disabled为主
+            return isNull(this.$options?.propsData?.disabled) ? this.group.disabled : this.disabled
         },
         isHrefPattern () {
             return !!this.to

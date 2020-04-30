@@ -69,6 +69,7 @@ button{
     white-space: nowrap;
     user-select: none;
     text-decoration: none;
+    overflow: hidden;
     .btn-size(@btn-height-base, @btn-padding-base, @btn-font-size-base, @btn-border-radius-base);
     .btn-default;
     &[disabled]{
@@ -142,6 +143,39 @@ button{
     }
     &-group-vertical{
         .btn-group-vertical();
+    }
+    // 实验性样式
+    &-cool-hover{
+        .btn-cool-hover(@info-color)
+    }
+    &-cool-hover-dark{
+        border-radius: 0;
+        .btn-color(@white, @black, @white);
+        &:hover, &:active{
+            .btn-color(@white, @black, @white);
+        }
+        .btn-cool-hover(@white);
+    }
+}
+
+.btn-cool-hover(@gradientColor, @shadow: @gradientColor) {
+    transition: .5s;
+    &::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(-45deg, transparent, fade(@gradientColor, 80%), transparent);
+        transition: .5s;
+    }
+    &:hover{
+        box-shadow: 0 0 10px 5px fade(@shadow, 50%);
+        &::after{
+            transform: translateX(100%);
+        }
     }
 }
 

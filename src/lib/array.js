@@ -1,7 +1,7 @@
 /*
  * @Date: 2019-10-08 11:14:41
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-23 09:13:11
+ * @LastEditTime: 2020-04-30 15:05:05
  * @LastEditors: junfeng.liu
  * @Description: 数组类工具函数
  */
@@ -52,6 +52,6 @@ export function getItemObject (list = [], val = '', key = '') {
 export function formatList (list, labelKey = 'name', valKey = 'id') {
     if (!list || !Array.isArray(list)) return []
     return list.map((item) => {
-        return { value: item[labelKey], label: item[valKey] }
+        return { value: item[valKey], label: item[labelKey] }
     })
 }

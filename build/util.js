@@ -1,14 +1,27 @@
 /*
  * @Date: 2020-04-17 16:30:52
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 16:40:39
+ * @LastEditTime: 2020-04-30 11:15:54
  * @LastEditors: junfeng.liu
  * @Description: des
  */
-exports.versionToInt =  function versionToInt (ver) {
+const glob = require('glob')
+const PATH_PACKAGES = 'packages'
+
+exports.versionToInt =  function (ver) {
     if (!ver) return 0
     let arr = ver.split('.').map(item => {
         return item.padStart(3, '0')
     })
     return arr.join('')
+}
+
+exports.componentEntries = function () {
+    const paths = glob.sync(PATH_PACKAGES + '/L*/index.js')
+    let components = {}
+    paths.forEach((item) => {
+        const name = item.substring(item.indexOf('/L') + 1, item.indexOf('/index.js'))
+        components[name] = item
+    })
+    return components
 }

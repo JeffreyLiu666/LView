@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-26 10:59:44
+ * @LastEditTime: 2020-04-27 15:49:31
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -103,12 +103,12 @@ function doDeepCopy (data, cacheList) {
 export function throttle (func, cd = 300, reverse = false) {
     let timeId
     if (!isFunction(func)) return false
-    return function () {
+    return function (...args) {
         if (!isNull(timeId)) return
         // 如果开启reverse，则会直接调用，而在一段时间内进入CD
-        if (reverse) func()
+        if (reverse) func(...args)
         timeId = setTimeout(function () {
-            if (!reverse) func()
+            if (!reverse) func(...args)
             timeId = null
         }, cd)
     }
@@ -124,14 +124,14 @@ export function throttle (func, cd = 300, reverse = false) {
 export function debounce (func, cd = 300, reverse = false) {
     let timeId
     if (!isFunction(func)) return false
-    return function () {
+    return function (...args) {
         if (!isNull(timeId)) {
             clearTimeout(timeId)
         } else if (reverse) {
-            func()
+            func(...args)
         }
         timeId = setTimeout(function () {
-            if (!reverse) func()
+            if (!reverse) func(...args)
             timeId = null
         }, cd)
     }

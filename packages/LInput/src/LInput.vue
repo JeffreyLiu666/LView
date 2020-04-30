@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-22 15:15:51
+ * @LastEditTime: 2020-04-30 15:39:55
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -45,7 +45,7 @@
         on-search           在搜索框中，点击搜索图标、点击搜索按钮或回车时触发
 
 	注意：clearable支持同时与password或suffix之一同时存在
-	      checkChinese和floatLength不要同时使用
+        checkChinese和floatLength不要同时使用
 -->
 
 <template>
@@ -164,386 +164,391 @@
 </template>
 
 <script>
-    import { isEmpty, isCNChar, isNull } from '@/lib/check'
-    import calcHeight from '@/lib/calcTextareaHeight'
+import { isEmpty, isCNChar, isNull } from '@/lib/check'
+import calcHeight from '@/lib/calcTextareaHeight'
 
-    export default {
-        name: 'l-input',
-        props: {
-            value: {},
-            type: {
-                type: String,
-                default: 'text'
-            },
-            placeholder: {
-                default: ''
-            },
-            prefix: {
-                type: String
-            },
-            suffix: {
-                type: String
-            },
-            clearable: {
-                type: Boolean,
-                default: false
-            },
-            showEye: {
-                type: Boolean,
-                default: false
-            },
-            disabled: {
-                type: Boolean,
-                default: false
-            },
-            readonly: {
-                type: Boolean,
-                default: false
-            },
-            maxlength: {
-                type: Number,
-                default: Infinity
-            },
-            autofocus: {
-                type: Boolean,
-                default: false
-            },
-            autosize: {
-                type: [Boolean, Object],
-                default: false
-            },
-            rows: Number,
-            max: {
-                type: Number
-            },
-            min: {
-                type: Number
-            },
-            step: {
-                type: Number
-            },
-            showWordLimit: {
-                type: Boolean,
-                default: false
-            },
-            checkChinese: {
-                type: Boolean,
-                default: false
-            },
-            floatLength: {
-                type: Number,
-                default: -1
-            },
-            number: {
-                type: Boolean,
-                default: false
-            },
-            size: {
-                type: String,
-                default: 'default'
-            },
-            isError: {
-                type: Boolean,
-                default: false
-            },
-            search: {
-                type: Boolean,
-                default: false
-            },
-            searchButton: {
-                type: [Boolean, String],
-                default: false
-            },
-            autocomplete: String // new-password可以禁止密码框自动填入，其它类型可用off
+export default {
+    name: 'l-input',
+    props: {
+        value: {},
+        type: {
+            type: String,
+            default: 'text'
         },
-        computed: {
-            textLength () {
-                let val = (this.currentValue ?? '').toString()
-                let len = val.length
-                if (this.checkChinese) {
-                    len = this.getChineseLength(val)
-                }
-                return len
-            },
-            showPrefix () {
-                return this.prefix || this.$slots.prefix
-            },
-            showSuffix () {
-                return this.suffix || this.$slots.suffix
-            },
-            hasPrepend () {
-                return !!this.$slots.prepend
-            },
-            hasAppend () {
-                return !!this.$slots.append || this.showSearchButton
-            },
-            showSearchButton () {
-                return this.search && this.searchButton
-            },
-            showEyeSuffix () {
-                // suffix和eye只能同时存在一个，suffix优先级高
-                return !this.showSuffix && this.showEye && this.type === 'password'
-            },
-            showSearch () {
-                // suffix和search只能同时存在一个，suffix优先级高
-                return !this.showSuffix && !this.showSearchButton && this.search && this.type === 'text'
-            },
-            showClear () {
-                return this.clearable && !this.disabled && !isEmpty(this.currentValue)
-            },
-            isTwoSuffix () {
-                return this.showClear && (this.showEyeSuffix || this.showSearch)
-            },
-            inputClass () {
-                let arr = []
-                if (this.isError) {
-                    arr.push('l-input-error')
-                }
-                if (this.type === 'textarea') return arr
-                if (this.prefix) {
-                    arr.push('l-input-with-prefix')
-                }
-                if (this.suffix || this.showEyeSuffix) {
-                    arr.push('l-input-with-suffix')
-                }
-                return arr
-            },
-            wrapperClass () {
-                let arr = []
-                if (this.hasPrepend || this.hasAppend) {
-                    arr.push('l-input-group')
-                }
-                if (this.hasPrepend) {
-                    arr.push('l-input-group-with-prepend')
-                }
-                if (this.hasAppend) {
-                    arr.push('l-input-group-with-append')
-                }
-                arr.push(`l-input-${this.size}`)
-                return arr
+        placeholder: {
+            default: ''
+        },
+        prefix: {
+            type: String
+        },
+        suffix: {
+            type: String
+        },
+        clearable: {
+            type: Boolean,
+            default: false
+        },
+        showEye: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        readonly: {
+            type: Boolean,
+            default: false
+        },
+        maxlength: {
+            type: Number,
+            default: Infinity
+        },
+        autofocus: {
+            type: Boolean,
+            default: false
+        },
+        autosize: {
+            type: [Boolean, Object],
+            default: false
+        },
+        rows: Number,
+        max: {
+            type: Number
+        },
+        min: {
+            type: Number
+        },
+        step: {
+            type: Number
+        },
+        showWordLimit: {
+            type: Boolean,
+            default: false
+        },
+        checkChinese: {
+            type: Boolean,
+            default: false
+        },
+        floatLength: {
+            type: Number,
+            default: -1
+        },
+        // FIXME: 无法直接输入负号
+        number: {
+            type: Boolean,
+            default: false
+        },
+        size: {
+            type: String,
+            default: 'default'
+        },
+        isError: {
+            type: Boolean,
+            default: false
+        },
+        search: {
+            type: Boolean,
+            default: false
+        },
+        searchButton: {
+            type: [Boolean, String],
+            default: false
+        },
+        autocomplete: String // new-password可以禁止密码框自动填入，其它类型可用off
+    },
+    computed: {
+        textLength () {
+            let val = (this.currentValue ?? '').toString()
+            let len = val.length
+            if (this.checkChinese) {
+                len = this.getChineseLength(val)
+            }
+            return len
+        },
+        showPrefix () {
+            return this.prefix || this.$slots.prefix
+        },
+        showSuffix () {
+            return this.suffix || this.$slots.suffix
+        },
+        hasPrepend () {
+            return !!this.$slots.prepend
+        },
+        hasAppend () {
+            return !!this.$slots.append || this.showSearchButton
+        },
+        showSearchButton () {
+            return this.search && this.searchButton
+        },
+        showEyeSuffix () {
+            // suffix和eye只能同时存在一个，suffix优先级高
+            return !this.showSuffix && this.showEye && this.type === 'password'
+        },
+        showSearch () {
+            // suffix和search只能同时存在一个，suffix优先级高
+            return !this.showSuffix && !this.showSearchButton && this.search && this.type === 'text'
+        },
+        showClear () {
+            return this.clearable && !this.disabled && !isEmpty(this.currentValue)
+        },
+        isTwoSuffix () {
+            return this.showClear && (this.showEyeSuffix || this.showSearch)
+        },
+        inputClass () {
+            let arr = []
+            if (this.isError) {
+                arr.push('l-input-error')
+            }
+            if (this.type === 'textarea') return arr
+            if (this.prefix) {
+                arr.push('l-input-with-prefix')
+            }
+            if (this.suffix || this.showEyeSuffix) {
+                arr.push('l-input-with-suffix')
+            }
+            return arr
+        },
+        wrapperClass () {
+            let arr = []
+            if (this.hasPrepend || this.hasAppend) {
+                arr.push('l-input-group')
+            }
+            if (this.hasPrepend) {
+                arr.push('l-input-group-with-prepend')
+            }
+            if (this.hasAppend) {
+                arr.push('l-input-group-with-append')
+            }
+            arr.push(`l-input-${this.size}`)
+            return arr
+        }
+    },
+    data () {
+        return {
+            input_type: this.type === 'number' ? 'text' : this.type,
+            // input_type: this.type,
+            currentValue: '',
+            isFocus: false,
+            isComposing: false, // 是否正在输入中
+            textareaStyles: {}
+        }
+    },
+    mounted () {
+        this.resizeTextarea()
+    },
+    methods: {
+        handlePrefixClick (event) { // 头部图标点击事件
+            this.$emit('on-click-prefix', event)
+        },
+        handleSuffixClick (event) { // 尾部图标点击事件
+            this.$emit('on-click-suffix', event)
+        },
+        handleEnter (event) {
+            if (this.search) this.handleSearch()
+            this.$emit('on-enter', event)
+        },
+        handleKeydown (event) {
+            this.$emit('on-keydown', event)
+        },
+        handleKeypress (event) {
+            this.$emit('on-keypress', event)
+        },
+        handleKeyup (event) {
+            this.$emit('on-keyup', event)
+        },
+        handleFocus (event) {
+            this.isFocus = true
+            this.$emit('on-focus', event)
+        },
+        handleChange (event) {
+            this.$emit('on-input-change', event)
+        },
+        handleBlur (e) {
+            this.isFocus = false
+            let val = e.target.value
+            // 不处理空值
+            if (this.number && !isEmpty(val)) val = Number(val)
+            // FIXME: 这里如果e.target.value为空字符串，则currentValue为undefined也会被置为空字符串，后面看看要不要保留这个特性
+            this.setCurrentValue(val, true)
+            this.$emit('on-blur', e)
+        },
+        handleComposition (event) {
+            if (event.type === 'compositionstart') {
+                this.isComposing = true
+            }
+            if (event.type === 'compositionend') {
+                this.isComposing = false
+                this.handleInput(event)
             }
         },
-        data () {
-            return {
-                input_type: this.type === 'number' ? 'text' : this.type,
-                // input_type: this.type,
-                currentValue: '',
-                isFocus: false,
-                isComposing: false, // 是否正在输入中
-                textareaStyles: {}
+        handleInput (e) {
+            this.$emit('on-input', e)
+            // e.isComposing支持较差，IE不支持，this.isComposing支持IE11以上
+            if (e.isComposing || this.isComposing) return
+
+            let val = e.target.value
+
+            if (this.type === 'number' && isNaN(val)) {
+                this.$refs.input.value = this.currentValue
+                return
+            }
+            this.setCurrentValue(val)
+        },
+        resizeTextarea () {
+            if (this.type !== 'textarea' || !this.autosize) return
+
+            this.textareaStyles = calcHeight.calcTextareaHeight(this.$refs.textarea, this.autosize.minRows, this.autosize.maxRows)
+        },
+        handleEyeClick () {
+            if (this.disabled) return
+            const type = this.input_type
+            this.input_type = type === 'password' ? 'text' : 'password'
+        },
+        handleClear () {
+            if (this.disabled) return
+            this.currentValue = ''
+            this.$emit('input', '')
+            this.$emit('on-change', '')
+            this.$emit('on-clear')
+        },
+        handleSearch () {
+            if (this.disabled) return
+            this.$emit('on-search', this.currentValue)
+        },
+        focus () {
+            if (this.type === 'textarea') {
+                this.$refs.textarea.focus()
+            } else {
+                this.$refs.input.focus()
             }
         },
-        mounted () {
-            this.resizeTextarea()
+        blur () {
+            if (this.type === 'textarea') {
+                this.$refs.textarea.blur()
+            } else {
+                this.$refs.input.blur()
+            }
         },
-        methods: {
-            handlePrefixClick (event) { // 头部图标点击事件
-                this.$emit('on-click-prefix', event)
-            },
-            handleSuffixClick (event) { // 尾部图标点击事件
-                this.$emit('on-click-suffix', event)
-            },
-            handleEnter (event) {
-                if (this.search) this.handleSearch()
-                this.$emit('on-enter', event)
-            },
-            handleKeydown (event) {
-                this.$emit('on-keydown', event)
-            },
-            handleKeypress(event) {
-                this.$emit('on-keypress', event)
-            },
-            handleKeyup (event) {
-                this.$emit('on-keyup', event)
-            },
-            handleFocus (event) {
-                this.isFocus = true
-                this.$emit('on-focus', event)
-            },
-            handleChange (event) {
-                this.$emit('on-input-change', event)
-            },
-            handleBlur (e) {
-                this.isFocus = false
-                let val = e.target.value
-                // 不处理空值
-                if (this.number && !isEmpty(val)) val = Number(val)
-                this.setCurrentValue(val, true)
-                this.$emit('on-blur', e)
-            },
-            handleComposition (e) {
-                if (event.type === 'compositionstart') {
-                    this.isComposing = true;
-                }
-                if (event.type === 'compositionend') {
-                    this.isComposing = false;
-                    this.handleInput(event);
-                }
-            },
-            handleInput (e) {
-                this.$emit('on-input', e)
-                // e.isComposing支持较差，IE不支持，this.isComposing支持IE11以上
-                if (e.isComposing || this.isComposing) return
-
-                let val = e.target.value
-
-                if (this.type === 'number' && isNaN(val)) {
-                    this.$refs.input.value = this.currentValue
-                    return
-                }
-                this.setCurrentValue(val)
-            },
-            resizeTextarea () {
-                if (this.type !== 'textarea' || !this.autosize) return
-                
-                this.textareaStyles = calcHeight.calcTextareaHeight(this.$refs.textarea, this.autosize.minRows, this.autosize.maxRows)
-            },
-            handleEyeClick () {
-                if (this.disabled) return
-                const type = this.input_type
-                this.input_type = type === 'password' ? 'text' : 'password'
-            },
-            handleClear () {
-                if (this.disabled) return
-                this.currentValue = ''
-                this.$emit('input', '')
-                this.$emit('on-change', '')
-                this.$emit('on-clear')
-            },
-            handleSearch () {
-                if (this.disabled) return
-                this.$emit('on-search', this.currentValue)
-            },
-            focus () {
-                if (this.type === 'textarea') {
-                    this.$refs.textarea.focus()
+        dealFloat (val, len) {
+            if (isNaN(val)) return ''
+            let result = Number(val)
+            if (len === 0) {
+                result = parseInt(result, 10)
+            } else if (len > 0) {
+                result = result.toFixed(len)
+            }
+            return result
+        },
+        getChineseLength (val) {
+            if (isNull(val)) return 0
+            let len = 0
+            for (let i of val.toString()) {
+                if (isCNChar(i)) {
+                    len += 2
                 } else {
-                    this.$refs.input.focus()
+                    len += 1
                 }
-            },
-            blur () {
-                if (this.type === 'textarea') {
-                    this.$refs.textarea.blur()
+            }
+            return len
+        },
+        checkChineseFunc (val) {
+            if (isNull(val)) return val
+            let len = 0
+            let result = ''
+            let max = Number(this.maxlength)
+            for (let i of val.toString()) {
+                if (isCNChar(i)) {
+                    len += 2
                 } else {
-                    this.$refs.input.blur()
+                    len += 1
                 }
-            },
-            dealFloat (val, len) {
-                if (isNaN(val)) return ''
-                let result = Number(val)
-                if (len === 0) {
-                    result = parseInt(result)
+                result += i
+                if (len === max) {
+                    return result
+                } else if (len > max) {
+                    return result.slice(0, -1)
                 }
-                else if (len > 0) {
-                    result = result.toFixed(len)
-                }
-                return result
-            },
-            getChineseLength (val) {
-                if (isNull(val)) return 0
-                let len = 0
-                for (let i of val.toString()) {
-                    if (isCNChar(i)) {
-                        len += 2
-                    }
-                    else {
-                        len += 1
-                    }
-                }
-                return len
-            },
-            checkChineseFunc (val) {
-                if (isNull(val)) return val
-                let len = 0
-                let result = ''
-                let max = Number(this.maxlength)
-                for (let i of val.toString()) {
-                    if (isCNChar(i)) {
-                        len += 2
-                    } else {
-                        len += 1
-                    }
-                    result += i
-                    if (len === max) {
-                        return result
-                    }
-                    else if (len > max) {
-                        return result.slice(0, -1)
-                    }
-                }
-                return result
-            },
-            setCurrentValue (val, isBlur = false) {
-                // 加个!isBlur是为了防止blur事件调用时直接return
-                if (!isBlur && this.currentValue === val) return
-                
-                let result = val
-                
-                // 根据maxLength和中文规则处理长度
-                if (this.checkChinese) {
-                    result = this.checkChineseFunc(result)
-                }
+            }
+            return result
+        },
+        setCurrentValue (val, isBlur = false) {
+            // 加个!isBlur是为了防止blur事件调用时直接return
+            if (!isBlur && this.currentValue === val) return
 
-                if (isBlur && this.type === 'number') {
-                    result = isNaN(result) ? '' : result
-                }
+            let result = val
 
-                // 根据floatLength处理数据，为了不影响输入体验，只在isBlur为true时处理
-                if (isBlur && this.type === 'number' && this.floatLength >= 0 && result !== '') {
-                    result =  this.dealFloat(result, this.floatLength)
-                }
+            // 根据maxLength和中文规则处理长度
+            if (this.checkChinese) {
+                result = this.checkChineseFunc(result)
+            }
 
-                // 由于type === number的时候，e.target.value为NaN时，
-                // val为空，可是输入框显示上还是有的，所以需要手动清空
-                // if (result === '') this.$refs.input.value = ''
+            if (isBlur && this.type === 'number') {
+                result = isNaN(result) ? '' : result
+            }
 
-                // 如果和value相等则直接赋值就好
-                if (this.value === result) return this.currentValue = result
+            // 根据floatLength处理数据，为了不影响输入体验，只在isBlur为true时处理
+            if (isBlur && this.type === 'number' && this.floatLength >= 0 && result !== '') {
+                result = this.dealFloat(result, this.floatLength)
+            }
 
+            // 由于type === number的时候，e.target.value为NaN时，
+            // val为空，可是输入框显示上还是有的，所以需要手动清空
+            // if (result === '') this.$refs.input.value = ''
+
+            // 如果和value相等则直接赋值就好
+            if (this.value === result) {
                 this.currentValue = result
-                this.$emit('on-change', result)
-                this.$emit('input', result)
-                this.$nextTick(this.resizeTextarea)
-            },
-            setValue (val) {
-                if (val === this.currentValue) return
-                // 不处理空值
-                if (isEmpty(val)) return this.currentValue = val
-                
-                this.setCurrentValue(val, true)
+                return
             }
-            // value改变时通过该函数设置currentValue
-            // setValue (val) {
-            //     let result = val
 
-            //     // 根据maxLength和中文规则处理长度
-            //     if (this.checkChinese) {
-            //         result = this.checkChineseFunc(result)
-            //     }
-
-            //     // 根据floatLength处理数据，为了不影响输入体验，只在isFromValue为true时处理
-            //     if (this.type === 'number' && this.floatLength >= 0) {
-            //         result =  this.dealFloat(result, this.floatLength)
-            //     }
-
-            //     if (this.currentValue !== result) {
-            //         this.$emit('on-change', result)
-            //     }
-
-            //     this.currentValue = result
-            //     // 如果val和result相等则不触发input事件
-            //     if (result === val) return
-            //     this.$emit('input', result)
-            // }
+            this.currentValue = result
+            this.$emit('on-change', result)
+            this.$emit('input', result)
+            this.$nextTick(this.resizeTextarea)
         },
-        beforeDestroy () {
-            calcHeight.destroy()
-        },
-        watch: {
-            value: {
-                handler: 'setValue',
-                immediate: true
+        setValue (val) {
+            if (val === this.currentValue) return
+            // 不处理空值
+            if (isEmpty(val)) {
+                this.currentValue = val
+                return
             }
+
+            this.setCurrentValue(val, true)
+        }
+        // value改变时通过该函数设置currentValue
+        // setValue (val) {
+        //     let result = val
+
+        //     // 根据maxLength和中文规则处理长度
+        //     if (this.checkChinese) {
+        //         result = this.checkChineseFunc(result)
+        //     }
+
+        //     // 根据floatLength处理数据，为了不影响输入体验，只在isFromValue为true时处理
+        //     if (this.type === 'number' && this.floatLength >= 0) {
+        //         result =  this.dealFloat(result, this.floatLength)
+        //     }
+
+        //     if (this.currentValue !== result) {
+        //         this.$emit('on-change', result)
+        //     }
+
+        //     this.currentValue = result
+        //     // 如果val和result相等则不触发input事件
+        //     if (result === val) return
+        //     this.$emit('input', result)
+        // }
+    },
+    beforeDestroy () {
+        calcHeight.destroy()
+    },
+    watch: {
+        value: {
+            handler: 'setValue',
+            immediate: true
         }
     }
+}
 </script>

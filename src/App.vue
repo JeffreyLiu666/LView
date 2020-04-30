@@ -1,46 +1,42 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-26 12:47:16
+ * @LastEditTime: 2020-04-30 14:10:03
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
-        <div style="padding: 20px;width: 500px;background: #f6f6f6;">
-            <LButtonGroup shape="circles" vertical size="small">
-                <!-- <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton>
-                <LButton type="info" shape="circles" icon="ios-crop" debounce earlyTrigger @click="handleClick"></LButton>
-                <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton> -->
+        <div style="padding: 20px;width: 500px;background: #f6f6f6;position: relative;">
+            <LLoading></LLoading>
+            <!-- <LButtonGroup shape="circles" vertical size="small">
                 <LButton type="dashed" icon="logo-facebook" disabled></LButton>
                 <LButton type="primary" icon="ios-sunny-outline" disabled></LButton>
                 <LButton type="primary" icon="ios-crop" disabled></LButton>
                 <LButton type="dashed" icon="ios-color-filter-outline" disabled></LButton>
-            </LButtonGroup>
-            <LButtonGroup shape="circle" size="large">
-                <!-- <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton>
-                <LButton type="info" shape="circles" icon="ios-crop" debounce earlyTrigger @click="handleClick"></LButton>
-                <LButton type="info" shape="circles" icon="ios-search" debounce earlyTrigger @click="handleClick"></LButton> -->
-                <LButton icon="ios-search" type="primary" loading></LButton>
-                <LButton icon="ios-sunny-outline" type="primary"></LButton>
+            </LButtonGroup> -->
+            <!-- <LButtonGroup shape="circle" size="large" :disabled="disabled">
+                <LButton icon="ios-search" type="primary" disabled></LButton>
+                <LButton icon="ios-sunny-outline" type="primary" :disabled="false"></LButton>
                 <LButton icon="ios-crop"></LButton>
                 <LButton icon="ios-color-filter-outline"></LButton>
-            </LButtonGroup>
+            </LButtonGroup> -->
             <!-- <LInput v-model="num" type="text" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
                 <Icon type="md-call" slot="suffix" />
                 <span slot="prepend">password</span>
                 <Select slot="append" size="default"></Select>
             </LInput> -->
+            <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
+            <!-- <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
         </div>
-                <LButton type="info" shape="circles" icon="ios-crop" size="small" loading to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton>
-                <LButton type="info" shape="circle" icon="ios-crop" size="small" loading debounce earlyTrigger @click="handleClick">sadf</LButton>
+        <!-- <LLoading></LLoading> -->
         <!-- <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
         <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
 
-        <!-- <LCell title="dddd" content="ccc">ddd</LCell>
-        <LFold>
+        <!-- <LCell title="dddd" content="ccc">ddd</LCell> -->
+        <!-- <LFold needHide>
             <div>
-                <div style="height: 900px;" v-if="show">asdfas</div>
+                <div style="height: 900px;">asdfas</div>
             </div>
         </LFold> -->
         <!-- <LShowImg imgStyle="minWidth: 100%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg> -->
@@ -77,7 +73,8 @@ export default {
             ],
             num: '123456789',
             range: ['aa', 22],
-            show: false
+            show: false,
+            disabled: false
         }
     },
     mounted () {
@@ -89,6 +86,7 @@ export default {
             // this.show = true
             // this.range = ['asdf', 20]
             console.log('aaa')
+            this.disabled = !this.disabled
         }
     }
 }

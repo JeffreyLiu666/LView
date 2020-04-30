@@ -179,3 +179,20 @@
     - 新增noCheck参数，用于控制是否校验
     - 完善LNumberRange的props
 
+***
+## 1.4.2（未发布）
+
+*2020-04-xx*
+
+#### 新特性
+
+- LButton
+    - 不再基于iview的button，重写了
+
+- LButtonGroup
+    - 新增按钮组组件，配合LButton使用
+
+- LFormEnca
+    - 完善对LButton的props支持
+    - 新增buttonGroup类型
+

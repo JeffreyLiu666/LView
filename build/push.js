@@ -1,18 +1,18 @@
 /*
  * @Date: 2020-04-17 14:57:08
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-21 11:27:14
+ * @LastEditTime: 2020-04-30 11:26:27
  * @LastEditors: junfeng.liu
  * @Description: npm run test && npm run build && npm publish
  */
 const { versionToInt } = require('./util.js')
 const packageConfig = require('../package.json')
-const components = require('../components')
 const { exec, spawn  } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
 const readline = require('readline')
+const { componentEntries } = require('./util')
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -73,17 +73,17 @@ function checkLocalVersion () {
 }
 
 // 比较components.js中的组件数和packages下的组件数是否对应
-function checkComponentsSize () {
-    return new Promise((resolve, reject) => {
-        const files = fs.readdirSync(path.resolve('packages'))
-        const count = files.reduce((total, file) => {
-            if (file.charAt(0) !== 'L') return total
-            return ++total
-        }, 0)
-        const registerCompLength = Object.keys(components).length
-        resolve(count === registerCompLength)
-    })
-}
+// function checkComponentsSize () {
+//     return new Promise((resolve, reject) => {
+//         const files = fs.readdirSync(path.resolve('packages'))
+//         const count = files.reduce((total, file) => {
+//             if (file.charAt(0) !== 'L') return total
+//             return ++total
+//         }, 0)
+//         const registerCompLength = Object.keys(componentEntries()).length
+//         resolve(count === registerCompLength)
+//     })
+// }
 
 function build () {
     const child = spawn('npm run test && npm run build', {
@@ -154,11 +154,11 @@ async function start () {
         success('线上版本校验通过')
     )
 
-    const checkComponentsSizePass = await checkComponentsSize()
-    if (!checkComponentsSizePass) return fail('注册在components.js中组件数和在packages中的组件数对不上')
-    console.log(
-        success('组件数目校验通过')
-    )
+    // const checkComponentsSizePass = await checkComponentsSize()
+    // if (!checkComponentsSizePass) return fail('注册在components.js中组件数和在packages中的组件数对不上')
+    // console.log(
+    //     success('组件数目校验通过')
+    // )
 
     build()
 }

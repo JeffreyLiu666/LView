@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-03-30 14:04:56
+ * @LastEditTime: 2020-04-28 11:31:04
  * @LastEditors: junfeng.liu
  * @Description: 折叠隐藏组件，用于内容过多时将内容先隐藏，用户通过按钮点击展开
 
@@ -53,7 +53,7 @@ export default {
         animation: {
             type: Boolean,
             default: true
-        },
+        }
     },
     data () {
         return {
@@ -65,8 +65,9 @@ export default {
     },
     computed: {
         heightComp () {
+            // 高度设为auto不会触发transition
             if (this.show || !this.needOperate) return this.animation ? this.wrapperHeight + 'px' : 'auto'
-            return this.height  + 'px'
+            return this.height + 'px'
         },
         showBtn () {
             return !(this.needHide === false && this.show === true)
@@ -85,7 +86,10 @@ export default {
         comp () {
             this.wrapperHeight = this.$refs.wrapper.offsetHeight
             // const slot = this.$slots.default[0]
-            if (this.wrapperHeight < this.height) return this.needOperate = false
+            if (this.wrapperHeight < this.height) {
+                this.needOperate = false
+                return
+            }
             this.needOperate = true
         },
         toggleShow () {
