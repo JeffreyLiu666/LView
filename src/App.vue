@@ -1,24 +1,15 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
-<<<<<<< HEAD
- * @LastEditTime: 2020-04-30 16:44:18
-=======
- * @LastEditTime: 2020-05-07 18:22:22
->>>>>>> development/l_loading
+ * @LastEditTime: 2020-05-08 16:09:49
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
-<<<<<<< HEAD
-        <div style="padding: 20px;width: 500px;background: #f6f6f6;position: relative;">
-            <!-- <LLoading></LLoading> -->
-=======
         <div style="padding: 20px;width: 500px;height: 300px;background: #f6f6f6;position: relative;">
             <LMenu></LMenu>
             <!-- <LLoading transfer></LLoading> -->
->>>>>>> development/l_loading
             <!-- <LButtonGroup shape="circles" vertical size="small">
                 <LButton type="dashed" icon="logo-facebook" disabled></LButton>
                 <LButton type="primary" icon="ios-sunny-outline" disabled></LButton>
