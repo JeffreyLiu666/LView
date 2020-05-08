@@ -1,14 +1,15 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 14:10:03
+ * @LastEditTime: 2020-05-07 18:22:22
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
-        <div style="padding: 20px;width: 500px;background: #f6f6f6;position: relative;">
-            <LLoading></LLoading>
+        <div style="padding: 20px;width: 500px;height: 300px;background: #f6f6f6;position: relative;">
+            <LMenu></LMenu>
+            <!-- <LLoading transfer></LLoading> -->
             <!-- <LButtonGroup shape="circles" vertical size="small">
                 <LButton type="dashed" icon="logo-facebook" disabled></LButton>
                 <LButton type="primary" icon="ios-sunny-outline" disabled></LButton>
@@ -27,7 +28,7 @@
                 <Select slot="append" size="default"></Select>
             </LInput> -->
             <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
-            <!-- <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
+            <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
         </div>
         <!-- <LLoading></LLoading> -->
         <!-- <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
@@ -86,7 +87,11 @@ export default {
             // this.show = true
             // this.range = ['asdf', 20]
             console.log('aaa')
-            this.disabled = !this.disabled
+            // this.disabled = !this.disabled
+            this.$loading.show()
+            setTimeout(() => {
+                this.$loading.hide()
+            }, 1000)
         }
     }
 }
