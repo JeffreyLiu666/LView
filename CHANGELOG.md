@@ -188,6 +188,10 @@
 
 - LButton
     - 不再基于iview的button，重写了
+    - 新增了两个酷炫的type：cool-hover和cool-hover-dark
+
+- LLoading
+    - 新增Loading组件
 
 - LButtonGroup
     - 新增按钮组组件，配合LButton使用

@@ -1,7 +1,132 @@
 @import './common/var.less';
 
 @load-prefix-cls: ~'@{css-prefix}loading';
+@ball-width: 30px;
+@ball-height: 30px;
+@shadow-width: @ball-width;
+@shadow-height: 10px;
+@animation-duration: 1s;
+@bounce-offset: 100px;
+@main-height: 40px;
 
 .@{load-prefix-cls}{
-    
+    &-mask{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: fade(@white, 60%);
+        z-index: 99998;
+    }
+    &-fix{
+        position: fixed;
+    }
+    &-main{
+        height: @main-height;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, (@bounce-offset + @main-height) / 2 - @main-height);
+        z-index: 99999;
+        list-style: none;
+    }
+    &-item{
+        float: left;
+        margin: 0 6px;
+        text-align: center;
+        &:nth-child(1){
+            @delay: 0s;
+            .l-loading-ball{
+                .animation(bounce, @delay);
+            }
+            .l-loading-shadow{
+                .animation(shadow, @delay)
+            }
+        }
+        &:nth-child(2){
+            @delay: @animation-duration / 6;
+            .l-loading-ball{
+                .animation(bounce, @delay);
+            }
+            .l-loading-shadow{
+                .animation(shadow, @delay)
+            }
+        }
+        &:nth-child(3){
+            @delay: @animation-duration / 3;
+            .l-loading-ball{
+                .animation(bounce, @delay);
+            }
+            .l-loading-shadow{
+                .animation(shadow, @delay)
+            }
+        }
+        &:nth-child(4){
+            @delay: @animation-duration / 2;
+            .l-loading-ball{
+                .animation(bounce, @delay);
+            }
+            .l-loading-shadow{
+                .animation(shadow, @delay)
+            }
+        }
+    }
+    &-ball{
+        display: block;
+        width: @ball-width;
+        height: @ball-height;
+        border-radius: 50%;
+        background-color: @info-color;
+    }
+    &-shadow{
+        display: block;
+        margin: 0 auto;
+        width: @shadow-width;
+        height: @shadow-height;
+        border-radius: 50%;
+        background-color: @gray-lighter;
+    }
+    @keyframes bounce {
+        0%{
+            .bounce-shadow(0);
+            transform: translateY(0);
+        }
+        25%{
+            .bounce-shadow(@ball-height / 2);
+        }
+        50% {
+            .bounce-shadow(0);
+            transform: translateY(-@bounce-offset);
+        }
+        75%{
+            .bounce-shadow(-@ball-height / 2);
+        }
+        100%{
+            .bounce-shadow(0);
+            transform: translateY(0);
+        }
+    }
+    @keyframes shadow {
+        0%{
+            width: @shadow-width;
+            height: @shadow-height;
+        }
+        50%{
+            width: @shadow-width / 5;
+            height: @shadow-height / 5;
+        }
+        100%{
+            width: @shadow-width;
+            height: @shadow-height;
+        }
+    }
+}
+
+.bounce-shadow (@h) {
+    box-shadow: 0 @h 0 0 tint(@info-color, 60%);
+}
+
+.animation (@name, @delay: 0s) {
+    animation: @name 1s ease-in-out @delay infinite;
 }
