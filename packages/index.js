@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-08 10:46:29
+ * @LastEditTime: 2020-05-11 17:56:17
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -24,6 +24,9 @@ import LButton from 'packages/LButton'
 import LButtonGroup from 'packages/LButtonGroup'
 import LLoading from 'packages/LLoading'
 import LMenu from 'packages/LMenu'
+import LMenuItem from 'packages/LMenuItem'
+import LSubMenu from 'packages/LSubMenu'
+import LMenuConfig from 'packages/LMenuConfig'
 
 const components = [
     LCell,
@@ -43,7 +46,10 @@ const components = [
     LButton,
     LButtonGroup,
     LLoading,
-    LMenu
+    LMenu,
+    LMenuItem,
+    LSubMenu,
+    LMenuConfig
 ]
 
 function install (Vue, opts = {}) {
@@ -76,5 +82,8 @@ export default {
     LButton,
     LButtonGroup,
     LLoading,
-    LMenu
+    LMenu,
+    LMenuItem,
+    LSubMenu,
+    LMenuConfig
 }

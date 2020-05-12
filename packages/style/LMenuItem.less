@@ -1,0 +1,66 @@
+@import './common/var.less';
+
+@menu-prefix-cls: ~'@{css-prefix}menu';
+@menu-item-prefix-cls: ~'@{menu-prefix-cls}-item';
+
+.@{menu-item-prefix-cls}{
+    cursor: pointer;
+    &[disabled], &.ivu-menu-item-disabled{
+        color: @disabled-color !important;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+    & > .ivu-icon{
+        font-size: @menu-icon-size;
+    }
+    &:not(.@{menu-prefix-cls}-title-collapsed) > .ivu-icon{
+        margin-right: @menu-text-icon-space;
+    }
+    &-link{
+        display: block;
+        padding: @menu-item-padding;
+        position: relative;
+        cursor: pointer;
+        outline: 0;
+        font-size: @font-size-base;
+        color: @menu-text-color;
+        &:hover{
+            color: @primary-color;
+        }
+        &-collapsed{
+            line-height: normal;
+            padding: @menu-item-padding-dropdown;
+            &:hover{
+                background-color: @gray-lighter;
+                color: inherit;
+            }
+        }
+    }
+    &-link-selected,
+    &.ivu-dropdown-item-selected,
+    &.ivu-dropdown-item.ivu-dropdown-item-selected:hover{
+        &, &:hover{
+            color: @primary-color;
+            background-color: tint(@primary-color, 90%);
+        }
+    }
+
+}
+.ivu-menu{
+    > .@{menu-item-prefix-cls}{
+        white-space: nowrap;
+    }
+}
+.ivu-menu-dark{
+    .@{menu-item-prefix-cls}{
+        &[disabled], &.ivu-menu-item-disabled{
+            color: @disabled-color-dark !important;
+        }
+        &-link{
+            color: @menu-text-color-dark;
+            &:hover{
+                color: @white;
+            }
+        }
+    }
+}

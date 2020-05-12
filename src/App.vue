@@ -1,14 +1,16 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-08 16:09:49
+ * @LastEditTime: 2020-05-12 16:52:28
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
         <div style="padding: 20px;width: 500px;height: 300px;background: #f6f6f6;position: relative;">
-            <LMenu></LMenu>
+            <!-- <Sider v-model="collapsed" :width="256" :collapsed-width="64" style="overflow: hidden;"> -->
+                <LMenuConfig :config="routes" @on-select="handleSelect"></LMenuConfig>
+            <!-- </Sider> -->
             <!-- <LLoading transfer></LLoading> -->
             <!-- <LButtonGroup shape="circles" vertical size="small">
                 <LButton type="dashed" icon="logo-facebook" disabled></LButton>
@@ -22,11 +24,11 @@
                 <LButton icon="ios-crop"></LButton>
                 <LButton icon="ios-color-filter-outline"></LButton>
             </LButtonGroup> -->
-            <LInput v-model="num" type="number" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" :floatLength="2" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
+            <!-- <LInput v-model="num" type="number" :autosize="{minRows: 1, maxRows: 5}" prefix="md-cafe" :floatLength="2" size="x" checkChinese clearable search searchButton="search" :maxlength="500" placeholder="hhh">
                 <Icon type="md-call" slot="suffix" />
                 <span slot="prepend">password</span>
                 <Select slot="append" size="default"></Select>
-            </LInput>
+            </LInput> -->
             <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
             <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
         </div>
@@ -75,7 +77,64 @@ export default {
             num: undefined,
             range: ['aa', 22],
             show: false,
-            disabled: false
+            disabled: false,
+            collapsed: false,
+            routes: [
+                {
+                    path: '/home',
+                    name: 'home',
+                    meta: {
+                        title: '首页',
+                        icon: 'md-heart'
+                    },
+                    children: [
+                        {
+                            path: '/home11',
+                            name: 'home11',
+                            meta: {
+                                title: '首页',
+                                icon: 'md-heart'
+                            },
+                            children: [
+                                {
+                                    path: '/home121',
+                                    name: 'home121',
+                                    meta: {
+                                        title: '首页',
+                                        icon: 'md-heart'
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    path: '/home2',
+                    name: 'home2',
+                    meta: {
+                        title: '首页',
+                        customIcon: 'md-heart'
+                    },
+                    children: [
+                        {
+                            path: '/home21',
+                            name: 'home21',
+                            meta: {
+                                title: '首页',
+                                icon: 'md-heart'
+                            }
+                        }
+                    ]
+                },
+                {
+                    path: '/home1',
+                    name: 'home1',
+                    meta: {
+                        title: '首页',
+                        customIcon: 'md-heart'
+                    }
+                }
+            ]
         }
     },
     mounted () {
@@ -88,10 +147,10 @@ export default {
             // this.range = ['asdf', 20]
             console.log('aaa')
             // this.disabled = !this.disabled
-            this.$loading.show()
-            setTimeout(() => {
-                this.$loading.hide()
-            }, 1000)
+            this.collapsed = !this.collapsed
+        },
+        handleSelect (item) {
+            console.log(item)
         }
     }
 }

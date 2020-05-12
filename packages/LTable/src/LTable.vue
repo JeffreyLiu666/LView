@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-09 11:21:59
+ * @LastEditTime: 2020-05-09 17:13:53
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -122,7 +122,7 @@ export default {
         },
         height: {
             type: [Number, String]
-        },
+        }
     },
     computed: {
         cols () {
@@ -210,7 +210,7 @@ export default {
         },
         // 显示单行文本和省略号
         getEllipsis (item) {
-            item.render = (h, {row, column}) => {
+            item.render = (h, { row, column }) => {
                 let val = row[column.key]
                 return (
                     <div class="l-view-text-ellipsis" title={ val }>{ val }</div>
@@ -225,7 +225,7 @@ export default {
                 let val = row[column.key]
                 return (
                     <LNumberInput
-                        style={ `width: 100%;` }
+                        style={ 'width: 100%;' }
                         value={ val }
                         size={ size }
                         min={ min }
@@ -233,7 +233,7 @@ export default {
                         step={ step }
                         // precision={ precision }
                         disabled={ disabled }
-                        onOn-change={  isFunction(onChange) ? cVal => { onChange(cVal, row, column, index) } : undefined }></LNumberInput>
+                        onOn-change={ isFunction(onChange) ? cVal => { onChange(cVal, row, column, index) } : undefined }></LNumberInput>
                 )
             }
             delete item.type

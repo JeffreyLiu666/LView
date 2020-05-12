@@ -1,0 +1,26 @@
+@import './common/var.less';
+
+@menu-prefix-cls: ~'@{css-prefix}menu';
+@sub-menu-prefix-cls: ~'@{css-prefix}sub-menu';
+
+.@{sub-menu-prefix-cls}{
+    &-dropdown{
+        display: block;
+        &-title{
+            &:not(.@{menu-prefix-cls}-title-collapsed) {
+                > .ivu-icon{
+                    margin-right: @menu-text-icon-space;
+                }
+            }
+        }
+    }
+    &-submenu{
+        .ivu-menu-submenu-title{
+            white-space: nowrap;
+        }
+    }
+    .ivu-menu-submenu-title > .ivu-icon:not(.ivu-menu-submenu-title-icon),
+    &-dropdown-title > .ivu-icon{
+        font-size: @menu-icon-size;
+    }
+}

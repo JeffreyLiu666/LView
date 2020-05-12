@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-27 15:49:31
+ * @LastEditTime: 2020-05-12 17:55:13
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -135,4 +135,70 @@ export function debounce (func, cd = 300, reverse = false) {
             timeId = null
         }, cd)
     }
+}
+
+/**
+ * @description: 向上寻找最近的匹配组件
+ * @param {Object}      context         上下文
+ * @param {String}      componentName   单个匹配项
+ * @param {Array}       componentNames  多个匹配项
+ * @return: {Object}    匹配的组件上下文
+ */
+export function findComponentUpward (context, componentName, componentNames) {
+    if (typeof componentName === 'string') {
+        componentNames = [componentName]
+    } else {
+        componentNames = componentName
+    }
+
+    let parent = context.$parent
+    let name = parent.$options.name
+    while (parent && (!name || componentNames.indexOf(name) < 0)) {
+        parent = parent.$parent
+        if (parent) name = parent.$options.name
+    }
+    return parent
+}
+
+/**
+ * @description: 向上寻找所有匹配组件
+ * @param {Object}      context         上下文
+ * @param {String}      componentName   单个匹配项
+ * @return: {Object}    匹配的组件上下文
+ */
+export function findComponentsUpward (context, componentName) {
+    let componentNames = typeof componentName === 'string' ? [componentName] : componentName
+    let parents = []
+    const parent = context.$parent
+    if (parent) {
+        if (componentNames.includes(parent.$options.name)) parents.push(parent)
+        return parents.concat(findComponentsUpward(parent, componentName))
+    } else {
+        return []
+    }
+}
+
+/**
+ * @description: 获取滚动条宽度
+ * @return: {Number}    滚动条宽度
+ */
+export function getScrollBarWidth () {
+    const el = document.createElement('p')
+    const styles = {
+        width: '100px',
+        height: '100px',
+        overflowY: 'scroll'
+    }
+
+    for (let i in styles) {
+        el.style[i] = styles[i]
+    }
+
+    // 将元素加到body里面
+    document.body.appendChild(el)
+
+    const scrollBarWidth = el.offsetWidth - el.clientWidth
+    // 将添加的元素删除
+    el.remove()
+    return scrollBarWidth
 }

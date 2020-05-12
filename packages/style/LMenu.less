@@ -1,1 +1,65 @@
 @import './common/var.less';
+
+@menu-prefix-cls: ~'@{css-prefix}menu';
+@trigger-height: 50px;
+
+.@{menu-prefix-cls}{
+    transition: all .2s ease-in-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: @white;
+    &-dark{
+        background-color: @menu-bg-dark;
+    }
+    &-content{
+        flex: 1;
+    }
+    &-trigger{
+        flex: none;
+        display: block;
+        width: 100%;
+        height: @trigger-height;
+        line-height: @trigger-height;
+        text-align: center;
+        font-size: 18px;
+        cursor: pointer;
+        > .ivu-icon{
+            transition: all .2s ease-in-out;
+        }
+        &-collapsed{
+            > .ivu-icon{
+                transform: rotate(180deg);
+            }
+        }
+        &-dark{
+            color: @white;
+        }
+    }
+    &-title-collapsed{
+        display: block;
+        padding: @menu-item-padding;
+        line-height: inherit;
+        text-align: center;
+        color: @menu-text-color;
+        &:hover{
+            color: inherit;
+        }
+    }
+    i, span{
+        vertical-align: middle;
+    }
+    .ivu-tooltip, .ivu-tooltip-rel{
+        display: block;
+    }
+}
+.ivu-menu-dark{
+    .@{menu-prefix-cls}{
+        &-title-collapsed{
+            color: @menu-text-color-dark;
+            &.ivu-dropdown-item:hover{
+                background-color: transparent;
+            }
+        }
+    }
+}

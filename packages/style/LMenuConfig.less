@@ -1,0 +1,42 @@
+@import './common/var.less';
+
+@menu-prefix-cls: ~'@{css-prefix}menu';
+@menu-config-prefix-cls: ~'@{menu-prefix-cls}-config';
+
+@trigger-height: 30px;
+
+.@{menu-config-prefix-cls}{
+    height: 100%;
+    overflow: hidden;
+    .@{menu-prefix-cls}{
+        &-content{
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+    }
+    &-trigger{
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -@trigger-height / 2;
+        width: 20px;
+        height: @trigger-height;
+        line-height: @trigger-height - 2;
+        z-index: 991;
+        background: #333;
+        color: white;
+        font-size: 22px;
+        padding-left: 3px;
+        border-radius: 20px 0 0 20px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        &:hover{
+            width: 30px;
+        }
+        &-collapsed{
+            .ivu-icon{
+                transform: rotate(180deg);
+            }
+        }
+    }
+}

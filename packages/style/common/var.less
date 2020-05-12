@@ -1,7 +1,7 @@
 /*
  * @Date: 2019-10-08 11:26:44
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-26 10:14:58
+ * @LastEditTime: 2020-05-12 17:27:02
  * @LastEditors: junfeng.liu
  * @Description: 主题配置文件，既less变量配置
  */
@@ -29,12 +29,13 @@
 @gray-dark              : #969799;
 @gray                   : #c8c9cc;
 @gray-light             : #e5e5e5;
-@gray-lighter           : #f1f1f1;
+@gray-lighter           : #f3f3f3;
 @blue                   : @primary-color;
 @red                    : @error-color;
 @orange                 : @warning-color;
 @green                  : @success-color;
 @disabled-color         : #ccc;
+@disabled-color-dark    : #aaa;
 @text-color             : #515a6e;
 
 
@@ -100,3 +101,12 @@
 @btn-border-radius-base         : @border-radius-base;
 @btn-border-radius-large        : @border-radius-base;
 @btn-border-radius-small        : @border-radius-small;
+
+// menu
+@menu-bg-dark                   : @text-color;
+@menu-text-color                : @text-color;
+@menu-text-color-dark           : fade(@white, 70%);
+@menu-text-icon-space           : 8px;
+@menu-icon-size                 : 18px;
+@menu-item-padding              : 14px 24px;
+@menu-item-padding-dropdown     : 7px 16px;
