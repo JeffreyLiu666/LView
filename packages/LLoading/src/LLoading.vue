@@ -1,12 +1,12 @@
 <!--
  * @Date: 2020-04-30 11:20:43
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-07 18:19:20
+ * @LastEditTime: 2020-05-13 11:34:08
  * @LastEditors: junfeng.liu
  * @Description: loading组件
  -->
 <template>
-    <div :class="className" v-transfer-dom :data-transfer="transfer" v-if="visible">
+    <div :class="className" v-transfer-dom :data-transfer="transfer" v-show="visible">
         <ul class="l-loading-main">
             <li class="l-loading-item" v-for="item in 4" :key="item">
                 <div class="l-loading-ball"></div>

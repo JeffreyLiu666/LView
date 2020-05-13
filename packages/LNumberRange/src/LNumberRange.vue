@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-10 21:05:26
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-10 11:07:18
+ * @LastEditTime: 2020-05-13 16:11:34
  * @LastEditors: junfeng.liu
  * @Description: 数值范围
 
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { isEmpty, isNull, isDeepEqual } from '@/lib/check'
+import { isEmpty, isDeepEqual } from '@/lib/check'
 import { deepCopy } from '@/lib/util'
 
 export default {
@@ -121,8 +121,7 @@ export default {
             if (isEmpty(left)) return
             if (left < this.min) {
                 this.setCurrentValue([this.min, right])
-            }
-            else if (left > this.max) {
+            } else if (left > this.max) {
                 this.setCurrentValue([this.max, right])
             }
         },
@@ -132,8 +131,7 @@ export default {
             if (isEmpty(right)) return
             if (right < this.min) {
                 this.setCurrentValue([left, this.min])
-            }
-            else if (right > this.max) {
+            } else if (right > this.max) {
                 this.setCurrentValue([left, this.max])
             }
         },
@@ -147,8 +145,8 @@ export default {
             const left = Number(val[0] === '' ? undefined : val[0])
             const right = Number(val[1] === '' ? undefined : val[1])
             return [
-                 left < this.min ? this.min : (left > this.max ? this.max : left),
-                 right < this.min ? this.min : (right > this.max ? this.max : right)
+                left < this.min ? this.min : (left > this.max ? this.max : left),
+                right < this.min ? this.min : (right > this.max ? this.max : right)
             ]
         },
         checkNaN (val) {
@@ -181,11 +179,14 @@ export default {
             let localVal = deepCopy(val)
             localVal = this.checkSize(localVal)
             localVal = this.checkNaN(localVal)
-            
+
             // 如果和value相等则直接赋值，这样可以避免在change事件中修改value时造成死循环
-            if (isDeepEqual(localVal, val)) return this.currentValue = localVal
+            if (isDeepEqual(localVal, val)) {
+                this.currentValue = localVal
+                return
+            }
             // 如果数据处理后和curValue相等，则setCurrentValue会直接return，导致和父组件数据对不上
-            if (isDeepEqual(localVal, this.currentValue))  {
+            if (isDeepEqual(localVal, this.currentValue)) {
                 this.$emit('input', localVal)
                 this.$emit('on-change', localVal)
                 return

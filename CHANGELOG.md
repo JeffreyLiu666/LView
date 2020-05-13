@@ -180,9 +180,9 @@
     - 完善LNumberRange的props
 
 ***
-## 1.4.2（未发布）
+## 1.5.0
 
-*2020-04-xx*
+*2020-05-13*
 
 #### 新特性
 
@@ -190,13 +190,24 @@
     - 不再基于iview的button，重写了
     - 新增了两个酷炫的type：cool-hover和cool-hover-dark
 
+- LButtonGroup
+    - 新增按钮组组件，配合LButton使用
+
 - LLoading
     - 新增Loading组件
 
-- LButtonGroup
-    - 新增按钮组组件，配合LButton使用
+- LMenu
+    - 新增LMenu组件及配套的LMenuItem和LSubMenu
+
+- LMenuConfig
+    - 新增LMenuConfig组件，可配置化生成Menu
 
 - LFormEnca
     - 完善对LButton的props支持
     - 新增buttonGroup类型
+
+#### BUG FIX
+
+- directive - transfer
+    - 解决在组件销毁时，el还存在
 

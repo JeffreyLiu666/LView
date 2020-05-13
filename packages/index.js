@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-11 17:56:17
+ * @LastEditTime: 2020-05-13 16:15:33
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -63,7 +63,7 @@ function install (Vue, opts = {}) {
 }
 
 export default {
-    version: '1.4.1',
+    version: '1.5.0',
     install,
     LCell,
     LDateRange,

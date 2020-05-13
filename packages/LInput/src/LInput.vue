@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 16:47:36
+ * @LastEditTime: 2020-05-13 15:45:21
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -33,7 +33,7 @@
     event:
         on-input            输入框输入时触发，返回value,返回的数据未处理
         on-enter            按下回车键时触发    无
-        on-change           数据改变时触发,返回currentValue，只有和value值不相等时才出发
+        on-change           数据改变时触发,返回currentValue，只有和value值不相等时才触发
         on-focus            输入框聚焦时触发,返回event
         on-blur             输入框失去焦点时触发,返回event
         on-keyup            原生的 keyup 事件,返回event
@@ -365,7 +365,6 @@ export default {
             this.$emit('on-input-change', event)
         },
         handleBlur (e) {
-            this.$emit('on-blur', e)
             this.isFocus = false
             let val = e.target.value
             // 不处理空值
@@ -373,6 +372,9 @@ export default {
             // 为了不修改value的undefined和null，这里符合条件之间返回
             if (val === '' && isNull(this.currentValue)) return
             this.setCurrentValue(val, true)
+            // 事件触发需要放在最后面，否则会导致先触发父组件的blur事件，
+            // 这样可能会导致父组件的blur事件中的值不是这里的blur事件处理后的值
+            this.$emit('on-blur', e)
         },
         handleComposition (event) {
             if (event.type === 'compositionstart') {
@@ -493,10 +495,6 @@ export default {
             if (isBlur && this.type === 'number' && this.floatLength >= 0 && result !== '') {
                 result = this.dealFloat(result, this.floatLength)
             }
-
-            // 由于type === number的时候，e.target.value为NaN时，
-            // val为空，可是输入框显示上还是有的，所以需要手动清空
-            // if (result === '') this.$refs.input.value = ''
 
             // 如果和value相等则直接赋值就好
             if (this.value === result) {

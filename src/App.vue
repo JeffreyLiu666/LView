@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-12 16:52:28
+ * @LastEditTime: 2020-05-13 11:06:12
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -32,7 +32,7 @@
             <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
             <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
         </div>
-        <!-- <LLoading></LLoading> -->
+        <LLoading ref="loading" transfer :mask="false"></LLoading>
         <!-- <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
         <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
 
@@ -147,7 +147,8 @@ export default {
             // this.range = ['asdf', 20]
             console.log('aaa')
             // this.disabled = !this.disabled
-            this.collapsed = !this.collapsed
+            // this.collapsed = !this.collapsed
+            this.$refs.loading.$destroy()
         },
         handleSelect (item) {
             console.log(item)

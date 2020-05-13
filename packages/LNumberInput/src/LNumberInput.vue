@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-27 16:33:07
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-10 11:02:06
+ * @LastEditTime: 2020-05-13 16:24:30
  * @LastEditors: junfeng.liu
  * @Description: 数字输入框
 
@@ -21,7 +21,7 @@
         floatLength:        LInput的属性，用于控制保留位数
 
     event
-        on-change:          值改变事件，返回当前的值，只有和value值不相等时才出发
+        on-change:          值改变事件，返回当前的值，只有和value值不相等时才触发
         on-enter:           按下回车键时触发，返回event
         on-focus:           输入框聚焦时触发，返回event
         on-blur:            输入框失去焦点时触发，返回event
@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { isEmpty, isNull } from '@/lib/check.js'
+import { isEmpty } from '@/lib/check.js'
 
 export default {
     name: 'l-number-input',
@@ -172,13 +172,13 @@ export default {
             }
 
             if (isNaN(val)) val = ''
-            // 由于当多次输入都为NaN时，传入的value都是空字符串，
-            // 导致不能触发watch函数，所以需要手动清空（LInput内部实现了控制）
-            // if (newVal === '') this.$refs.input.setCurrentValue('')
-            
+
             // 由于在使用组件时，如果在input或change事件中
             // 改变value的值会导致死循环，所以value改变调用时，再加个判断
-            if (this.value === val) return this.currentValue = val
+            if (this.value === val) {
+                this.currentValue = val
+                return
+            }
 
             this.$emit('input', val)
             this.$emit('on-change', val, oldVal)

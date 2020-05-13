@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-01 09:53:10
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-17 14:54:04
+ * @LastEditTime: 2020-05-13 12:41:24
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -24,7 +24,7 @@ module.exports = function (config) {
         client: {
             mocha: {
                 timeout: 4000,
-                // grep: 'LButton'
+                // grep: 'LNumberInput'
             }
         },
         coverageReporter: {

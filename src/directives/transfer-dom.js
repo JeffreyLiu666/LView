@@ -62,13 +62,24 @@ const directive = {
             getTarget(value).appendChild(el)
         }
     },
-    unbind (el) {
+    unbind (el, binding, vnode) {
+        const vm = vnode.context
         if (el.dataset && el.dataset.transfer !== 'true') return false
         el.className = el.className.replace('v-transfer-dom', '')
         const ref$1 = el.__transferDomData
         if (!ref$1) return
         if (el.__transferDomData.hasMovedOut === true) {
-            el.__transferDomData.parentNode && el.__transferDomData.parentNode.appendChild(el)
+            // 由于组件销毁时会调用这里，导致组件被销毁了，可是el却还在，
+            // 所以需要判断是否已经销毁，如果销毁则将el和home删除
+            if (vm._isDestroyed) {
+                const home = el.__transferDomData.home
+                const homeParent = home.parentElement
+                const elParent = el.parentElement
+                if (homeParent) homeParent.removeChild(home)
+                if (elParent) elParent.removeChild(el)
+            } else {
+                el.__transferDomData.parentNode && el.__transferDomData.parentNode.appendChild(el)
+            }
         }
         el.__transferDomData = null
     }
