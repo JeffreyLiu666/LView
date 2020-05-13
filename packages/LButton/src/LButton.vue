@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-17 09:04:30
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-27 16:39:24
+ * @LastEditTime: 2020-05-13 18:33:29
  * @LastEditors: junfeng.liu
  * @Description: button组件
 
@@ -64,7 +64,12 @@ export default {
             type: Boolean,
             default: false
         },
-        htmlType: String,
+        htmlType: {
+            default: 'button',
+            validator (value) {
+                return ['button', 'submit', 'reset'].includes(value)
+            }
+        },
         disabled: Boolean,
         loading: Boolean,
         icon: String,

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-05-08 10:44:30
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-12 18:09:13
+ * @LastEditTime: 2020-05-13 17:34:34
  * @LastEditors: junfeng.liu
  * @Description: 基于iview的menu的扩展。
     使用的时候注意要组件间嵌套，如果组件的内容增加了层级可能会导致样式错乱;
@@ -153,11 +153,16 @@ export default {
         value (val) {
             if (val === this.currentActiveName) return
             this.currentActiveName = val
+            this.$nextTick(this.updateActiveName)
         },
         collapsed (val) {
             if (val === this.insideCollapsed) return
             this.insideCollapsed = val
             this.updateMenu()
+        },
+        openNames () {
+            if (this.mode !== 'vertical') return
+            this.$nextTick(this.updateOpened)
         }
     }
 }

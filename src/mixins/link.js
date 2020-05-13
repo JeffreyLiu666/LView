@@ -40,7 +40,7 @@ export default {
         }
     },
     methods: {
-        handleClick (new_window = false) {
+        handleClickLink (new_window = false) {
             const router = this.$router
 
             if (new_window) {
@@ -60,13 +60,13 @@ export default {
             }
         },
         handleCheckClick (event, new_window = false) {
-            if (this.to) {
-                if (this.target === '_blank') {
-                    return false
-                } else {
-                    event.preventDefault()
-                    this.handleClick(new_window)
-                }
+            if (!this.to) return
+
+            if (this.target === '_blank') {
+                return false
+            } else {
+                event.preventDefault()
+                this.handleClickLink(new_window)
             }
         }
     }

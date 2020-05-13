@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 15:43:32
+ * @LastEditTime: 2020-05-13 18:23:37
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -201,11 +201,15 @@
             :ghost="config.ghost"
             :shape="config.shape"
             :size="config.size"
+            :to="config.to"
+            :replace="config.replace"
+            :target="config.target"
+            :append="config.append"
             :throttle="config.throttle"
             :debounce="config.debounce"
             :delay="config.delay"
             :earlyTrigger="config.earlyTrigger"
-            @click="handleClick"
+            @click="handleClick($event)"
             v-if="type === 'button'">
             {{ config.text }}
         </LButton>
@@ -224,6 +228,10 @@
                 :ghost="item.ghost"
                 :shape="item.shape"
                 :size="item.size"
+                :to="item.to"
+                :replace="item.replace"
+                :target="item.target"
+                :append="item.append"
                 :throttle="item.throttle"
                 :debounce="item.debounce"
                 :delay="item.delay"

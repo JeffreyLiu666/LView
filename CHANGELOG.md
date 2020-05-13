@@ -211,3 +211,21 @@
 - directive - transfer
     - 解决在组件销毁时，el还存在
 
+***
+## 1.5.1
+
+*2020-05-13*
+
+#### 新特性
+
+- LMenu
+    - 监听value和openNames的变化自动调用updateActiveName和updateOpened
+
+- LMenuConfig
+    - 添加updateOpened和updateActiveName两个方法
+
+#### BUG FIX
+
+- LButton
+    - 解决点击按钮时无故跳转
+

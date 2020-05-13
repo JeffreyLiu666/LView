@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-05-11 17:54:16
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-12 18:28:00
+ * @LastEditTime: 2020-05-13 17:21:41
  * @LastEditors: junfeng.liu
  * @Description: 可通过传入路由配置实现菜单生成
  -->
@@ -111,6 +111,12 @@ export default {
         }
     },
     methods: {
+        updateOpened () {
+            this.$refs.menu.iMenu.updateOpened()
+        },
+        updateActiveName () {
+            this.$refs.menu.iMenu.updateActiveName()
+        },
         trigger () {
             this.collapsed = !this.collapsed
         }
