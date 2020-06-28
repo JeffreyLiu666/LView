@@ -1,15 +1,15 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-13 11:06:12
+ * @LastEditTime: 2020-06-28 18:15:41
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
 <template>
     <div>
-        <div style="padding: 20px;width: 500px;height: 300px;background: #f6f6f6;position: relative;">
+        <!-- <div style="padding: 20px;width: 500px;height: 300px;background: #f6f6f6;position: relative;"> -->
             <!-- <Sider v-model="collapsed" :width="256" :collapsed-width="64" style="overflow: hidden;"> -->
-                <LMenuConfig :config="routes" @on-select="handleSelect"></LMenuConfig>
+                <!-- <LMenuConfig :config="routes" @on-select="handleSelect"></LMenuConfig> -->
             <!-- </Sider> -->
             <!-- <LLoading transfer></LLoading> -->
             <!-- <LButtonGroup shape="circles" vertical size="small">
@@ -31,8 +31,8 @@
             </LInput> -->
             <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
             <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
-        </div>
-        <LLoading ref="loading" transfer :mask="false"></LLoading>
+        <!-- </div> -->
+        <!-- <LLoading ref="loading" transfer :mask="false"></LLoading> -->
         <!-- <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
         <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
 
@@ -42,7 +42,8 @@
                 <div style="height: 900px;">asdfas</div>
             </div>
         </LFold> -->
-        <!-- <LShowImg imgStyle="minWidth: 100%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg> -->
+        <LUpload v-model="files" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload>
+        <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg>
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
         <!-- <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
@@ -53,6 +54,7 @@
         <!-- </div> -->
         <!-- <LToTop wrapper="#testDom"></LToTop> -->
         <!-- <LDateRange v-model="range"></LDateRange> -->
+        <!-- <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="60"></LForm> -->
     </div>
 </template>
 
@@ -61,6 +63,10 @@ export default {
     name: 'app',
     data () {
         return {
+            headers: {
+                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjIsImlhdCI6MTU5MzMzOTI2MSwiZXhwIjoxNTkzMzQ2NDYxfQ.2pVTaHuIX7iSDk-JlT5f3cVUfVnffONoITovHcB6pbA'
+            },
+            files: [],
             data: [{ num: 10 }],
             cols: [
                 { title: '票名', key: 'name' },
@@ -69,10 +75,17 @@ export default {
                 { title: '数量', key: 'num', width: 110, className: 'aa', type: 'inputNumber', config: { min: 0 }, onChange: (val, row, col, index) => {
                     console.log(val)
                     this.$set(this.data[index], col.key, val)
+                    this.$nextTick(() => {
+                        this.$set(this.data[index], col.key, 10)
+                    })
                 } },
                 { title: '数量', key: 'nums', width: 110, dataFunc: (val, row) => {
                     return row.num + 1
                 } }
+            ],
+            formData: {},
+            config: [
+                { label: '选择售票日期：', key: 'date', type: 'datePicker' }
             ],
             num: undefined,
             range: ['aa', 22],
@@ -134,7 +147,27 @@ export default {
                         customIcon: 'md-heart'
                     }
                 }
-            ]
+            ],
+            statusCheck: function (res) {
+                let { data, status, code, msg } = res
+                if (status === 1) {
+                    return Promise.resolve(data)
+                }
+                else if (code === '10001') {
+                    this.$Modal.warning({
+                        title: '登录过期',
+                        content: '您的登录信息已过期，请重新登录',
+                        onOk: () => {
+                            console.log('logout')
+                            // store.dispatch('logout')
+                        }
+                    })
+                }
+                else {
+                    this.$Message.error(msg || '未知错误')
+                }
+                return Promise.reject(res)
+            }
         }
     },
     mounted () {
@@ -143,12 +176,12 @@ export default {
     methods: {
         handleClick () {
             // this.num = 'asdf'
-            // this.show = true
+            this.show = true
             // this.range = ['asdf', 20]
             console.log('aaa')
             // this.disabled = !this.disabled
             // this.collapsed = !this.collapsed
-            this.$refs.loading.$destroy()
+            // this.$refs.loading.$destroy()
         },
         handleSelect (item) {
             console.log(item)

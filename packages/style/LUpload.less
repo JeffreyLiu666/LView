@@ -1,0 +1,86 @@
+
+@import './common/var.less';
+
+@upload-prefix-cls: ~'@{css-prefix}upload';
+
+.@{upload-prefix-cls}{
+    line-height: normal;
+    .ivu-upload{
+        display: inline-block;
+        vertical-align: top;
+    }
+    &-file-list{
+        position: relative;
+    }
+    &-btn, &-file-item{
+        position: relative;
+        width: @upload-width;
+        height: @upload-height;
+        text-align: center;
+        border-radius: @border-radius-small;
+        display: inline-block;
+        color: @gray;
+        background: @upload-bg;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        position: relative;
+        vertical-align: top;
+        & > .ivu-icon{
+            font-size: 40px;
+            margin-top: (@upload-height - @height-base - 40) / 2;
+            display: inline-block;
+        }
+    }
+    &-btn{
+        cursor: pointer;
+        &.disabled{
+            cursor: not-allowed;
+        }
+    }
+    &-progress{
+        width: 100%;
+        height: 5px;
+        background: @success-color;
+        position: absolute;
+        bottom: 0;
+    }
+    &-img-box{
+        width: @upload-width;
+        height: @upload-height - 30;
+        overflow: hidden;
+        border: @border-base;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &.onlyImg{
+            width: 100%;
+            height: 100%;
+        }
+        img{
+            max-width: 100%;
+            max-height: 100%;
+            // transform: translateY(-25%);
+        }
+    }
+    &-btn-text, &-file-name{
+        line-height: @height-base;
+        font-size: @font-size-base;
+        color: @gray-dark;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0px 5px;
+    }
+    &-del-btn{
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        font-size: 22px;
+        background: white;
+        border-radius: 50%;
+        line-height: 1;
+        color: black;
+        cursor: pointer;
+    }
+}

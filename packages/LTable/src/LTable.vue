@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-09 17:13:53
+ * @LastEditTime: 2020-06-11 17:54:38
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -221,7 +221,20 @@ export default {
         getInputNumber (item) {
             item.render = (h, { row, column, index }) => {
                 const { onChange, config = {} } = column
-                const { size = 'small', min, max, step, precision, disabled } = config
+                const {
+                    size = 'small',
+                    min,
+                    max,
+                    step,
+                    disabled,
+                    placeholder,
+                    controlsPosition,
+                    floatLength,
+                    textAlign,
+                    readonly,
+                    prefix,
+                    suffix
+                } = config
                 let val = row[column.key]
                 return (
                     <LNumberInput
@@ -231,8 +244,14 @@ export default {
                         min={ min }
                         max={ max }
                         step={ step }
-                        // precision={ precision }
+                        placeholder={ placeholder }
+                        controlsPosition={ controlsPosition }
+                        floatLength={ floatLength }
+                        textAlign={ textAlign }
+                        readonly={ readonly }
                         disabled={ disabled }
+                        prefix={ prefix }
+                        suffix={ suffix }
                         onOn-change={ isFunction(onChange) ? cVal => { onChange(cVal, row, column, index) } : undefined }></LNumberInput>
                 )
             }

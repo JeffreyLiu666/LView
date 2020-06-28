@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-17 14:57:08
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 11:26:27
+ * @LastEditTime: 2020-06-12 11:15:01
  * @LastEditors: junfeng.liu
  * @Description: npm run test && npm run build && npm publish
  */
@@ -100,7 +100,7 @@ function build () {
     
     child.on('close', (code) => {
         console.log(success(code))
-        rl.question('Are you sure you want to push?  ', (input) => {
+        rl.question('Are you sure you want to push (y or n)?  ', (input) => {
             if (input === 'y' || input === 'yes') push()
             rl.close()
         })

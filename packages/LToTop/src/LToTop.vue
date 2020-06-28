@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-07 09:42:54
+ * @LastEditTime: 2020-06-28 14:25:32
  * @LastEditors: junfeng.liu
  * @Description: 回到顶部
 
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { isNull } from '@/lib/check.js'
+// import { isNull } from '@/lib/check.js'
 import { throttle } from '@/lib/util.js'
 
 export default {
@@ -30,7 +30,7 @@ export default {
     props: {
         // 滚动的容器，默认body
         wrapper: {
-            type: [Document, String]
+            type: [Object, String]
         },
         // 滚动多少后显示
         offset: {
@@ -100,13 +100,14 @@ export default {
         },
         // 由于没有css动画，所以用js做动画
         animation () {
-            const rAF = window.requestAnimationFrame || (func => setTimeout(func, 1000 / 60));
+            const rAF = window.requestAnimationFrame || (func => setTimeout(func, 1000 / 60))
             const animationFunc = () => {
                 let top = this.el.scrollTop
                 this.el.scrollTop = top - this.step
                 if (this.el.scrollTop <= 0) {
                     this.el.scrollTop = 0
-                    return this.scrolling = false
+                    this.scrolling = false
+                    return
                 }
                 rAF(animationFunc)
             }
@@ -117,7 +118,7 @@ export default {
         this.removeListener()
     },
     watch: {
-        wrapper (val) {
+        wrapper () {
             this.removeListener()
             this.init()
         }

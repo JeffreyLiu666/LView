@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-13 18:23:37
+ * @LastEditTime: 2020-06-12 10:58:10
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -272,6 +272,7 @@
 
 <script>
 import { check } from '@/lib'
+import { formatDate } from '@/lib/date.js'
 import { deepCopy } from '@/lib/util.js'
 import { formatList } from '@/lib/array.js'
 
@@ -370,8 +371,8 @@ export default {
     mounted () {
         // 由于datePicker对时区的处理与moment不同，这里先用moment处理一下
         if (this.type === 'datePicker' && this.DatePickerType === 'date') {
-            this.$emit('input', this.formatDate(this.value))
-            this.val = this.formatDate(this.value)
+            this.$emit('input', formatDate(this.value))
+            this.val = formatDate(this.value)
         } else {
             this.val = this.value
         }

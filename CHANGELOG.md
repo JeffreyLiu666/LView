@@ -229,3 +229,24 @@
 - LButton
     - 解决点击按钮时无故跳转
 
+***
+## 1.6.1
+
+*2020-06-12*
+
+#### 新特性
+
+- LUpload
+    - 新增LUpload组件，主要是上传文件
+
+- LTable
+    - 扩展对LNumberInput的属性的支持
+
+- vue-ssr
+    - 兼容在vue-ssr中的使用
+
+#### BUG FIX
+
+- LFormEnca
+    - 解决报this.formatDate错误
+

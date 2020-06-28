@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 09:49:34
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-21 15:26:21
+ * @LastEditTime: 2020-06-28 15:03:29
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -39,6 +39,7 @@ module.exports = merge(webpackConfig, {
         library: 'LView',
         // 将UMD的构建过程中的 AMD 模块进行命名，否则就使用匿名的 define。
         umdNamedDefine: true,
+        globalObject: isDev ? 'window' : 'typeof self !== \'undefined\' ? self : this'
     },
     devServer: {
         openPage: 'dist/index.html',

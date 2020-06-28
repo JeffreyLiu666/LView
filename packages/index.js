@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-13 18:34:40
+ * @LastEditTime: 2020-06-28 18:45:21
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -27,6 +27,7 @@ import LMenu from 'packages/LMenu'
 import LMenuItem from 'packages/LMenuItem'
 import LSubMenu from 'packages/LSubMenu'
 import LMenuConfig from 'packages/LMenuConfig'
+import LUpload from 'packages/LUpload'
 
 const components = [
     LCell,
@@ -49,7 +50,8 @@ const components = [
     LMenu,
     LMenuItem,
     LSubMenu,
-    LMenuConfig
+    LMenuConfig,
+    LUpload
 ]
 
 function install (Vue, opts = {}) {
@@ -63,7 +65,7 @@ function install (Vue, opts = {}) {
 }
 
 export default {
-    version: '1.5.1',
+    version: '1.6.1',
     install,
     LCell,
     LDateRange,
@@ -85,5 +87,6 @@ export default {
     LMenu,
     LMenuItem,
     LSubMenu,
-    LMenuConfig
+    LMenuConfig,
+    LUpload
 }
