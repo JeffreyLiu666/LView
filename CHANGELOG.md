@@ -250,3 +250,13 @@
 - LFormEnca
     - 解决报this.formatDate错误
 
+***
+## 1.6.2
+
+*2020-06-29*
+
+#### 新特性
+
+- LFormEnca
+    - 新增对LUpload组件的支持
+

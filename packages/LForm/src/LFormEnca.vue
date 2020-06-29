@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-12 10:58:10
+ * @LastEditTime: 2020-06-29 10:25:27
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -183,6 +183,28 @@
             @on-change="cascaderChange"
             v-if="type === 'cascader'">
         </Cascader>
+        <!--上传-->
+        <LUpload
+            :value="val"
+            :disabled="disabled"
+            :maxLength="maxlength"
+            :type="config.type"
+            :headers="config.headers"
+            :name="config.name"
+            :data="config.data"
+            :action="config.action"
+            :accept="config.accept"
+            :format="config.format"
+            :maxSize="config.maxSize"
+            :multiple="config.multiple"
+            :showUploadList="config.showUploadList"
+            :showUploadBtn="config.showUploadBtn"
+            :showFileName="config.showFileName"
+            :APIUrl="config.APIUrl"
+            :checkReqFn="config.checkReqFn"
+            @on-change="change"
+            v-if="type === 'upload'">
+        </LUpload>
         <!--文本-->
         <div class="l-form-text-content" v-if="type === 'text'">{{val}}</div>
         <!--开关选择器-->
@@ -355,10 +377,12 @@ export default {
             let result = []
             if (!check.isEmpty(this.rList)) {
                 result = this.rList
-            } else if (!check.isEmpty(this.list)) {
+            }
+            else if (!check.isEmpty(this.list)) {
                 if (check.isArray(this.list)) {
                     result = this.list
-                } else {
+                }
+                else {
                     result.push(this.list)
                 }
             }
@@ -373,7 +397,8 @@ export default {
         if (this.type === 'datePicker' && this.DatePickerType === 'date') {
             this.$emit('input', formatDate(this.value))
             this.val = formatDate(this.value)
-        } else {
+        }
+        else {
             this.val = this.value
         }
         // 判断select是否需要组件内部请求获取list
@@ -395,7 +420,8 @@ export default {
             if (this.require) { // 如果是required则自动添加一条规则
                 if (this.type === 'input') {
                     this.checkTriggers['blur'].push({ type: 'require' })
-                } else {
+                }
+                else {
                     this.checkTriggers['change'].push({ type: 'require' })
                 }
             }
@@ -526,7 +552,8 @@ export default {
             }
             if (result) {
                 return Promise.resolve({ isOk: result, msg: msg })
-            } else {
+            }
+            else {
                 return Promise.reject({ isOk: result, msg: msg }) // 直接抛出错误，结束promise.all
             }
         },
@@ -572,7 +599,8 @@ export default {
                 this.requestParam.inputKey = inputKey
                 this.requestParam.urlParam = urlParam
                 this.requestParam.param = param
-            } else if (this.config.remote && this.config.filterable) {
+            }
+            else if (this.config.remote && this.config.filterable) {
                 this.requestParam.param[this.requestParam.inputKey] = inputValue
             }
             if (!this.__lform_ajax__ || !check.isFunction(this.__lform_ajax__.request)) {
@@ -589,9 +617,11 @@ export default {
                 list = formatList(list, this.requestParam.labelKey, this.requestParam.valueKey)
                 if (!check.isEmpty(this.config.blackList)) {
                     this.rList = this.getBlackList(list)
-                } else if (!check.isEmpty(this.config.whiteList)) {
+                }
+                else if (!check.isEmpty(this.config.whiteList)) {
                     this.rList = this.getWhiteList(list)
-                } else {
+                }
+                else {
                     this.rList = list
                 }
             }).finally(() => {
