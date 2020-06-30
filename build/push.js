@@ -1,18 +1,18 @@
 /*
  * @Date: 2020-04-17 14:57:08
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-12 11:15:01
+ * @LastEditTime: 2020-06-30 16:09:21
  * @LastEditors: junfeng.liu
  * @Description: npm run test && npm run build && npm publish
  */
 const { versionToInt } = require('./util.js')
 const packageConfig = require('../package.json')
-const { exec, spawn  } = require('child_process')
+const { exec, spawn } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
 const readline = require('readline')
-const { componentEntries } = require('./util')
+// const { componentEntries } = require('./util')
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -51,7 +51,8 @@ function checkVersion () {
                     break
                 }
                 resolve(result)
-            } catch (err) {
+            }
+            catch (err) {
                 reject(err)
                 console.log(
                     error('解析npm search结果失败', err)
@@ -93,11 +94,11 @@ function build () {
     child.stdout.on('data', (data) => {
         console.log(data.toString('utf-8'))
     })
-    
+
     child.stderr.on('data', (data) => {
         console.log(error(data.toString('utf-8')))
     })
-    
+
     child.on('close', (code) => {
         console.log(success(code))
         rl.question('Are you sure you want to push (y or n)?  ', (input) => {

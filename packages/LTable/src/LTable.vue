@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-11 17:54:38
+ * @LastEditTime: 2020-06-29 15:23:06
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -157,7 +157,7 @@ export default {
         },
         // 设置type === 'index'的列
         getIndexCol (item) {
-            item.indexMethod = (row) => { return row._index + 1 + (this.current - 1) * this.pageSize }
+            item.indexMethod = (row) => (row._index + 1 + (this.current - 1) * this.pageSize)
             return item
         },
         // 将值设为dataFunc的返回值

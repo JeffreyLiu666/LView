@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-28 14:52:25
+ * @LastEditTime: 2020-06-30 17:28:17
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -505,6 +505,7 @@ export default {
             // 如果和value相等则直接赋值就好
             if (this.value === result) {
                 this.currentValue = result
+                this.$nextTick(this.resizeTextarea)
                 return
             }
 
@@ -518,6 +519,7 @@ export default {
             // 不处理空值
             if (isEmpty(val)) {
                 this.currentValue = val
+                this.$nextTick(this.resizeTextarea)
                 return
             }
 

@@ -260,3 +260,13 @@
 - LFormEnca
     - 新增对LUpload组件的支持
 
+***
+## 1.6.3
+
+*2020-06-30*
+
+#### BUG FIX
+
+- LInput
+    - 解决部分时机autosize的自适应无效
+
