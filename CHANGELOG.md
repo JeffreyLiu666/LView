@@ -270,3 +270,13 @@
 - LInput
     - 解决部分时机autosize的自适应无效
 
+***
+## 1.6.4
+
+*2020-07-01*
+
+#### BUG FIX
+
+- LInput
+    - 解决在ssr模式中textarea会报document不存在
+

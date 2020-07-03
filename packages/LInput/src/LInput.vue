@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-30 17:28:17
+ * @LastEditTime: 2020-07-01 11:48:38
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -335,6 +335,7 @@ export default {
         }
     },
     mounted () {
+        this.setValue(this.value)
         this.resizeTextarea()
     },
     methods: {
@@ -554,8 +555,8 @@ export default {
     },
     watch: {
         value: {
-            handler: 'setValue',
-            immediate: true
+            handler: 'setValue'
+            // immediate: true
         }
     }
 }

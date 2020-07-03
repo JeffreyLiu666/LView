@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-28 18:15:41
+ * @LastEditTime: 2020-07-01 11:28:23
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -33,8 +33,8 @@
             <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
         <!-- </div> -->
         <!-- <LLoading ref="loading" transfer :mask="false"></LLoading> -->
-        <!-- <LInput type="textarea" :autosize="{minRows: 3}" disabled></LInput>
-        <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
+        <LInput v-model="val" type="textarea" :autosize="{minRows: 3}" disabled></LInput>
+        <!-- <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
 
         <!-- <LCell title="dddd" content="ccc">ddd</LCell> -->
         <!-- <LFold needHide>
@@ -42,8 +42,8 @@
                 <div style="height: 900px;">asdfas</div>
             </div>
         </LFold> -->
-        <LUpload v-model="files" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload>
-        <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg>
+        <!-- <LUpload v-model="files" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload> -->
+        <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
         <!-- <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
@@ -63,6 +63,7 @@ export default {
     name: 'app',
     data () {
         return {
+            val: '',
             headers: {
                 authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjIsImlhdCI6MTU5MzMzOTI2MSwiZXhwIjoxNTkzMzQ2NDYxfQ.2pVTaHuIX7iSDk-JlT5f3cVUfVnffONoITovHcB6pbA'
             },
@@ -175,10 +176,11 @@ export default {
     },
     methods: {
         handleClick () {
+            this.val = 'ffffffffffffffa'
             // this.num = 'asdf'
-            this.show = true
+            // this.show = true
             // this.range = ['asdf', 20]
-            console.log('aaa')
+            // console.log('aaa')
             // this.disabled = !this.disabled
             // this.collapsed = !this.collapsed
             // this.$refs.loading.$destroy()
