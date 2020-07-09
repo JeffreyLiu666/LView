@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LSubMenu from 'packages/LMenu/src/LSubMenu.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LSubMenu.install = function (Vue) {
     Vue.component(LSubMenu.name, LSubMenu)

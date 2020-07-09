@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-29 15:23:06
+ * @LastEditTime: 2020-07-09 18:03:56
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import { isFunction } from '@/lib/check'
-import { deepCopy } from '@/lib/util'
+import { isFunction, isNull } from '@/utils/check'
+import { deepCopy } from '@/utils/util'
 
 export default {
     name: 'l-table',
@@ -184,6 +184,13 @@ export default {
         getButtons (item) {
             item.render = (h, params) => {
                 let btns = item.buttons.map((btn) => {
+                    let show = true
+
+                    if (isFunction(btn.show)) show = btn.show(params)
+                    else if (!isNull(btn.show)) show = !!btn.show
+
+                    if (!show) return null
+
                     return (
                         <Button style={ btn.style } icon={ btn.icon } type={ btn.type || 'primary' } size={ btn.size || 'small' } onClick={ item.onClick.bind(null, (Object.assign({}, params, btn))) }>{ btn.label }</Button>
                     )
@@ -198,6 +205,13 @@ export default {
         getLinks (item) {
             item.render = (h, params) => {
                 let links = item.links.map((link) => {
+                    let show = true
+
+                    if (isFunction(link.show)) show = link.show(params)
+                    else if (!isNull(link.show)) show = !!link.show
+
+                    if (!show) return null
+
                     return (
                         <a onClick={ item.onClick.bind(null, (Object.assign({}, link, params))) }>{ link.label }</a>
                     )
@@ -252,7 +266,9 @@ export default {
                         disabled={ disabled }
                         prefix={ prefix }
                         suffix={ suffix }
-                        onOn-change={ isFunction(onChange) ? cVal => { onChange(cVal, row, column, index) } : undefined }></LNumberInput>
+                        onOn-change={ isFunction(onChange) ? cVal => {
+                            onChange(cVal, row, column, index)
+                        } : undefined }></LNumberInput>
                 )
             }
             delete item.type

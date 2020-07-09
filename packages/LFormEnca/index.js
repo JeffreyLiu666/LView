@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LFormEnca from 'packages/LForm/src/LFormEnca.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LFormEnca.install = function (Vue) {
     Vue.component(LFormEnca.name, LFormEnca)

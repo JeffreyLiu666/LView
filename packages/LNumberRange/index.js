@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LNumberRange from './src/LNumberRange.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LNumberRange.install = function (Vue) {
     Vue.component(LNumberRange.name, LNumberRange)

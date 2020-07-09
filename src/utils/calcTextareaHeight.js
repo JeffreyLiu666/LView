@@ -7,7 +7,7 @@ const HIDDEN_TEXTAREA_STYLE = `
     z-index:-1000 !important;
     top:0 !important;
     right:0 !important
-`;
+`
 
 const SIZING_STYLE = [
     'letter-spacing',
@@ -24,70 +24,71 @@ const SIZING_STYLE = [
     'padding-left',
     'padding-right',
     'border-width',
-    'box-sizing',
-];
+    'box-sizing'
+]
 
-let hiddenTextarea;
+let hiddenTextarea
 
-function calculateNodeStyling(node) {
+function calculateNodeStyling (node) {
 
-    const style = window.getComputedStyle(node);
+    const style = window.getComputedStyle(node)
 
     const boxSizing = (
         style.getPropertyValue('box-sizing') ||
         style.getPropertyValue('-moz-box-sizing') ||
         style.getPropertyValue('-webkit-box-sizing')
-    );
+    )
 
     const paddingSize = (
         parseFloat(style.getPropertyValue('padding-bottom')) +
         parseFloat(style.getPropertyValue('padding-top'))
-    );
+    )
 
     const borderSize = (
         parseFloat(style.getPropertyValue('border-bottom-width')) +
         parseFloat(style.getPropertyValue('border-top-width'))
-    );
+    )
 
     const sizingStyle = SIZING_STYLE
         .map(name => `${name}:${style.getPropertyValue(name)}`)
-        .join(';');
+        .join(';')
 
     const nodeInfo = {
         sizingStyle,
         paddingSize,
         borderSize,
-        boxSizing,
-    };
+        boxSizing
+    }
 
-    return nodeInfo;
+    return nodeInfo
 }
 
 function destroy () {
     if (!hiddenTextarea) return
-    hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea);
+    hiddenTextarea.parentNode && hiddenTextarea.parentNode.removeChild(hiddenTextarea)
     hiddenTextarea = null
 }
 
-function calcTextareaHeight(uiTextNode, minRows = 1, maxRows = null) {
+function calcTextareaHeight (uiTextNode, minRows = 1, maxRows = null) {
     if (!hiddenTextarea) {
-        hiddenTextarea = document.createElement('textarea');
-        document.body.appendChild(hiddenTextarea);
+        hiddenTextarea = document.createElement('textarea')
+        document.body.appendChild(hiddenTextarea)
     }
 
     if (uiTextNode.getAttribute('wrap')) {
-        hiddenTextarea.setAttribute('wrap', uiTextNode.getAttribute('wrap'));
-    } else {
-        hiddenTextarea.removeAttribute('wrap');
+        hiddenTextarea.setAttribute('wrap', uiTextNode.getAttribute('wrap'))
+    }
+    else {
+        hiddenTextarea.removeAttribute('wrap')
     }
 
     let {
         paddingSize, borderSize,
-        boxSizing, sizingStyle,
-    } = calculateNodeStyling(uiTextNode);
+        boxSizing, sizingStyle
+    } = calculateNodeStyling(uiTextNode)
 
     hiddenTextarea.setAttribute('style', `${ sizingStyle };${ HIDDEN_TEXTAREA_STYLE }`)
-    hiddenTextarea.value = uiTextNode.value || uiTextNode.placeholder || '';
+    hiddenTextarea.value = uiTextNode.value || uiTextNode.placeholder || ''
 
     let height = hiddenTextarea.scrollHeight
     let overflowY, minHeight, maxHeight

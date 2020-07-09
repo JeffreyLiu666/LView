@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { throttle, debounce } from '@/lib/util.js'
-import { isNull } from '@/lib/check.js'
+import { throttle, debounce } from '@/utils/util.js'
+import { isNull } from '@/utils/check.js'
 import mixinsLink from '@/mixins/link.js'
 
 export default {
@@ -139,7 +139,8 @@ export default {
             if (isHrefPattern) {
                 const { linkUrl, target } = this
                 return { href: linkUrl, target }
-            } else {
+            }
+            else {
                 const { htmlType } = this
                 return { type: htmlType }
             }
@@ -150,7 +151,8 @@ export default {
         if (isNaN(delay)) return
         if (this.throttle) {
             this.handleClick = throttle(this.handleClick, delay, this.earlyTrigger)
-        } else if (this.debounce) {
+        }
+        else if (this.debounce) {
             this.handleClick = debounce(this.handleClick, delay, this.earlyTrigger)
         }
     },

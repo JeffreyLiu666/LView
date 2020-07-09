@@ -82,7 +82,7 @@
 // import LFormGroup from './LFormGroup.vue'
 // import LFormItem from './LFormItem.vue'
 // import LFormEnca from './LFormEnca.vue'
-// import { util } from '@/lib'
+// import { util } from '@/utils'
 
 export default {
     name: 'l-form',

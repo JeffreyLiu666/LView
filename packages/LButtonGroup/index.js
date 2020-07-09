@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LButtonGroup from 'packages/LButton/src/LButtonGroup.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LButtonGroup.install = function (Vue) {
     Vue.component(LButtonGroup.name, LButtonGroup)

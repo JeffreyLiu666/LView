@@ -1,26 +1,21 @@
 /*
  * @Date: 2020-03-25 09:49:34
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-28 15:03:29
+ * @LastEditTime: 2020-07-09 14:48:27
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 
-const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssnanoPlugin = require('@intervolga/optimize-cssnano-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const NODE_ENV = process.env.NODE_ENV
 const isDev = NODE_ENV === 'development'
 const isPro = NODE_ENV === 'production'
-const root_path = path.resolve('.')
 const config = require('./config')
 const webpackConfig = require('./webpack.base')
 const merge = require('webpack-merge')
-
-function resolve (dir) {
-    return path.resolve(root_path, dir)
-}
+const { resolve } = require('./util')
 
 module.exports = merge(webpackConfig, {
     entry: {
@@ -41,12 +36,13 @@ module.exports = merge(webpackConfig, {
         umdNamedDefine: true,
         globalObject: isDev ? 'window' : 'typeof self !== \'undefined\' ? self : this'
     },
+    externals: isPro ? config.baseExternals : {},
     devServer: {
         openPage: 'dist/index.html',
         hot: true,
         noInfo: true,
         overlay: true,
-        open: false
+        open: true
     },
     module: {
         rules: [

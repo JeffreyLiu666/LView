@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LUpload from './src/LUpload.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LUpload.install = function (Vue) {
     Vue.component(LUpload.name, LUpload)

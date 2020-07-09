@@ -1,11 +1,11 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-01 12:29:06
+ * @LastEditTime: 2020-07-09 18:34:33
  * @LastEditors: junfeng.liu
  * @Description: des
  */
-import { isFunction } from '@/lib/check'
+import { isFunction } from '@/utils/check'
 import LCell from 'packages/LCell'
 import LDateRange from 'packages/LDateRange'
 import LForm from 'packages/LForm'
@@ -65,7 +65,7 @@ function install (Vue, opts = {}) {
 }
 
 export default {
-    version: '1.6.4',
+    version: '1.6.7',
     install,
     LCell,
     LDateRange,

@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LForm from './src/LForm.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LForm.install = function (Vue) {
     Vue.component(LForm.name, LForm)

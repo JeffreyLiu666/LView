@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LTable from './src/LTable.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LTable.install = function (Vue) {
     Vue.component(LTable.name, LTable)

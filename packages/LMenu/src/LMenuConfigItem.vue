@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import { deepCopy } from '@/lib/util.js'
-import { isArray } from '@/lib/check.js'
+import { deepCopy } from '@/utils/util.js'
+import { isArray } from '@/utils/check.js'
 import emitter from '@/mixins/emitter.js'
 
 export default {

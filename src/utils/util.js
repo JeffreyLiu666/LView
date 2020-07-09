@@ -71,7 +71,8 @@ function doDeepCopy (data, cacheList) {
         }
         cacheList.push(data)
         o = isObject(data) ? {} : []
-    } else {
+    }
+    else {
         return data
     }
 
@@ -82,7 +83,8 @@ function doDeepCopy (data, cacheList) {
             if (isNull(res)) continue
             o.push(res)
         }
-    } else if (isObject(data)) {
+    }
+    else if (isObject(data)) {
         for (let k in data) {
             let res = doDeepCopy(data[k], cacheList)
             // 去掉空值
@@ -127,7 +129,8 @@ export function debounce (func, cd = 300, reverse = false) {
     return function (...args) {
         if (!isNull(timeId)) {
             clearTimeout(timeId)
-        } else if (reverse) {
+        }
+        else if (reverse) {
             func(...args)
         }
         timeId = setTimeout(function () {
@@ -147,7 +150,8 @@ export function debounce (func, cd = 300, reverse = false) {
 export function findComponentUpward (context, componentName, componentNames) {
     if (typeof componentName === 'string') {
         componentNames = [componentName]
-    } else {
+    }
+    else {
         componentNames = componentName
     }
 
@@ -173,7 +177,8 @@ export function findComponentsUpward (context, componentName) {
     if (parent) {
         if (componentNames.includes(parent.$options.name)) parents.push(parent)
         return parents.concat(findComponentsUpward(parent, componentName))
-    } else {
+    }
+    else {
         return []
     }
 }

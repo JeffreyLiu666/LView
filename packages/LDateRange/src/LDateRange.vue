@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { formatDate, moveDate } from '@/lib/date'
-import { isEmpty, isDeepEqual } from '@/lib/check'
+import { formatDate, moveDate } from '@/utils/date'
+import { isEmpty, isDeepEqual } from '@/utils/check'
 
 export default {
     name: 'l-date-range',
@@ -136,7 +136,7 @@ export default {
                 this.range = val
             },
             immediate: true
-        } 
+        }
     }
 }
 </script>

@@ -51,10 +51,12 @@ export default {
                     to = route ? route.href : this.to
                 }
                 window.open(to)
-            } else {
+            }
+            else {
                 if (router) {
                     this.replace ? this.$router.replace(this.to, () => {}) : this.$router.push(this.to, () => {})
-                } else {
+                }
+                else {
                     window.location.href = this.to
                 }
             }
@@ -64,7 +66,8 @@ export default {
 
             if (this.target === '_blank') {
                 return false
-            } else {
+            }
+            else {
                 event.preventDefault()
                 this.handleClickLink(new_window)
             }

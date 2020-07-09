@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LButton from './src/LButton.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LButton.install = function (Vue) {
     Vue.component(LButton.name, LButton)

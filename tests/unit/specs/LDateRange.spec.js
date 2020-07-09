@@ -1,13 +1,13 @@
 /*
  * @Date: 2020-04-01 15:00:44
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-02 09:58:08
+ * @LastEditTime: 2020-07-09 17:32:51
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 const { expect } = require('chai')
 const { createTest, destroy } = require('../util')
-const { formatDate, moveDate } = require('packages/../src/lib/date')
+const { formatDate, moveDate } = require('packages/../src/utils/date')
 import LDateRange from 'packages/LDateRange'
 
 describe('LDateRange', () => {

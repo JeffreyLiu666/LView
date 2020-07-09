@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { check } from '@/lib'
+import { check } from '@/utils'
 
 export default {
     name: 'l-form-item',
@@ -119,14 +119,16 @@ export default {
             if (!check.isNull(itemWidth) && !check.isNull(this.labelW) && (this.form.inline || this.inline) && check.isNull(contentWidth)) {
                 if (this.label === '' && !this.$slots.label) {
                     contentWidth = '100%'
-                } else {
+                }
+                else {
                     contentWidth = `calc(100% - ${ this.labelW })`
                 }
             }
             if (check.isNull(contentWidth)) return style
             if (isNaN(Number(contentWidth))) {
                 style['width'] = contentWidth
-            } else {
+            }
+            else {
                 style['width'] = contentWidth + 'px'
             }
             return style
@@ -140,7 +142,8 @@ export default {
             if (check.isNull(itemWidth)) return style
             if (isNaN(Number(itemWidth))) {
                 style['width'] = itemWidth
-            } else {
+            }
+            else {
                 style['width'] = itemWidth + 'px'
             }
             return style
@@ -148,10 +151,13 @@ export default {
         visible () {
             if (this.show === '') return true
             try {
+                // eslint-disable-next-line no-unused-vars
                 let that = this.judgeConfig
+                // eslint-disable-next-line no-eval
                 let show = eval(this.show)
                 return show
-            } catch (error) { // 如果逻辑不对直接隐藏
+            }
+            catch (error) { // 如果逻辑不对直接隐藏
                 console.error(error)
                 return false
             }

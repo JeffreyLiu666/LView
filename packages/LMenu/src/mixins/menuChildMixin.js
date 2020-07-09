@@ -5,7 +5,7 @@
  * @LastEditors: junfeng.liu
  * @Description: des
  */
-import { findComponentsUpward } from '@/lib/util'
+import { findComponentsUpward } from '@/utils/util'
 
 export default {
     inject: {

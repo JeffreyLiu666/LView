@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { isEmpty } from '@/lib/check.js'
+import { isEmpty } from '@/utils/check.js'
 
 export default {
     name: 'l-number-input',

@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LShowImg from './src/LShowImg.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LShowImg.install = function (Vue) {
     Vue.component(LShowImg.name, LShowImg)

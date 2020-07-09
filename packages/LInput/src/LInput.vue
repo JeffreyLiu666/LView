@@ -164,8 +164,8 @@
 </template>
 
 <script>
-import { isEmpty, isCNChar, isNull } from '@/lib/check'
-import calcHeight from '@/lib/calcTextareaHeight'
+import { isEmpty, isCNChar, isNull } from '@/utils/check'
+import calcHeight from '@/utils/calcTextareaHeight'
 
 export default {
     name: 'l-input',

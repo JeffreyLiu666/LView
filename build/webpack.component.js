@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-26 22:34:55
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-30 11:16:29
+ * @LastEditTime: 2020-07-09 15:21:54
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -23,8 +23,9 @@ module.exports = merge(webpackConfig, {
         publicPath: '/lib/',
         filename: '[name].js',
         chunkFilename: '[id].js',
-        libraryTarget: 'umd'
+        libraryTarget: 'commonjs2'
     },
+    externals: config.externals,
     module: {
         rules: [
             {

@@ -22,8 +22,8 @@
 </template>
 
 <script>
-// import { isNull } from '@/lib/check.js'
-import { throttle } from '@/lib/util.js'
+// import { isNull } from '@/utils/check.js'
+import { throttle } from '@/utils/util.js'
 
 export default {
     name: 'l-to-top',

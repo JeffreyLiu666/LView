@@ -12,5 +12,5 @@ export default {
     array: arrayU,
     check: checkU,
     date: dateU,
-    util: utilU,
+    util: utilU
 }

@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LMenuConfig from 'packages/LMenu/src/LMenuConfig.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LMenuConfig.install = function (Vue) {
     Vue.component(LMenuConfig.name, LMenuConfig)

@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LNumberInput from './src/LNumberInput.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LNumberInput.install = function (Vue) {
     Vue.component(LNumberInput.name, LNumberInput)

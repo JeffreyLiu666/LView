@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LInput from './src/LInput.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LInput.install = function (Vue) {
     Vue.component(LInput.name, LInput)

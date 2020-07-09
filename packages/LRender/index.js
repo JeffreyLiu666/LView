@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LRender from './src/LRender.js'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LRender.install = function (Vue) {
     Vue.component(LRender.name, LRender)

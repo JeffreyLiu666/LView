@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-01 11:28:23
+ * @LastEditTime: 2020-07-09 18:35:49
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -29,11 +29,11 @@
                 <span slot="prepend">password</span>
                 <Select slot="append" size="default"></Select>
             </LInput> -->
-            <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
-            <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
+            <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton>
+            <!-- <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
         <!-- </div> -->
         <!-- <LLoading ref="loading" transfer :mask="false"></LLoading> -->
-        <LInput v-model="val" type="textarea" :autosize="{minRows: 3}" disabled></LInput>
+        <!-- <LInput v-model="val" type="textarea" :autosize="{minRows: 3}" disabled></LInput> -->
         <!-- <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
 
         <!-- <LCell title="dddd" content="ccc">ddd</LCell> -->
@@ -43,10 +43,10 @@
             </div>
         </LFold> -->
         <!-- <LUpload v-model="files" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload> -->
-        <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3924823205,3702330510&fm=15&gp=0.jpg"></LShowImg> -->
+        <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://pic4.zhimg.com/v2-3da9053461b0a9cecba82eb65186d6d3_r.jpeg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
-        <!-- <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
+        <LTable :data="data" :columns="cols" :showPage="false"></LTable>
         <!-- <Button @click="handleClick">add</Button> -->
         <!-- <div id="testDom" style="width: 100px; height: 1000px; overflow: auto;"> -->
             <!-- <div style="height: 2000px;">asdfas</div> -->
@@ -76,13 +76,26 @@ export default {
                 { title: '数量', key: 'num', width: 110, className: 'aa', type: 'inputNumber', config: { min: 0 }, onChange: (val, row, col, index) => {
                     console.log(val)
                     this.$set(this.data[index], col.key, val)
-                    this.$nextTick(() => {
-                        this.$set(this.data[index], col.key, 10)
-                    })
+                    // this.$nextTick(() => {
+                    //     this.$set(this.data[index], col.key, 10)
+                    // })
                 } },
                 { title: '数量', key: 'nums', width: 110, dataFunc: (val, row) => {
                     return row.num + 1
-                } }
+                }
+                },
+                { title: '操作', minWidth: 130,
+                    links: [
+                        { label: '编辑', action: 'edit' },
+                        { label: '删除1', action: 'del', type: 'error', show: ({ row }) => {
+                            return row.num > 8
+                        } },
+                        { label: '删除2', action: 'del', type: 'error', show: ({ row }) => {
+                            return row.num <= 8
+                        } }
+                    ],
+                    onClick: this.handleClick
+                }
             ],
             formData: {},
             config: [
@@ -178,7 +191,7 @@ export default {
         handleClick () {
             this.val = 'ffffffffffffffa'
             // this.num = 'asdf'
-            // this.show = true
+            this.show = true
             // this.range = ['asdf', 20]
             // console.log('aaa')
             // this.disabled = !this.disabled

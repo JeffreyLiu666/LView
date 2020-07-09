@@ -280,3 +280,21 @@
 - LInput
     - 解决在ssr模式中textarea会报document不存在
 
+***
+## 1.6.7
+
+*2020-07-09*
+
+#### 新特性
+
+- LShowImg
+    - 新增mode属性，有zoom(缩放)和auto(超出滚动)两种
+
+- LTable
+    - buttons和links新增show属性，支持函数
+
+#### 优化
+
+- 按需引入
+    - 将公共js提取出来，减小每个组件的体积
+

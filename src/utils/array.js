@@ -11,7 +11,7 @@
  * @param {Array(Object)} list 需要处理的数组
  * @param {String} val 匹配的值
  * @param {String} key Object的键名
- * @return: 
+ * @return:
  */
 export function getItemIndex (list = [], val = '', key = '') {
     if (!Array.isArray(list)) return -1
@@ -32,7 +32,7 @@ export function getItemIndex (list = [], val = '', key = '') {
  * @param {Array(Object)} list 需要处理的数组
  * @param {String} val 匹配的值
  * @param {String} key Object的键名
- * @return: 
+ * @return:
  */
 export function getItemObject (list = [], val = '', key = '') {
     if (!Array.isArray(list)) return -1

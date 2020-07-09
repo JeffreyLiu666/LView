@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LToTop from './src/LToTop.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LToTop.install = function (Vue) {
     Vue.component(LToTop.name, LToTop)

@@ -9,8 +9,8 @@ import regObj from './regExp.js'
 
 /**
  * @description: 身份证对应省代码
- * @param {type} 
- * @return: 
+ * @param {type}
+ * @return:
  */
 export const IDPROVINCECODE = {
     11: '北京',

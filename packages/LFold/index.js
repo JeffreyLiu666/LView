@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LFold from './src/LFold.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LFold.install = function (Vue) {
     Vue.component(LFold.name, LFold)

@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LFormGroup from 'packages/LForm/src/LFormGroup.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LFormGroup.install = function (Vue) {
     Vue.component(LFormGroup.name, LFormGroup)

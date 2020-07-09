@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-05-11 11:41:06
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-12 15:18:05
+ * @LastEditTime: 2020-07-08 18:17:01
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -11,7 +11,8 @@ function broadcast (componentName, eventName, params) {
 
         if (name === componentName) {
             child.$emit.apply(child, [eventName].concat(params))
-        } else {
+        }
+        else {
             // todo 如果 params 是空数组，接收到的会是 undefined
             broadcast.apply(child, [componentName, eventName].concat([params]))
         }

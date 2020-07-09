@@ -30,7 +30,7 @@
 
 <script>
 import LMenuConfigItem from './LMenuConfigItem'
-import { getScrollBarWidth } from '@/lib/util.js'
+import { getScrollBarWidth } from '@/utils/util.js'
 
 const prefixCls = 'l-menu-config'
 const triggerPrefixCls = `${prefixCls}-trigger`

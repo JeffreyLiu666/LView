@@ -1,17 +1,18 @@
 {
   "name": "l-view-vue",
-  "version": "1.6.4",
+  "version": "1.6.7",
   "description": "l-view",
   "main": "lib/index.js",
   "scripts": {
     "push": "node build/push.js",
     "clean": "rimraf lib",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.js",
+    "dev": "cross-env NODE_ENV=development BABEL_ENV=dev webpack-dev-server --config build/webpack.config.js",
+    "build:js": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
     "build:index": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
-    "build": "npm run clean && npm run build:index && npm run component && npm run style",
+    "build": "npm run clean && npm run build:index && npm run build:js && npm run component && npm run style",
     "component": "cross-env NODE_ENV=production webpack --config build/webpack.component.js",
     "style": "gulp --gulpfile build/build-style.js",
-    "test": "cross-env NODE_ENV=development karma start tests/unit/karma.conf.js"
+    "test": "cross-env NODE_ENV=development BABEL_ENV=dev karma start tests/unit/karma.conf.js"
   },
   "keywords": [
     "l-view",
@@ -21,8 +22,10 @@
   "license": "ISC",
   "repository": "https://github.com/JeffreyLiu666/LView",
   "devDependencies": {
+    "@babel/cli": "^7.10.4",
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-transform-modules-umd": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/runtime-corejs3": "^7.9.2",
@@ -34,6 +37,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-component": "^1.1.1",
+    "babel-plugin-module-resolver": "^4.0.0",
     "babel-regenerator-runtime": "^6.5.0",
     "cache-loader": "^4.1.0",
     "chai": "^4.2.0",
@@ -78,9 +82,11 @@
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
+    "@babel/runtime-corejs3": "^7.9.2",
     "vue": "^2.6.11",
     "view-design": "^4.1.3"
   },

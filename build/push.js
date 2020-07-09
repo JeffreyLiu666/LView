@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-17 14:57:08
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-30 16:09:21
+ * @LastEditTime: 2020-07-09 17:32:12
  * @LastEditors: junfeng.liu
  * @Description: npm run test && npm run build && npm publish
  */
@@ -97,6 +97,7 @@ function build () {
 
     child.stderr.on('data', (data) => {
         console.log(error(data.toString('utf-8')))
+        exit()
     })
 
     child.on('close', (code) => {

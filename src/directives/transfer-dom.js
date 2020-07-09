@@ -10,7 +10,9 @@ function getTarget (node) {
     if (node === void 0) {
         node = document.body
     }
-    if (node === true) { return document.body }
+    if (node === true) {
+        return document.body
+    }
     return node instanceof window.Node ? node : document.querySelector(node)
 }
 
@@ -53,11 +55,13 @@ const directive = {
             // append to target
             getTarget(value).appendChild(el)
             el.__transferDomData = Object.assign({}, el.__transferDomData, { hasMovedOut: true, target: getTarget(value) })
-        } else if (hasMovedOut && value === false) {
+        }
+        else if (hasMovedOut && value === false) {
             // previously moved, coming back home
             parentNode.replaceChild(el, home)
             el.__transferDomData = Object.assign({}, el.__transferDomData, { hasMovedOut: false, target: getTarget(value) })
-        } else if (value) {
+        }
+        else if (value) {
             // already moved, going somewhere else
             getTarget(value).appendChild(el)
         }
@@ -77,7 +81,8 @@ const directive = {
                 const elParent = el.parentElement
                 if (homeParent) homeParent.removeChild(home)
                 if (elParent) elParent.removeChild(el)
-            } else {
+            }
+            else {
                 el.__transferDomData.parentNode && el.__transferDomData.parentNode.appendChild(el)
             }
         }

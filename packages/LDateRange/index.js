@@ -6,7 +6,7 @@
  * @Description: des
  */
 import LDateRange from './src/LDateRange.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 LDateRange.install = function (Vue) {
     Vue.component(LDateRange.name, LDateRange)

@@ -5,8 +5,14 @@
  * @LastEditors: junfeng.liu
  * @Description: des
  */
+const path = require('path')
 const glob = require('glob')
 const PATH_PACKAGES = 'packages'
+const root_path = path.resolve('.')
+
+exports.resolve = function (dir) {
+    return path.resolve(root_path, dir)
+}
 
 exports.versionToInt =  function (ver) {
     if (!ver) return 0

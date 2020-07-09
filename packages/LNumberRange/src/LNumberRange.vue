@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import { isEmpty, isDeepEqual } from '@/lib/check'
-import { deepCopy } from '@/lib/util'
+import { isEmpty, isDeepEqual } from '@/utils/check'
+import { deepCopy } from '@/utils/util'
 
 export default {
     name: 'l-number-range',
@@ -121,7 +121,8 @@ export default {
             if (isEmpty(left)) return
             if (left < this.min) {
                 this.setCurrentValue([this.min, right])
-            } else if (left > this.max) {
+            }
+            else if (left > this.max) {
                 this.setCurrentValue([this.max, right])
             }
         },
@@ -131,7 +132,8 @@ export default {
             if (isEmpty(right)) return
             if (right < this.min) {
                 this.setCurrentValue([left, this.min])
-            } else if (right > this.max) {
+            }
+            else if (right > this.max) {
                 this.setCurrentValue([left, this.max])
             }
         },

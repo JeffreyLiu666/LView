@@ -7,7 +7,7 @@
  */
 import Vue from 'vue'
 import LLoading from './src/LLoading.vue'
-import { toHump } from '@/lib/util'
+import { toHump } from '@/utils/util'
 
 let instance
 

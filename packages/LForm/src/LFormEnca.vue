@@ -293,10 +293,10 @@
 </template>
 
 <script>
-import { check } from '@/lib'
-import { formatDate } from '@/lib/date.js'
-import { deepCopy } from '@/lib/util.js'
-import { formatList } from '@/lib/array.js'
+import { check } from '@/utils'
+import { formatDate } from '@/utils/date.js'
+import { deepCopy } from '@/utils/util.js'
+import { formatList } from '@/utils/array.js'
 
 export default {
     name: 'l-form-enca',

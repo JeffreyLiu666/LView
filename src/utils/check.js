@@ -1,12 +1,12 @@
 /*
  * @Date: 2020-03-26 10:20:48
  * @Author: junfeng.liu
- * @LastEditTime: 2020-04-14 17:50:10
+ * @LastEditTime: 2020-07-09 17:39:36
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 
-import { regExp, IDPROVINCECODE } from '@/constant'
+import { regExp, IDPROVINCECODE } from '../constant'
 
 export const isEmpty = val => isNull(val) || val.toString() === ''
 
@@ -19,6 +19,8 @@ export const isArray = Array.isArray
 export const isString = val => typeof val === 'string'
 
 export const isNumber = val => typeof val === 'number'
+
+export const isBoolean = val => typeof val === 'boolean'
 
 export const isFunction = val => typeof val === 'function'
 
@@ -75,12 +77,14 @@ export function isCNCode (code, sex = null) {
     if (!code || !regExp.ID.test(code)) {
         tip = '身份证号格式错误'
         pass = false
-    } else if (!IDPROVINCECODE[code.substr(0, 2)]) {
+    }
+    else if (!IDPROVINCECODE[code.substr(0, 2)]) {
         tip = '地址编码错误'
         pass = false
-    } else {
+    }
+    else {
         let sexCode = code.substr(-1, 1)
-        if (code.length == 18) {
+        if (code.length === 18) {
             sexCode = code.substr(-2, 1)
             code = code.split('')
             let factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
@@ -93,12 +97,12 @@ export function isCNCode (code, sex = null) {
                 wi = factor[i]
                 sum += ai * wi
             }
-            if (parity[sum % 11] != code[17]) {
+            if (parity[sum % 11] !== code[17]) {
                 tip = '校验位错误'
                 pass = false
             }
         }
-        if (!isEmpty(sex) && (sexCode % 2 != sex)) {
+        if (!isEmpty(sex) && (sexCode % 2 !== sex)) {
             tip = '性别错误'
             pass = false
         }
