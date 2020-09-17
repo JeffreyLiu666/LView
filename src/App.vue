@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-09 18:35:49
+ * @LastEditTime: 2020-09-17 10:48:07
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -29,8 +29,8 @@
                 <span slot="prepend">password</span>
                 <Select slot="append" size="default"></Select>
             </LInput> -->
-            <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton>
-            <!-- <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
+            <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
+            <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
         <!-- </div> -->
         <!-- <LLoading ref="loading" transfer :mask="false"></LLoading> -->
         <!-- <LInput v-model="val" type="textarea" :autosize="{minRows: 3}" disabled></LInput> -->
@@ -46,7 +46,7 @@
         <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://pic4.zhimg.com/v2-3da9053461b0a9cecba82eb65186d6d3_r.jpeg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
-        <LTable :data="data" :columns="cols" :showPage="false"></LTable>
+        <!-- <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
         <!-- <Button @click="handleClick">add</Button> -->
         <!-- <div id="testDom" style="width: 100px; height: 1000px; overflow: auto;"> -->
             <!-- <div style="height: 2000px;">asdfas</div> -->
@@ -54,7 +54,7 @@
         <!-- </div> -->
         <!-- <LToTop wrapper="#testDom"></LToTop> -->
         <!-- <LDateRange v-model="range"></LDateRange> -->
-        <!-- <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="60"></LForm> -->
+        <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm>
     </div>
 </template>
 
@@ -98,12 +98,13 @@ export default {
                 }
             ],
             formData: {},
+            show: false,
             config: [
-                { label: '选择售票日期：', key: 'date', type: 'datePicker' }
+                // { label: '选择售票日期：', key: 'date', type: 'datePicker', show: this },
+                // { label: '选择售票日期：', key: 'date', type: 'input' }
             ],
             num: undefined,
             range: ['aa', 22],
-            show: false,
             disabled: false,
             collapsed: false,
             routes: [
@@ -184,6 +185,12 @@ export default {
             }
         }
     },
+    created () {
+        this.config = [
+            { label: '选择售票日期：', key: 'date', type: 'datePicker', show: this.show },
+            { label: '选择售票日期：', key: 'date', type: 'input' }
+        ]
+    },
     mounted () {
         // console.log(this.$options)
     },
@@ -191,7 +198,7 @@ export default {
         handleClick () {
             this.val = 'ffffffffffffffa'
             // this.num = 'asdf'
-            this.show = true
+            this.show = !this.show
             // this.range = ['asdf', 20]
             // console.log('aaa')
             // this.disabled = !this.disabled
@@ -200,6 +207,9 @@ export default {
         },
         handleSelect (item) {
             console.log(item)
+        },
+        judgeShow () {
+            return this.show
         }
     }
 }

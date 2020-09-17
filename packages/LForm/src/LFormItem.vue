@@ -14,7 +14,7 @@
 -->
 
 <template>
-    <div class="l-form-item clearfix" :class="[{'ivu-form-item-error': isError}, className]" :style="[itemStyle, styleObj]" v-if="visible">
+    <div class="l-form-item clearfix" :class="[{'ivu-form-item-error': isError}, className]" :style="[itemStyle, styleObj]">
         <label class="l-form-item-label clearfix" :class="labelClass" :style="labelStyle" v-if="label !== '' || $slots.label">
             <slot name="label"></slot>
             {{ label }}
@@ -49,16 +49,6 @@ export default {
             type: [Number, String]
         },
         labelPosition: String,
-        judgeConfig: { // 用于show判断的条件
-            type: Object,
-            default: () => {
-                return {}
-            }
-        },
-        show: { // 自定义逻辑配合judgeConfig判断item的显隐
-            type: String,
-            default: ''
-        },
         inline: { // 如果想单项不为inline则可设置itemWidth为100%
             type: Boolean,
             default: false
@@ -147,20 +137,6 @@ export default {
                 style['width'] = itemWidth + 'px'
             }
             return style
-        },
-        visible () {
-            if (this.show === '') return true
-            try {
-                // eslint-disable-next-line no-unused-vars
-                let that = this.judgeConfig
-                // eslint-disable-next-line no-eval
-                let show = eval(this.show)
-                return show
-            }
-            catch (error) { // 如果逻辑不对直接隐藏
-                console.error(error)
-                return false
-            }
         }
     },
     data () {

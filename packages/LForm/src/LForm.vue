@@ -22,7 +22,8 @@
 
     config可配置信息
         type:               表单类型，支持字符串和数组，（注意：数组的支持不完善）
-        hidden:             是否隐藏
+        hidden:             是否隐藏，仅控制display
+        show:               是否显示，会控制渲染列表，支持函数
         key:                会根据key从data中获取数据
         label:              label的内容
         itemWidth:          单项的宽度
@@ -37,7 +38,7 @@
     <div class="l-form">
         <LFormGroup ref="lformGroup" :inline="inline" :labelWidth="labelWidth" :labelPosition="labelPosition" :labelTextAlign="labelTextAlign" :contentWidth="contentWidth" :itemWidth="itemWidth">
             <LFormItem
-                v-for="(item, index) in config"
+                v-for="(item, index) in configList"
                 :key="item.key + '' + index"
                 :label="item.label"
                 :itemWidth="item.itemWidth"
@@ -48,8 +49,6 @@
                 :inline="item.inline"
                 :className="item.className"
                 :styleObj="item.styleObj"
-                :judgeConfig="judgeConfig"
-                :show="item.show"
                 v-show="!item.hidden">
                 <span slot="label" class="my-require" v-if="item.require"></span>
                 <LFormEnca
@@ -83,6 +82,7 @@
 // import LFormItem from './LFormItem.vue'
 // import LFormEnca from './LFormEnca.vue'
 // import { util } from '@/utils'
+import { isFunction, isNull } from '@/utils/check.js'
 
 export default {
     name: 'l-form',
@@ -123,16 +123,20 @@ export default {
         },
         cacheKey: {
             type: String
-        },
-        judgeConfig: { // 用于show判断的条件
-            type: Object,
-            default: () => {
-                return {}
-            }
         }
     },
     data () {
         return {
+        }
+    },
+    computed: {
+        configList () {
+            return this.config.filter((item) => {
+                const show = item.show
+                if (isFunction(show)) return show()
+                else if (!isNull(show)) return !!show
+                else return true
+            })
         }
     },
     watch: {
@@ -172,6 +176,7 @@ export default {
                 return item.isError
             })
         },
+        // 清除错误状态
         clearState () {
             for (let item of this.$refs.lformGroup.$children) {
                 if (!item) continue
@@ -179,6 +184,7 @@ export default {
                 item.errMsg = ''
             }
         },
+        // 检测所有子组件的规则
         checkAllRules () {
             let promiseList = []
             for (let item of this.$refs.lformGroup.$children) {

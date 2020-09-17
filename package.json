@@ -1,12 +1,12 @@
 {
   "name": "l-view-vue",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "l-view",
   "main": "lib/index.js",
   "scripts": {
     "push": "node build/push.js",
     "clean": "rimraf lib",
-    "dev": "cross-env NODE_ENV=development BABEL_ENV=dev webpack-dev-server --config build/webpack.config.js",
+    "start": "cross-env NODE_ENV=development BABEL_ENV=dev webpack-dev-server --config build/webpack.config.js",
     "build:js": "cross-env BABEL_ENV=utils babel src --out-dir lib --ignore src/index.js",
     "build:index": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
     "build": "npm run clean && npm run build:index && npm run build:js && npm run component && npm run style",
