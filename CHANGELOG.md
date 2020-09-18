@@ -308,3 +308,18 @@
 - LForm
     - 调整show属性的策略，以前是show加judgeConfig的使用方式，现在是（boolean型或方法）加计算属性
 
+***
+## 1.6.9
+
+*2020-09-18*
+
+#### 新特性
+
+- LForm
+    - 新增config属性searchType和searchCD，用于控制内部请求时是节流还是防抖的方式，默认防抖
+
+#### BUG FIX
+
+- LForm
+    - 解决在使用select内部请求且config.filterable为false时，每次选择后都重新请求的bug
+

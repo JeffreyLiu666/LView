@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-17 09:04:30
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-13 18:33:29
+ * @LastEditTime: 2020-09-18 13:02:56
  * @LastEditors: junfeng.liu
  * @Description: button组件
 
@@ -139,8 +139,7 @@ export default {
             if (isHrefPattern) {
                 const { linkUrl, target } = this
                 return { href: linkUrl, target }
-            }
-            else {
+            } else {
                 const { htmlType } = this
                 return { type: htmlType }
             }
@@ -151,8 +150,7 @@ export default {
         if (isNaN(delay)) return
         if (this.throttle) {
             this.handleClick = throttle(this.handleClick, delay, this.earlyTrigger)
-        }
-        else if (this.debounce) {
+        } else if (this.debounce) {
             this.handleClick = debounce(this.handleClick, delay, this.earlyTrigger)
         }
     },

@@ -109,16 +109,14 @@ export default {
             if (!check.isNull(itemWidth) && !check.isNull(this.labelW) && (this.form.inline || this.inline) && check.isNull(contentWidth)) {
                 if (this.label === '' && !this.$slots.label) {
                     contentWidth = '100%'
-                }
-                else {
+                } else {
                     contentWidth = `calc(100% - ${ this.labelW })`
                 }
             }
             if (check.isNull(contentWidth)) return style
             if (isNaN(Number(contentWidth))) {
                 style['width'] = contentWidth
-            }
-            else {
+            } else {
                 style['width'] = contentWidth + 'px'
             }
             return style
@@ -132,8 +130,7 @@ export default {
             if (check.isNull(itemWidth)) return style
             if (isNaN(Number(itemWidth))) {
                 style['width'] = itemWidth
-            }
-            else {
+            } else {
                 style['width'] = itemWidth + 'px'
             }
             return style

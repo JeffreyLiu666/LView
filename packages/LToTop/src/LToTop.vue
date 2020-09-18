@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-28 14:25:32
+ * @LastEditTime: 2020-09-18 13:04:39
  * @LastEditors: junfeng.liu
  * @Description: 回到顶部
 
@@ -61,16 +61,13 @@ export default {
             if (!this.wrapper) {
                 this.dom = defDom
                 this.el = document.documentElement
-            }
-            else if (typeof this.wrapper === 'string') {
+            } else if (typeof this.wrapper === 'string') {
                 this.dom = document.querySelector(this.wrapper)
                 this.el = this.dom
-            }
-            else if (this.wrapper instanceof HTMLElement) {
+            } else if (this.wrapper instanceof HTMLElement) {
                 this.dom = this.wrapper
                 this.el = this.dom
-            }
-            else {
+            } else {
                 this.dom = defDom
                 this.el = document.documentElement
             }

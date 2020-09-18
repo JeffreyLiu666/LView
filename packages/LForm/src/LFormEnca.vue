@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-29 10:25:27
+ * @LastEditTime: 2020-09-18 15:00:52
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -36,11 +36,24 @@
             <Radio v-for="item in cList" :key="item.value" :label="item.value" :disabled="disabled">{{item.label}}</Radio>
         </RadioGroup>
         <!--多选框-->
-        <Checkbox :value="val" @on-change="change" v-if="type === 'checkbox' && cList.toString() === ''">{{config.label ? config.label : ''}}</Checkbox>
-        <CheckboxGroup :value="val" v-else-if="type === 'checkbox'" @on-change="change">
-            <Checkbox v-for="item in cList" :key="item.value" :label="item.value" :style="{width: item.width?item.width:config.width}" :disabled="disabled || item.disabled">
+        <Checkbox
+            :value="val"
+            @on-change="change"
+            v-if="type === 'checkbox' && cList.toString() === ''">
+            {{ config.label ? config.label : '' }}
+        </Checkbox>
+        <CheckboxGroup
+            :value="val"
+            v-else-if="type === 'checkbox'"
+            @on-change="change">
+            <Checkbox
+                v-for="item in cList"
+                :key="item.value"
+                :label="item.value"
+                :style="{ width: item.width || config.width }"
+                :disabled="disabled || item.disabled">
                 <Icon :type="item.icon" v-if="item.icon"></Icon>
-                <span>{{item.label}}</span>
+                <span>{{ item.label }}</span>
             </Checkbox>
         </CheckboxGroup>
         <!--选择框-->
@@ -295,7 +308,7 @@
 <script>
 import { check } from '@/utils'
 import { formatDate } from '@/utils/date.js'
-import { deepCopy } from '@/utils/util.js'
+import { deepCopy, throttle, debounce } from '@/utils/util.js'
 import { formatList } from '@/utils/array.js'
 
 export default {
@@ -368,7 +381,7 @@ export default {
             baseList: [], // 请求返回的list
             val: undefined, // 为了兼容各个组件，这里设为undefined
             checkTriggers: { change: [], blur: [] },
-            timeoutId: '',
+            searchFunc: () => {},
             isLoading: false
         }
     },
@@ -377,12 +390,10 @@ export default {
             let result = []
             if (!check.isEmpty(this.rList)) {
                 result = this.rList
-            }
-            else if (!check.isEmpty(this.list)) {
+            } else if (!check.isEmpty(this.list)) {
                 if (check.isArray(this.list)) {
                     result = this.list
-                }
-                else {
+                } else {
                     result.push(this.list)
                 }
             }
@@ -397,31 +408,35 @@ export default {
         if (this.type === 'datePicker' && this.DatePickerType === 'date') {
             this.$emit('input', formatDate(this.value))
             this.val = formatDate(this.value)
-        }
-        else {
+        } else {
             this.val = this.value
         }
-        // 判断select是否需要组件内部请求获取list
-        if (this.canSearch) {
-            this.getList()
-            if (this.config.remote && check.isEmpty(this.config.remoteMethod)) {
-                // 远程请求方法用on-query-change事件代替
-                this.isInsideRemote = true
-                // this.config.remoteMethod = (input) => {
-                // this.getList(input)
-                // }
-            }
-        }
+        this.restartSearch()
         this.initCheck()
     },
     methods: {
+        restartSearch () {
+            // 判断select是否需要组件内部请求获取list
+            if (!this.canSearch) return
+            this.requestParam = {}
+            this.getList()
+            // 搜索时使用的节省性能的方法，默认防抖
+            if (this.config.searchType === 'throttle') {
+                this.searchFunc = throttle(this.getList, this.config.searchCD || 800)
+            } else {
+                this.searchFunc = debounce(this.getList, this.config.searchCD || 800)
+            }
+            if (this.config.remote && this.config.filterable && check.isEmpty(this.config.remoteMethod)) {
+                // 远程请求方法用on-query-change事件代替
+                this.isInsideRemote = true
+            }
+        },
         initCheck () {
             this.checkTriggers = { change: [], blur: [] }
             if (this.require) { // 如果是required则自动添加一条规则
                 if (this.type === 'input') {
                     this.checkTriggers['blur'].push({ type: 'require' })
-                }
-                else {
+                } else {
                     this.checkTriggers['change'].push({ type: 'require' })
                 }
             }
@@ -552,8 +567,7 @@ export default {
             }
             if (result) {
                 return Promise.resolve({ isOk: result, msg: msg })
-            }
-            else {
+            } else {
                 return Promise.reject({ isOk: result, msg: msg }) // 直接抛出错误，结束promise.all
             }
         },
@@ -599,8 +613,7 @@ export default {
                 this.requestParam.inputKey = inputKey
                 this.requestParam.urlParam = urlParam
                 this.requestParam.param = param
-            }
-            else if (this.config.remote && this.config.filterable) {
+            } else if (this.config.remote && this.config.filterable) {
                 this.requestParam.param[this.requestParam.inputKey] = inputValue
             }
             if (!this.__lform_ajax__ || !check.isFunction(this.__lform_ajax__.request)) {
@@ -617,11 +630,9 @@ export default {
                 list = formatList(list, this.requestParam.labelKey, this.requestParam.valueKey)
                 if (!check.isEmpty(this.config.blackList)) {
                     this.rList = this.getBlackList(list)
-                }
-                else if (!check.isEmpty(this.config.whiteList)) {
+                } else if (!check.isEmpty(this.config.whiteList)) {
                     this.rList = this.getWhiteList(list)
-                }
-                else {
+                } else {
                     this.rList = list
                 }
             }).finally(() => {
@@ -649,12 +660,7 @@ export default {
             // if (searchStr === '') {
             //     this.val = null
             // }
-            if (this.timeoutId) { // 防抖
-                clearTimeout(this.timeoutId)
-            }
-            this.timeoutId = setTimeout(() => {
-                this.getList(searchStr)
-            }, 800)
+            this.searchFunc(searchStr)
         },
         change (e) {
             let list = this.canSearch ? this.baseList : this.list
@@ -697,8 +703,7 @@ export default {
         config: {
             handler: function () {
                 if (!this.canSearch) return
-                this.requestParam = {}
-                this.getList()
+                this.restartSearch()
             },
             deep: true
         }

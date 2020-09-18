@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-10 21:05:26
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-13 16:11:34
+ * @LastEditTime: 2020-09-18 13:04:22
  * @LastEditors: junfeng.liu
  * @Description: 数值范围
 
@@ -121,8 +121,7 @@ export default {
             if (isEmpty(left)) return
             if (left < this.min) {
                 this.setCurrentValue([this.min, right])
-            }
-            else if (left > this.max) {
+            } else if (left > this.max) {
                 this.setCurrentValue([this.max, right])
             }
         },
@@ -132,8 +131,7 @@ export default {
             if (isEmpty(right)) return
             if (right < this.min) {
                 this.setCurrentValue([left, this.min])
-            }
-            else if (right > this.max) {
+            } else if (right > this.max) {
                 this.setCurrentValue([left, this.max])
             }
         },

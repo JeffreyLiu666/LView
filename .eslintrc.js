@@ -28,7 +28,7 @@ module.exports = {
     'switch-colon-spacing': 2,                                                // switch的冒号后面要有空格
     'arrow-spacing': 2,                                                       // 箭头函数的箭头前后要有空格
     'semi': [2, 'never'],                                                     // 句末不要分号
-    'brace-style': [1, "stroustrup"]                                          // if-else排列方式
+    'brace-style': [1, "1tbs", { "allowSingleLine": true }]                   // if-else排列方式
     // 'max-len': [2, { code: 120 }]                                             // 一行最大长度
   },
   overrides: [

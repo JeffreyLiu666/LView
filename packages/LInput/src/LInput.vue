@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-01 11:48:38
+ * @LastEditTime: 2020-09-18 13:04:05
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -424,16 +424,14 @@ export default {
         focus () {
             if (this.type === 'textarea') {
                 this.$refs.textarea.focus()
-            }
-            else {
+            } else {
                 this.$refs.input.focus()
             }
         },
         blur () {
             if (this.type === 'textarea') {
                 this.$refs.textarea.blur()
-            }
-            else {
+            } else {
                 this.$refs.input.blur()
             }
         },
@@ -442,8 +440,7 @@ export default {
             let result = Number(val)
             if (len === 0) {
                 result = parseInt(result, 10)
-            }
-            else if (len > 0) {
+            } else if (len > 0) {
                 result = result.toFixed(len)
             }
             return result
@@ -454,8 +451,7 @@ export default {
             for (let i of val.toString()) {
                 if (isCNChar(i)) {
                     len += 2
-                }
-                else {
+                } else {
                     len += 1
                 }
             }
@@ -469,15 +465,13 @@ export default {
             for (let i of val.toString()) {
                 if (isCNChar(i)) {
                     len += 2
-                }
-                else {
+                } else {
                     len += 1
                 }
                 result += i
                 if (len === max) {
                     return result
-                }
-                else if (len > max) {
+                } else if (len > max) {
                     return result.slice(0, -1)
                 }
             }

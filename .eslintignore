@@ -3,3 +3,7 @@ tests/*
 node_modules
 public
 lib
+*.md
+*.less
+*.woff
+*.ttf
