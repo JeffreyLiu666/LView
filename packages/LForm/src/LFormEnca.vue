@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-09-18 15:00:52
+ * @LastEditTime: 2020-10-09 11:26:19
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -32,18 +32,20 @@
 <template>
     <div class="l-form-encapsulation">
         <!--单选框-->
-        <RadioGroup :value="val" :type="radioType" v-if="type === 'radio'" @on-change="change">
+        <RadioGroup :value="val" :type="radioType" v-bind="config" v-if="type === 'radio'" @on-change="change">
             <Radio v-for="item in cList" :key="item.value" :label="item.value" :disabled="disabled">{{item.label}}</Radio>
         </RadioGroup>
         <!--多选框-->
         <Checkbox
             :value="val"
+            v-bind="config"
             @on-change="change"
             v-if="type === 'checkbox' && cList.toString() === ''">
             {{ config.label ? config.label : '' }}
         </Checkbox>
         <CheckboxGroup
             :value="val"
+            v-bind="config"
             v-else-if="type === 'checkbox'"
             @on-change="change">
             <Checkbox
@@ -62,14 +64,8 @@
             :disabled="disabled"
             :clearable="clearable"
             :placeholder="placeholder"
-            :placement="config.placement"
-            :multiple="config.multiple"
-            :filterable="config.filterable"
-            :remote="config.remote"
-            :remote-method="config.remoteMethod"
-            :transfer="config.transfer"
             :loading="isLoading"
-            :allow-create="config.allowCreate"
+            v-bind="config"
             @on-query-change="queryChange"
             @on-change="change"
             v-if="type === 'select'">
@@ -89,7 +85,7 @@
             :type="DatePickerType"
             :placeholder="placeholder"
             :disabled="disabled"
-            :transfer="config.transfer"
+            v-bind="config"
             @on-change="change"
             v-if="type === 'datePicker'">
         </DatePicker>
@@ -99,19 +95,18 @@
             :value="val"
             :editable="editable"
             :clearable="clearable"
-            :type="config.type"
             :placeholder="placeholder"
             :disabled="disabled"
             :separator="':'"
-            :transfer="config.transfer"
+            v-bind="config"
             @on-change="change"
             v-if="type === 'timePicker'">
         </TimePicker>
         <!-- 日期选择器 -->
         <LDateRange
             :value="val"
-            :default="config.default"
             :placeholder="placeholder"
+            v-bind="config"
             @on-change="change"
             v-if="type === 'dateRangePicker'">
         </LDateRange>
@@ -122,23 +117,8 @@
             :placeholder="placeholder"
             :disabled="disabled"
             :maxlength="maxlength"
-            :show-word-limit="config.showWordLimit"
             :readonly="editable"
-            :type="config.type"
-            :showEye="config.showEye"
-            :prefix="config.prefix"
-            :suffix="config.suffix"
-            :rows="config.rows"
-            :autosize="config.autosize"
-            :checkChinese="config.checkChinese"
-            :max="config.max"
-            :min="config.min"
-            :step="config.step"
-            :number="config.number"
-            :floatLength="config.floatLength"
-            :isError="config.isError"
-            :search="config.search"
-            :searchButton="config.searchButton"
+            v-bind="config"
             @input="change"
             @on-enter="handleEnter"
             @on-focus="handleFocus"
@@ -160,14 +140,7 @@
             :placeholder="placeholder"
             :disabled="disabled"
             :readonly="editable"
-            :prefix="config.prefix"
-            :suffix="config.suffix"
-            :min="config.min"
-            :max="config.max"
-            :step="config.step"
-            :textAlign="config.textAlign"
-            :controlsPosition="config.controlsPosition"
-            :floatLength="config.floatLength"
+            v-bind="config"
             @input="change"
             v-if="type === 'numberInput'"></LNumberInput>
         <!--数字范围-->
@@ -175,14 +148,9 @@
             v-model="val"
             :disabled="disabled"
             :readonly="editable"
-            :prefix="config.prefix"
-            :suffix="config.suffix"
-            :check="config.check"
-            :max="config.max"
-            :min="config.min"
-            :floatLength="config.floatLength"
             :placeholderLeft="config.placeholderLeft || placeholder"
             :placeholderRight="config.placeholderRight || placeholder"
+            v-bind="config"
             @input="change"
             v-if="type === 'numberRange'"></LNumberRange>
         <!--级联选择器-->
@@ -192,7 +160,7 @@
             :clearable="clearable"
             :placeholder="placeholder"
             :disabled="disabled"
-            :transfer="config.transfer"
+            v-bind="config"
             @on-change="cascaderChange"
             v-if="type === 'cascader'">
         </Cascader>
@@ -201,49 +169,21 @@
             :value="val"
             :disabled="disabled"
             :maxLength="maxlength"
-            :type="config.type"
-            :headers="config.headers"
-            :name="config.name"
-            :data="config.data"
-            :action="config.action"
-            :accept="config.accept"
-            :format="config.format"
-            :maxSize="config.maxSize"
-            :multiple="config.multiple"
-            :showUploadList="config.showUploadList"
-            :showUploadBtn="config.showUploadBtn"
-            :showFileName="config.showFileName"
-            :APIUrl="config.APIUrl"
-            :checkReqFn="config.checkReqFn"
+            v-bind="config"
             @on-change="change"
             v-if="type === 'upload'">
         </LUpload>
         <!--文本-->
-        <div class="l-form-text-content" v-if="type === 'text'">{{val}}</div>
+        <div class="l-form-text-content" v-bind="config" v-if="type === 'text'">{{val}}</div>
         <!--开关选择器-->
-        <i-switch :value="val" :disabled="disabled" :size="config.size" @on-change="change" v-if="type === 'switch'">
+        <i-switch :value="val" :disabled="disabled" v-bind="config" @on-change="change" v-if="type === 'switch'">
             <span slot="open" v-if="config.openLabel">{{config.openLabel}}</span>
             <span slot="close" v-if="config.closeLabel">{{config.closeLabel}}</span>
         </i-switch>
         <!--按钮-->
         <LButton
-            :width="config.width"
-            :long="config.long"
             :disabled="disabled"
-            :loading="config.loading"
-            :icon="config.icon"
-            :type="config.type"
-            :ghost="config.ghost"
-            :shape="config.shape"
-            :size="config.size"
-            :to="config.to"
-            :replace="config.replace"
-            :target="config.target"
-            :append="config.append"
-            :throttle="config.throttle"
-            :debounce="config.debounce"
-            :delay="config.delay"
-            :earlyTrigger="config.earlyTrigger"
+            v-bind="config"
             @click="handleClick($event)"
             v-if="type === 'button'">
             {{ config.text }}
@@ -277,10 +217,7 @@
         </template>
         <!--按钮组-->
         <LButtonGroup
-            :shape="config.shape"
-            :size="config.size"
-            :disabled="config.disabled"
-            :vertical="config.vertical"
+            v-bind="config"
             v-if="type === 'buttonGroup'">
             <LButton
                 v-for="(item, index) in config.buttons"

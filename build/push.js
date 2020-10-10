@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-04-17 14:57:08
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-09 17:32:12
+ * @LastEditTime: 2020-09-25 11:03:52
  * @LastEditors: junfeng.liu
  * @Description: npm run test && npm run build && npm publish
  */
@@ -51,8 +51,7 @@ function checkVersion () {
                     break
                 }
                 resolve(result)
-            }
-            catch (err) {
+            } catch (err) {
                 reject(err)
                 console.log(
                     error('解析npm search结果失败', err)

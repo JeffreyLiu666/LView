@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-09-17 10:48:07
+ * @LastEditTime: 2020-10-09 17:14:31
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -187,8 +187,23 @@ export default {
     },
     created () {
         this.config = [
-            { label: '选择售票日期：', key: 'date', type: 'datePicker', show: this.show },
-            { label: '选择售票日期：', key: 'date', type: 'input' }
+            { label: '选择售票日期：', key: 'date', type: 'datePicker', show: () => (this.show) },
+            {
+                label: '选择售票日期：',
+                key: 'date',
+                type: 'select',
+                config: {
+                    type: 'textarea',
+                    remote: true,
+                    filterable: true,
+                    requestParam: {
+                        urlParam: {
+                            url: 'User/userList',
+                            method: 'post'
+                        }
+                    }
+                }
+            }
         ]
     },
     mounted () {
@@ -196,7 +211,7 @@ export default {
     },
     methods: {
         handleClick () {
-            this.val = 'ffffffffffffffa'
+            // this.val = 'ffffffffffffffa'
             // this.num = 'asdf'
             this.show = !this.show
             // this.range = ['asdf', 20]
