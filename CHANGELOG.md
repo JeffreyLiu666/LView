@@ -323,3 +323,14 @@
 - LForm
     - 解决在使用select内部请求且config.filterable为false时，每次选择后都重新请求的bug
 
+***
+## 1.6.10
+
+*2020-10-16*
+
+#### 新特性
+
+- LForm
+    - 将config的属性透传给子组件
+    - 新增类型‘title’，用于类似分割形式的标题
+

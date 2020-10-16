@@ -14,20 +14,25 @@
 -->
 
 <template>
-    <div class="l-form-item clearfix" :class="[{'ivu-form-item-error': isError}, className]" :style="[itemStyle, styleObj]">
-        <label class="l-form-item-label clearfix" :class="labelClass" :style="labelStyle" v-if="label !== '' || $slots.label">
-            <slot name="label"></slot>
-            {{ label }}
-        </label>
-        <div class="l-form-item-content clearfix" :style="contentStyle">
-            <slot></slot>
-            <div class="l-form-item-error-tip" v-show="isError">{{ errMsg }}</div>
-        </div>
+    <div :class="itemClass" :style="[itemStyle, styleObj]">
+        <div class="l-form-item-title" v-if="isTitle">{{ label }}</div>
+        <template v-else>
+            <label class="l-form-item-label clearfix" :class="labelClass" :style="labelStyle" v-if="label !== '' || $slots.label">
+                <slot name="label"></slot>
+                {{ label }}
+            </label>
+            <div class="l-form-item-content clearfix" :style="contentStyle">
+                <slot></slot>
+                <div class="l-form-item-error-tip" v-show="isError">{{ errMsg }}</div>
+            </div>
+        </template>
     </div>
 </template>
 
 <script>
 import { check } from '@/utils'
+
+const preCls = 'l-form-item'
 
 export default {
     name: 'l-form-item',
@@ -62,11 +67,28 @@ export default {
             default () {
                 return {}
             }
+        },
+        isTitle: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
+        itemClass () {
+            return [
+                preCls,
+                'clearfix',
+                this.className,
+                {
+                    'ivu-form-item-error': this.isError,
+                    [`${ preCls }-has-title`]: this.isTitle
+                }
+            ]
+        },
         labelClass () {
-            return [`l-form-item-label-${this.labelPosition}`]
+            return {
+                [`l-form-item-label-${this.labelPosition}`]: this.labelPosition
+            }
         },
         labelW () { // 获取label的宽度
             let labelWidth = this.labelWidth ?? this.form.labelWidth

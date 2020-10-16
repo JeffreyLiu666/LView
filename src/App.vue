@@ -187,6 +187,7 @@ export default {
     },
     created () {
         this.config = [
+            { label: '标题', key: 'title1', type: 'title' },
             { label: '选择售票日期：', key: 'date', type: 'datePicker', show: () => (this.show) },
             {
                 label: '选择售票日期：',

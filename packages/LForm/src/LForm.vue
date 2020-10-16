@@ -49,10 +49,11 @@
                 :inline="item.inline"
                 :className="item.className"
                 :styleObj="item.styleObj"
+                :isTitle="item.type === 'title'"
                 v-show="!item.hidden">
                 <span slot="label" class="my-require" v-if="item.require"></span>
                 <LFormEnca
-                    v-if="item.type"
+                    v-if="item.type && item.type !== 'title'"
                     :type="item.type"
                     :keyName="item.key"
                     @on-change="change"
