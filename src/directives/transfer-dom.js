@@ -81,8 +81,7 @@ const directive = {
                 const elParent = el.parentElement
                 if (homeParent) homeParent.removeChild(home)
                 if (elParent) elParent.removeChild(el)
-            }
-            else {
+            } else {
                 el.__transferDomData.parentNode && el.__transferDomData.parentNode.appendChild(el)
             }
         }

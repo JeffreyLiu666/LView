@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-28 14:28:03
  * @Author: junfeng.liu
- * @LastEditTime: 2020-06-28 18:38:37
+ * @LastEditTime: 2020-10-29 12:57:36
  * @LastEditors: junfeng.liu
  * @Description: 文件上传组件
 
@@ -18,6 +18,7 @@
         multiple：      是否可以多选
         disabled：      是否禁用
         type：          设置value的格式
+        checkReqFn:     用于判断请求是否成功，以及返回指定格式的data数据
 
     emit：
         success：       文件上传成功时触发
@@ -283,11 +284,16 @@ export default {
         },
         async handleSuccess (res) { // 设定返回格式为{ fileName：name, path: path }
             this.reset()
-            if (this.checkReqFn) await this.checkReqFn(res)
+
+            let data = res.data
+            // 当有checkReaFn时由该函数返回data
+            if (this.checkReqFn) {
+                data = await this.checkReqFn(res)
+            }
             if (this.maxLength === 1) {
                 this.fileList = []
             }
-            this.fileList.push(res.data)
+            this.fileList.push(data)
             let result = this.filterResult()
             this.$emit('input', result)
             this.$emit('success', result)

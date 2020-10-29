@@ -5,8 +5,12 @@
 
 	props:
         label:              label的内容
+        labelRender:        label的render函数
         labelWidth:         label的宽度，优先级大于l-form-group的labelWidth
+        labelTextAlign:     label的文本对齐方式
+        itemWidth:          该item的宽度
         contentWidth:       内容部分的宽度
+        isTitle:            是否为标题类型，主要起分类、分割的作用
 
     methods:
 
@@ -17,9 +21,10 @@
     <div :class="itemClass" :style="[itemStyle, styleObj]">
         <div class="l-form-item-title" v-if="isTitle">{{ label }}</div>
         <template v-else>
-            <label class="l-form-item-label clearfix" :class="labelClass" :style="labelStyle" v-if="label !== '' || $slots.label">
+            <label class="l-form-item-label clearfix" :class="labelClass" :style="labelStyle" v-if="label !== '' || labelRender || $slots.label">
                 <slot name="label"></slot>
-                {{ label }}
+                <template v-if="label">{{ label }}</template>
+                <LRender v-else-if="labelRender" :render="labelRender"></LRender>
             </label>
             <div class="l-form-item-content clearfix" :style="contentStyle">
                 <slot></slot>
@@ -41,6 +46,7 @@ export default {
             type: [String, Number],
             default: ''
         },
+        labelRender: Function,
         labelWidth: {
             type: [Number, String]
         },

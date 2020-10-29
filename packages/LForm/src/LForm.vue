@@ -41,6 +41,7 @@
                 v-for="(item, index) in configList"
                 :key="item.key + '' + index"
                 :label="item.label"
+                :labelRender="item.labelRender"
                 :itemWidth="item.itemWidth"
                 :labelWidth="item.labelWidth"
                 :contentWidth="item.contentWidth"
