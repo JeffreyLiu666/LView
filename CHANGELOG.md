@@ -349,3 +349,19 @@
 - LUpload
     - 调整checkReqFn策略，除了判断请求返回状态外，还得返回指定格式的data数据
 
+***
+## 1.6.12
+
+*2020-11-02*
+
+#### 新特性
+
+- LInput
+    - 优化floatLength，使其在输入时也能对位数控制，且不再四舍五入
+
+#### BUG FIX
+
+- LUpload
+    - 解决首次加载时不处理value的值
+    - 解决将value置空时，内部list未置空
+

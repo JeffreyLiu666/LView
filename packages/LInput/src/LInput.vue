@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-09-18 13:04:05
+ * @LastEditTime: 2020-10-30 22:38:42
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -165,6 +165,7 @@
 
 <script>
 import { isEmpty, isCNChar, isNull } from '@/utils/check'
+import { toFixed } from '@/utils/util'
 import calcHeight from '@/utils/calcTextareaHeight'
 
 export default {
@@ -441,9 +442,21 @@ export default {
             if (len === 0) {
                 result = parseInt(result, 10)
             } else if (len > 0) {
-                result = result.toFixed(len)
+                result = toFixed(result, len)
             }
             return result
+        },
+        dealFloatOnInput (val, len) {
+            if (isNaN(val)) return 0
+            const num = Number(val)
+            if (len === 0 && num !== parseInt(num)) {
+                val = parseInt(num)
+            } else if (len > 0 && num.toString().split('.')[1]?.length >= len) {
+                // 8.54 * 100 !== 854
+                // 1.1 * 100 !== 110
+                val = toFixed(num, len)
+            }
+            return val
         },
         getChineseLength (val) {
             if (isNull(val)) return 0
@@ -488,14 +501,17 @@ export default {
                 result = this.checkChineseFunc(result)
             }
 
-            if (isBlur && this.type === 'number') {
+            if (this.type === 'number') {
                 result = isNaN(result) ? '' : result
             }
 
             // 根据floatLength处理数据，为了不影响输入体验，只在isBlur为true时处理
-            if (isBlur && this.type === 'number' && this.floatLength >= 0 && result !== '') {
-                result = this.dealFloat(result, this.floatLength)
+            if (this.type === 'number' && this.floatLength >= 0 && result !== '') {
+                if (isBlur) result = this.dealFloat(result, this.floatLength)
+                else result = this.dealFloatOnInput(result, this.floatLength)
             }
+
+            if (result === this.currentValue) this.$refs.input.value = result
 
             // 如果和value相等则直接赋值就好
             if (this.value === result) {

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-10-09 17:14:31
+ * @LastEditTime: 2020-11-02 18:29:20
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -30,10 +30,10 @@
                 <Select slot="append" size="default"></Select>
             </LInput> -->
             <!-- <LButton type="info" shape="circles" icon="ios-crop" size="small" to="/hello" target="_blank" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
-            <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton>
+            <!-- <LButton type="cool-hover" shape="circle" icon="ios-crop" size="" debounce earlyTrigger @click="handleClick">sadf</LButton> -->
         <!-- </div> -->
         <!-- <LLoading ref="loading" transfer :mask="false"></LLoading> -->
-        <!-- <LInput v-model="val" type="textarea" :autosize="{minRows: 3}" disabled></LInput> -->
+        <!-- <LInput v-model="val" type="number" :floatLength="2"></LInput> -->
         <!-- <LInput type="textarea" :autosize="{minRows: 2}" :maxlength="100"></LInput> -->
 
         <!-- <LCell title="dddd" content="ccc">ddd</LCell> -->
@@ -42,7 +42,7 @@
                 <div style="height: 900px;">asdfas</div>
             </div>
         </LFold> -->
-        <!-- <LUpload v-model="files" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload> -->
+        <LUpload v-model="info.imgs" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload>
         <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://pic4.zhimg.com/v2-3da9053461b0a9cecba82eb65186d6d3_r.jpeg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
@@ -54,7 +54,7 @@
         <!-- </div> -->
         <!-- <LToTop wrapper="#testDom"></LToTop> -->
         <!-- <LDateRange v-model="range"></LDateRange> -->
-        <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm>
+        <!-- <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm> -->
     </div>
 </template>
 
@@ -68,6 +68,9 @@ export default {
                 authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOjIsImlhdCI6MTU5MzMzOTI2MSwiZXhwIjoxNTkzMzQ2NDYxfQ.2pVTaHuIX7iSDk-JlT5f3cVUfVnffONoITovHcB6pbA'
             },
             files: [],
+            info: {
+                imgs: []
+            },
             data: [{ num: 10 }],
             cols: [
                 { title: '票名', key: 'name' },
@@ -209,6 +212,11 @@ export default {
     },
     mounted () {
         // console.log(this.$options)
+        setTimeout(() => {
+            this.info = {
+                imgs: [{ fileName: '//www.baidu.com/img/flexible/logo/pc/result.png', path: '//www.baidu.com/img/flexible/logo/pc/result.png' }]
+            }
+        }, 3000)
     },
     methods: {
         handleClick () {

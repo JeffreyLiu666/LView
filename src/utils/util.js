@@ -1,12 +1,12 @@
 /*
  * @Date: 2020-03-26 09:56:19
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-12 17:55:13
+ * @LastEditTime: 2020-10-30 22:42:49
  * @LastEditors: junfeng.liu
  * @Description: des
  */
 import Vue from 'vue'
-import { isNull, isObject, isArray, isFunction } from './check'
+import { isNull, isObject, isArray, isFunction, isString } from './check'
 
 /**
  * @description: 将横线和下划线转为驼峰
@@ -206,4 +206,24 @@ export function getScrollBarWidth () {
     // 将添加的元素删除
     el.remove()
     return scrollBarWidth
+}
+
+/**
+ * @description: 保留指定位数且不进位
+ * @param {Number}      num         数组或字符串
+ * @param {Number}      len         保留位数
+ * @return: {String}    匹配的组件上下文
+ */
+export function toFixed (num, len) {
+    if (isNaN(len) || len < 0) throw new Error('位数需要为数字且不能为负数')
+    if (isNaN(num)) return NaN
+    const arr = num.toString().split('.')
+    if (len === 0) {
+        return arr[0]
+    }
+    if (arr.length === 1) {
+        return arr[0] + '.' + '0'.padEnd(len, '0')
+    } else {
+        return arr[0] + '.' + arr[1].slice(0, len).padEnd(len, '0')
+    }
 }

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-28 14:28:03
  * @Author: junfeng.liu
- * @LastEditTime: 2020-10-29 12:57:36
+ * @LastEditTime: 2020-11-02 19:03:12
  * @LastEditors: junfeng.liu
  * @Description: 文件上传组件
 
@@ -187,14 +187,19 @@ export default {
             return list
         }
     },
-    mounted () {},
+    mounted () {
+        this.filterValue(this.value)
+    },
     methods: {
         imgClick (src) {
             this.imgSrc = src
             this.show = true
         },
         filterValue (val) {
-            if (isEmpty(val)) return
+            if (isEmpty(val)) {
+                this.fileList = []
+                return
+            }
             let nameKey = this.type.nameKey
             let pathKey = this.type.pathKey
             let nameSeparator = this.type.nameSeparator ? this.type.nameSeparator : ':'
@@ -304,13 +309,13 @@ export default {
             this.$Message.error(`出错啦!${err}`)
             this.$emit('error', err)
         },
-        handleProgress (e, file, fileList) {
+        handleProgress (e) {
             this.progressWidth = e.percent + '%'
         },
-        handleExcSize (file, fileList) {
+        handleExcSize () {
             this.$Message.error(`文件大小不得超过${this.maxSize}Kb`)
         },
-        handleFormatErr (file, fileList) {
+        handleFormatErr () {
             this.$Message.error('请上传指定格式文件')
         },
         delFile (i) {
@@ -321,8 +326,11 @@ export default {
         }
     },
     watch: {
-        value (val) {
-            this.filterValue(val)
+        value: {
+            handler: function (val) {
+                this.filterValue(val)
+            },
+            deep: true
         }
     }
 }
