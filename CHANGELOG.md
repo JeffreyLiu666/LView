@@ -364,4 +364,20 @@
 - LUpload
     - 解决首次加载时不处理value的值
     - 解决将value置空时，内部list未置空
+## 1.6.13
+
+*2020-11-02*
+
+#### 新特性
+
+- LUpload
+    - 新增before-remove，可以拦截删除动作
+
+#### BUG FIX
+
+- LUpload
+    - 在设置max-length且开启多选时，不会再超出max-length
+
+- LButton
+    - 解决未设置icon的时候，还是有占位
 

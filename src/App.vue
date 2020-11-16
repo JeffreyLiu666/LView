@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-11-02 18:29:20
+ * @LastEditTime: 2020-11-16 16:37:23
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -42,7 +42,7 @@
                 <div style="height: 900px;">asdfas</div>
             </div>
         </LFold> -->
-        <LUpload v-model="info.imgs" action="http://localhost:8080/upload" accept="text/html" :headers="headers" :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload>
+        <LUpload v-model="info.imgs" action="http://localhost:8080/upload" :headers="headers" :max-length="2" multiple :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload>
         <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://pic4.zhimg.com/v2-3da9053461b0a9cecba82eb65186d6d3_r.jpeg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
@@ -167,24 +167,23 @@ export default {
                 }
             ],
             statusCheck: function (res) {
-                let { data, status, code, msg } = res
-                if (status === 1) {
-                    return Promise.resolve(data)
-                }
-                else if (code === '10001') {
-                    this.$Modal.warning({
-                        title: '登录过期',
-                        content: '您的登录信息已过期，请重新登录',
-                        onOk: () => {
-                            console.log('logout')
-                            // store.dispatch('logout')
-                        }
-                    })
-                }
-                else {
-                    this.$Message.error(msg || '未知错误')
-                }
-                return Promise.reject(res)
+                return Promise.resolve({ fileName: res.path, path: res.path })
+                // let { data, status, code, msg } = res
+                // if (status === 1) {
+                //     return Promise.resolve(data)
+                // } else if (code === '10001') {
+                //     this.$Modal.warning({
+                //         title: '登录过期',
+                //         content: '您的登录信息已过期，请重新登录',
+                //         onOk: () => {
+                //             console.log('logout')
+                //             // store.dispatch('logout')
+                //         }
+                //     })
+                // } else {
+                //     this.$Message.error(msg || '未知错误')
+                // }
+                // return Promise.reject(res)
             }
         }
     },
@@ -212,11 +211,6 @@ export default {
     },
     mounted () {
         // console.log(this.$options)
-        setTimeout(() => {
-            this.info = {
-                imgs: [{ fileName: '//www.baidu.com/img/flexible/logo/pc/result.png', path: '//www.baidu.com/img/flexible/logo/pc/result.png' }]
-            }
-        }, 3000)
     },
     methods: {
         handleClick () {

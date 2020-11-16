@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-06-28 14:28:03
  * @Author: junfeng.liu
- * @LastEditTime: 2020-11-02 19:03:12
+ * @LastEditTime: 2020-11-16 17:02:38
  * @LastEditors: junfeng.liu
  * @Description: 文件上传组件
 
@@ -35,7 +35,7 @@
 					<Icon type="md-close-circle" />
 				</div>
             </div>
-            <Upload
+            <l-do-upload
                 v-if="showUpload && !disabled"
                 :headers="headers"
                 :name="name"
@@ -45,19 +45,20 @@
                 :format="format"
                 :maxSize="maxSize"
                 :multiple="multiple"
-                :showUploadList="showUploadList"
                 :on-success="handleSuccess"
                 :on-error="handleError"
                 :on-progress="handleProgress"
                 :on-exceeded-size="handleExcSize"
                 :on-format-error="handleFormatErr"
+                :after-choose="afterChoose"
+                v-bind="$attrs"
                 >
                 <div class="l-upload-btn">
                     <Icon type="md-cloud-upload" />
                     <div class="l-upload-btn-text">点击上传</div>
                     <div class="l-upload-progress" :style="{width: progressWidth}"></div>
                 </div>
-            </Upload>
+            </l-do-upload>
             <div class="l-upload-btn disabled" v-else-if="showUpload && disabled">
                 <Icon type="md-cloud-upload" />
                 <div class="l-upload-btn-text">点击上传</div>
@@ -70,10 +71,11 @@
 <script>
 import LShowImg from 'packages/LShowImg'
 import { isEmpty } from '@/utils/check.js'
+import LDoUpload from './LDoUpload.vue'
 
 export default {
     name: 'l-upload',
-    components: { LShowImg },
+    components: { LShowImg, LDoUpload },
     props: {
         value: {
             type: [String, Array]
@@ -82,6 +84,7 @@ export default {
             type: Number,
             default: Infinity
         },
+        beforeRemove: Function,
         type: {
             type: Object,
             default: () => {
@@ -129,10 +132,6 @@ export default {
             default: Infinity
         },
         multiple: {
-            type: Boolean,
-            default: false
-        },
-        showUploadList: {
             type: Boolean,
             default: false
         },
@@ -191,6 +190,11 @@ export default {
         this.filterValue(this.value)
     },
     methods: {
+        afterChoose (files = []) {
+            let len = this.fileList.length + files.length
+            if (len <= this.maxLength) return files
+            return Array.prototype.slice.call(files, 0, this.maxLength - this.fileList.length)
+        },
         imgClick (src) {
             this.imgSrc = src
             this.show = true
@@ -319,6 +323,18 @@ export default {
             this.$Message.error('请上传指定格式文件')
         },
         delFile (i) {
+            if (!this.beforeRemove) {
+                this.doDelFile(i)
+                return
+            }
+            let before = this.beforeRemove(i)
+            if (before && before.then) {
+                before.then(() => (this.doDelFile(i)))
+            } else if (before !== false) {
+                this.doDelFile(i)
+            }
+        },
+        doDelFile (i) {
             this.fileList.splice(i, 1)
             let result = this.filterResult()
             this.$emit('input', result)

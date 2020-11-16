@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-17 09:04:30
  * @Author: junfeng.liu
- * @LastEditTime: 2020-09-18 13:02:56
+ * @LastEditTime: 2020-11-09 15:40:30
  * @LastEditors: junfeng.liu
  * @Description: button组件
 
@@ -32,7 +32,7 @@
     <component :is="tagName" :class="classNames" :disabled="isDisabled" :style="{ width: width + 'px' }" v-bind="tagProps" @click="handleClick">
         <Icon class="l-view-load-loop" type="ios-loading" v-if="loading" />
         <slot name="icon">
-            <Icon :type="icon" />
+            <Icon :type="icon" v-if="icon" />
         </slot>
         <span v-if="showDefSlot"><slot></slot></span>
     </component>
