@@ -74,6 +74,7 @@ export default function upload (option) {
     // }
 
     for (let item in headers) {
+        // eslint-disable-next-line no-prototype-builtins
         if (headers.hasOwnProperty(item) && headers[item] !== null) {
             xhr.setRequestHeader(item, headers[item])
         }
