@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-04-07 17:06:58
  * @Author: junfeng.liu
- * @LastEditTime: 2020-10-30 22:38:42
+ * @LastEditTime: 2020-12-04 11:02:55
  * @LastEditors: junfeng.liu
  * @Description: 输入框
 
@@ -301,10 +301,10 @@ export default {
                 arr.push('l-input-error')
             }
             if (this.type === 'textarea') return arr
-            if (this.prefix) {
+            if (this.showPrefix) {
                 arr.push('l-input-with-prefix')
             }
-            if (this.suffix || this.showEyeSuffix) {
+            if (this.showSuffix || this.showEyeSuffix) {
                 arr.push('l-input-with-suffix')
             }
             return arr
@@ -336,7 +336,6 @@ export default {
         }
     },
     mounted () {
-        this.setValue(this.value)
         this.resizeTextarea()
     },
     methods: {
@@ -395,7 +394,8 @@ export default {
             let val = e.target.value
 
             // 不能拦截负号，如果不和条件在blur时会处理
-            if (this.type === 'number' && (isNaN(val) && (val !== '-'))) {
+            if (this.type === 'number' && isNaN(val)) {
+                if (val === '-') return
                 this.$refs.input.value = isNull(this.currentValue) ? '' : this.currentValue
                 return
             }
@@ -565,8 +565,8 @@ export default {
     },
     watch: {
         value: {
-            handler: 'setValue'
-            // immediate: true
+            handler: 'setValue',
+            immediate: true
         }
     }
 }

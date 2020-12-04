@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-27 16:33:07
  * @Author: junfeng.liu
- * @LastEditTime: 2020-05-13 16:24:30
+ * @LastEditTime: 2020-12-01 21:45:05
  * @LastEditors: junfeng.liu
  * @Description: 数字输入框
 
@@ -198,6 +198,11 @@ export default {
         },
         setValue (val) {
             if (this.currentValue === val) return
+            // 不处理空值
+            if (isEmpty(val)) {
+                this.currentValue = val
+                return
+            }
             this.setCurrentValue(val, true)
         }
     },

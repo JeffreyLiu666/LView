@@ -37,6 +37,7 @@
 <template>
     <div class="l-form">
         <LFormGroup ref="lformGroup" :inline="inline" :labelWidth="labelWidth" :labelPosition="labelPosition" :labelTextAlign="labelTextAlign" :contentWidth="contentWidth" :itemWidth="itemWidth">
+            <slot name="pre"></slot>
             <LFormItem
                 v-for="(item, index) in configList"
                 :key="item.key + '' + index"
@@ -75,6 +76,7 @@
                 </LFormEnca>
                 <LRender v-if="item.render" :render="item.render" :params="item"></LRender>
             </LFormItem>
+            <slot></slot>
         </LFormGroup>
     </div>
 </template>

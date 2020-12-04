@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-11-16 16:37:23
+ * @LastEditTime: 2020-12-01 22:45:45
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -42,7 +42,7 @@
                 <div style="height: 900px;">asdfas</div>
             </div>
         </LFold> -->
-        <LUpload v-model="info.imgs" action="http://localhost:8080/upload" :headers="headers" :max-length="2" multiple :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload>
+        <!-- <LUpload v-model="info.imgs" action="http://localhost:8080/upload" :headers="headers" :max-length="2" multiple :checkReqFn="statusCheck" APIUrl="http://localhost:8080"></LUpload> -->
         <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://pic4.zhimg.com/v2-3da9053461b0a9cecba82eb65186d6d3_r.jpeg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
@@ -54,7 +54,7 @@
         <!-- </div> -->
         <!-- <LToTop wrapper="#testDom"></LToTop> -->
         <!-- <LDateRange v-model="range"></LDateRange> -->
-        <!-- <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm> -->
+        <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm>
     </div>
 </template>
 
@@ -100,11 +100,12 @@ export default {
                     onClick: this.handleClick
                 }
             ],
-            formData: {},
+            formData: { num: 1, num2: 10 },
             show: false,
             config: [
                 // { label: '选择售票日期：', key: 'date', type: 'datePicker', show: this },
-                // { label: '选择售票日期：', key: 'date', type: 'input' }
+                { label: '数量:', key: 'num', type: 'numberInput', config: { min: 0 } },
+                { label: '数量2:', key: 'num2', type: 'input', config: { type: 'number' } }
             ],
             num: undefined,
             range: ['aa', 22],
@@ -188,26 +189,26 @@ export default {
         }
     },
     created () {
-        this.config = [
-            { label: '标题', key: 'title1', type: 'title' },
-            { label: '选择售票日期：', key: 'date', type: 'datePicker', show: () => (this.show) },
-            {
-                label: '选择售票日期：',
-                key: 'date',
-                type: 'select',
-                config: {
-                    type: 'textarea',
-                    remote: true,
-                    filterable: true,
-                    requestParam: {
-                        urlParam: {
-                            url: 'User/userList',
-                            method: 'post'
-                        }
-                    }
-                }
-            }
-        ]
+        // this.config = [
+        //     { label: '标题', key: 'title1', type: 'title' },
+        //     { label: '选择售票日期：', key: 'date', type: 'datePicker', show: () => (this.show) },
+        //     {
+        //         label: '选择售票日期：',
+        //         key: 'date',
+        //         type: 'select',
+        //         config: {
+        //             type: 'textarea',
+        //             remote: true,
+        //             filterable: true,
+        //             requestParam: {
+        //                 urlParam: {
+        //                     url: 'User/userList',
+        //                     method: 'post'
+        //                 }
+        //             }
+        //         }
+        //     }
+        // ]
     },
     mounted () {
         // console.log(this.$options)

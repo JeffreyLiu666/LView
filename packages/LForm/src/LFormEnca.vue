@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-10-09 11:26:19
+ * @LastEditTime: 2020-12-01 21:54:28
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -340,14 +340,16 @@ export default {
             return this.type === 'select' && !!this.config?.requestParam?.urlParam
         }
     },
-    mounted () {
-        // 由于datePicker对时区的处理与moment不同，这里先用moment处理一下
+    created () {
+        // val的处理必须放在这里，否则部分组件内部先处理空值了
         if (this.type === 'datePicker' && this.DatePickerType === 'date') {
             this.$emit('input', formatDate(this.value))
             this.val = formatDate(this.value)
         } else {
             this.val = this.value
         }
+    },
+    mounted () {
         this.restartSearch()
         this.initCheck()
     },

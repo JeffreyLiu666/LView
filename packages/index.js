@@ -65,7 +65,7 @@ function install (Vue, opts = {}) {
 }
 
 export default {
-    version: '1.6.13',
+    version: '1.6.16',
     install,
     LCell,
     LDateRange,
