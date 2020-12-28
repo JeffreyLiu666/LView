@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 09:49:34
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-09 18:33:06
+ * @LastEditTime: 2020-12-28 14:49:58
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -9,13 +9,15 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const HappyPackPlugin = require('happypack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const NODE_ENV = process.env.NODE_ENV
 const isDev = NODE_ENV === 'development'
 const isPro = NODE_ENV === 'production'
+const useAnalyzer = process.env.use_analyzer
 const config = require('./config')
 const { resolve } = require('./util')
 
-module.exports = {
+let webpackConfig = {
     mode: process.env.NODE_ENV,
     resolve: {
         extensions: ['.js', '.vue', '.json'],
@@ -149,7 +151,7 @@ module.exports = {
         //         }
         //     }
         // },
-        minimize: false,
+        // minimize: false,
         minimizer: [
             // 用terser压缩js
             new TerserWebpackPlugin({
@@ -176,9 +178,21 @@ module.exports = {
         //         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
         //     }
         // })
-    ].concat(isPro ? [
+    ]
+}
+
+if (isPro) {
+    webpackConfig.plugins.push(
         new HappyPackPlugin({
             loaders: ['babel-loader?cacheDirectory=true']
         })
-    ] : [])
+    )
 }
+
+if (useAnalyzer) {
+    webpackConfig.plugins.push(
+        new BundleAnalyzerPlugin()
+    )
+}
+
+module.exports = webpackConfig
