@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:02:44
  * @Author: junfeng.liu
- * @LastEditTime: 2020-07-09 18:38:15
+ * @LastEditTime: 2021-01-13 16:36:21
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -11,7 +11,12 @@ import iview from 'view-design'
 import LView from 'packages'
 
 Vue.use(iview)
-Vue.use(LView)
+Vue.use(LView, {
+    checkPermission (permissions) {
+        console.log(permissions)
+        return false
+    }
+})
 
 Vue.config.productionTip = false
 

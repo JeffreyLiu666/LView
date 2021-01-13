@@ -413,3 +413,26 @@
 - LInput
     - 解决使用prefix的插槽时，输入框没有缩进
 
+## 1.6.18
+
+*2021-01-13*
+
+#### 新特性
+
+- install
+    - 实现对权限判断函数注册
+
+- LTable
+    - links和buttons新增permission属性，可用于权限校验
+
+- LFormEnca
+    - 新增request参数，可代替全局请求函数
+
+- LForm
+    - 对LFormEnca的request做了支持
+
+#### BUG FIX
+
+- install
+    - 解决请求函数注册时层级错误，之前版本可直接`Vue.prototype.__lform_ajax__ = { request: reqFunc }`
+

@@ -62,6 +62,7 @@
                     @query-change="queryChange"
                     v-model="value[item.key]"
                     :config="item.config"
+                    :request="item.request"
                     :list="item.list"
                     :editable="item.editable"
                     :clearable="item.clearable"

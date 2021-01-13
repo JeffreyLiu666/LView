@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 15:04:25
  * @Author: junfeng.liu
- * @LastEditTime: 2020-12-01 22:45:45
+ * @LastEditTime: 2021-01-13 16:45:27
  * @LastEditors: junfeng.liu
  * @Description: des
  -->
@@ -46,7 +46,7 @@
         <!-- <LShowImg imgStyle="minWidth: 70%;" v-model="show" src="https://pic4.zhimg.com/v2-3da9053461b0a9cecba82eb65186d6d3_r.jpeg"></LShowImg> -->
         <!-- <LNumberInput v-model="num" controlsPosition="x" :min="0" :max="10" size="xx"></LNumberInput>
         <LNumberRange v-model="range" :max="20" :min="10"></LNumberRange> -->
-        <!-- <LTable :data="data" :columns="cols" :showPage="false"></LTable> -->
+        <LTable :data="data" :columns="cols" :showPage="false"></LTable>
         <!-- <Button @click="handleClick">add</Button> -->
         <!-- <div id="testDom" style="width: 100px; height: 1000px; overflow: auto;"> -->
             <!-- <div style="height: 2000px;">asdfas</div> -->
@@ -54,7 +54,7 @@
         <!-- </div> -->
         <!-- <LToTop wrapper="#testDom"></LToTop> -->
         <!-- <LDateRange v-model="range"></LDateRange> -->
-        <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm>
+        <!-- <LForm v-model="formData" :config="config" :labelPosition="'left'" :labelWidth="80"></LForm> -->
     </div>
 </template>
 
@@ -89,7 +89,7 @@ export default {
                 },
                 { title: '操作', minWidth: 130,
                     links: [
-                        { label: '编辑', action: 'edit' },
+                        { label: '编辑', action: 'edit', permission: 'asdf' },
                         { label: '删除1', action: 'del', type: 'error', show: ({ row }) => {
                             return row.num > 8
                         } },

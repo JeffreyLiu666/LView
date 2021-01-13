@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-02-25 12:49:46
  * @Author: junfeng.liu
- * @LastEditTime: 2020-12-01 21:54:28
+ * @LastEditTime: 2021-01-13 17:35:55
  * @LastEditors: junfeng.liu
  * @Description: 将常用组件分装在一起，并添加一些功能
 
@@ -22,6 +22,7 @@
         require:            是否必填
         noCheck:            是否检查
         rules:              校验规则配置
+        request:            请求函数，用于请求获取列表时使用，优先级高于全局请求函数，必须是Promise
 
     methods:
 
@@ -308,7 +309,8 @@ export default {
         noCheck: {
             type: Boolean,
             default: false
-        }
+        },
+        request: Function
     },
     data () {
         return {
@@ -555,11 +557,18 @@ export default {
             } else if (this.config.remote && this.config.filterable) {
                 this.requestParam.param[this.requestParam.inputKey] = inputValue
             }
-            if (!this.__lform_ajax__ || !check.isFunction(this.__lform_ajax__.request)) {
+
+            if (
+                (!this.__lform_ajax__ || !check.isFunction(this.__lform_ajax__.request)) &&
+                !check.isFunction(this.request)
+            ) {
                 throw new Error('未配置请求函数')
             }
+
+            // 用bind解决非链式调用导致this指向丢失
+            let reqFunc = this.request || this.__lform_ajax__.request.bind(this.__lform_ajax__)
             this.isLoading = true
-            this.__lform_ajax__.request(this.requestParam.urlParam, this.requestParam.param).then((data) => {
+            reqFunc(this.requestParam.urlParam, this.requestParam.param).then((data) => {
                 // 列表数据必须遵循的返回格式{ data:{ list: [] }}或{ data:[] }
                 let list = []
                 if (Array.isArray(data)) list = data

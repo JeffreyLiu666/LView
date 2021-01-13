@@ -1,7 +1,7 @@
 /*
  * @Date: 2020-03-25 17:58:04
  * @Author: junfeng.liu
- * @LastEditTime: 2020-09-17 09:49:16
+ * @LastEditTime: 2021-01-13 16:31:41
  * @LastEditors: junfeng.liu
  * @Description: des
  */
@@ -59,13 +59,17 @@ function install (Vue, opts = {}) {
         item.install(Vue)
     })
 
-    if (isFunction(opts.request)) {
+    if (isFunction(opts.request?.request)) {
         Vue.prototype.__lform_ajax__ = opts.request
+    }
+
+    if (isFunction(opts.checkPermission)) {
+        Vue.prototype.__l_checkPermission__ = opts.checkPermission
     }
 }
 
 export default {
-    version: '1.6.16',
+    version: '1.6.18',
     install,
     LCell,
     LDateRange,
