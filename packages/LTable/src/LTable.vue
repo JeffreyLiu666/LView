@@ -1,7 +1,7 @@
 <!--
  * @Date: 2020-03-26 09:43:59
  * @Author: junfeng.liu
- * @LastEditTime: 2021-01-13 16:32:12
+ * @LastEditTime: 2021-02-23 21:13:43
  * @LastEditors: junfeng.liu
  * @Description: 表格组件
 
@@ -37,7 +37,9 @@
             :show-summary="showSummary"
             :summary-method="summaryMethod"
             :span-method="spanMethod"
-            :loading="loading">
+            :loading="loading"
+            v-bind="$attrs"
+            v-on="$listeners">
         </Table>
         <Page
             class="l-table-page"

@@ -1,6 +1,6 @@
 {
   "name": "l-view-vue",
-  "version": "1.6.18",
+  "version": "1.6.19",
   "description": "l-view",
   "main": "lib/index.js",
   "scripts": {

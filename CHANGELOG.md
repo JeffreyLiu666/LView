@@ -436,3 +436,12 @@
 - install
     - 解决请求函数注册时层级错误，之前版本可直接`Vue.prototype.__lform_ajax__ = { request: reqFunc }`
 
+## 1.6.19
+
+*2021-02-23*
+
+#### 新特性
+
+- LTable
+    - 透传属性和事件给内部iview的table
+
